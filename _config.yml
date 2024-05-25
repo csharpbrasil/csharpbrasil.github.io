@@ -31,7 +31,7 @@ twitter_username: csharpbrasil
 github_username:  csharpbrasil
 
 # Build settings
-theme: midnight
+theme: minima
 plugins:
   - jekyll-feed
 
