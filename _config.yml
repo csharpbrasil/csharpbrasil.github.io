@@ -19,9 +19,9 @@ permalink: /:title
 # Pagination Settings
 pagination:
   enabled: true
-  per_page: 3
+  per_page: 20
   permalink: '/page/:num/'
-  title: ' - page :num'
+  title: ':title - Página :num'
   limit: 0
   sort_field: 'date'
   sort_reverse: true

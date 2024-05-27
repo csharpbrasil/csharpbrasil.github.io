@@ -1,15 +1,28 @@
 ---
+
 layout: page
 title: Sobre o Blog
+
 ---
+
 ## Sobre o Blog
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum ligula ac rutrum tempor. Cras pretium tellus sodales nibh sagittis malesuada. Sed eget varius elit, a lacinia ipsum. Vivamus dignissim hendrerit dui eu tempor. Praesent in dignissim sem, sed semper urna. Duis convallis facilisis quam, nec accumsan tortor venenatis vitae. Sed cursus diam eget auctor varius. Sed rutrum velit vel diam tempus cursus. Maecenas gravida, risus eget scelerisque ultrices, augue justo accumsan tellus, at congue ligula orci eu nulla. Quisque ac mollis nunc. Cras id arcu in ante interdum convallis vel eu ante. Sed at molestie ex, nec viverra quam.
+Meu nome é Raphael, e sou desenvolvedor de software com mais de 20 anos de experiência na criação de aplicações web usando a plataforma DotNet. Desde o início da minha carreira, em 1999, tenho trabalhado em empresas de vários setores, incluindo fornecimento de sistemas para cadeia de suprimentos, gestão pública, produção de cana-de-açúcar e etanol, varejo, atacado e distribuição.
 
-Vestibulum sit amet tristique sem. Nam vitae nulla a odio semper pulvinar. In aliquam nulla ut pharetra sodales. Morbi molestie neque sed risus rhoncus, ut eleifend sem aliquet. Nam sit amet ipsum dictum neque dapibus elementum at scelerisque sem. Nullam et nibh ac est luctus maximus. Donec imperdiet at risus a aliquet. Praesent fringilla congue convallis. Cras eget tincidunt ante, id pellentesque nisi. Donec dictum, nibh at porttitor egestas, purus arcu scelerisque felis, ac iaculis eros risus a lacus. Fusce accumsan, felis in aliquet tempor, odio quam maximus eros, lacinia dictum nunc sem ut massa. Vestibulum condimentum varius mi.
+Sou formado em Análise e Desenvolvimento de Sistemas e possuo MBA em Arquitetura de Software e Soluções pela IGTI, o que me permite ter uma visão sistêmica e estratégica sobre o desenvolvimento de software. Além disso, tenho conhecimentos sólidos em arquitetura de soluções para plataforma .NET e sempre busco acompanhar as tendências e novidades na tecnologia.
 
-Proin nec mattis dolor. Donec eu massa non mauris finibus imperdiet. Etiam vestibulum sapien vitae lorem tincidunt, vitae egestas leo varius. Nunc maximus augue turpis, at faucibus est molestie eget. Nullam vel facilisis massa, volutpat facilisis ipsum. Integer et tellus ipsum. Phasellus mattis, tellus id elementum imperdiet, ipsum nisl vestibulum velit, non pretium orci mi ut urna. Mauris interdum arcu at ex volutpat, id ullamcorper ipsum tempus. Morbi auctor risus quis dignissim consequat. Duis dictum facilisis aliquam. Nunc finibus euismod hendrerit. In vehicula mattis accumsan. Nulla volutpat turpis vel nunc pretium egestas. Phasellus in rhoncus lorem.
+Embora tenha experiencia em programação em diversas linguagens, como Perl, ASP, PHP e Java, atualmente me especializei em desenvolvimento de aplicações web utilizando tecnologias como ASP.NET Core, ASP.NET MVC e C# (C-Sharp). Além disso, estou sempre me aventurando em novas áreas, e tenho me interessado cada vez mais pela segurança da informação. Tive a oportunidade de participar de alguns treinamentos voltados para Pentest – Segurança Ofensiva e Ethical Hacking, e agora busco aplicar esses conhecimentos em minhas soluções, para garantir que elas sejam seguras e protegidas contra ameaças cibernéticas.
 
-Donec consequat augue dui, a tincidunt nisl elementum quis. Mauris sed sapien nec orci lacinia mollis ut a nisi. Quisque et velit sagittis, malesuada felis in, fringilla ex. Vestibulum ultrices scelerisque lobortis. In hac habitasse platea dictumst. Fusce justo risus, iaculis sit amet massa eu, hendrerit iaculis tortor. Donec faucibus risus a felis luctus sollicitudin. Nam eget ornare massa. Mauris sed facilisis mi. Fusce rhoncus vitae erat quis facilisis. Donec neque mauris, fermentum eu eleifend eget, viverra id lacus.
+Além disso, tenho uma forte paixão pela comunidade de desenvolvimento de software, sempre busco ajudar outros desenvolvedores compartilhando meus conhecimentos e experiências através de artigos, palestras e eventos. Eu mantenho um blog pessoal onde realizo a publicação de artigos técnicos e tutoriais sobre desenvolvimento de software e arquitetura, e também estou sempre disponível para dar suporte e ajudar a quem precisar.
 
-Sed congue turpis dapibus orci sagittis, hendrerit aliquam sapien elementum. In dolor magna, pretium eu tellus vel, aliquam ultricies urna. Nullam est magna, sagittis ac pretium a, interdum nec est. Proin finibus est at elementum congue. Donec ac mi volutpat tortor posuere eleifend vitae quis nisi. Pellentesque consequat eros et odio venenatis molestie. Nulla sapien ex, finibus eget consectetur convallis, eleifend ac est. Cras sed venenatis arcu, at laoreet eros. Nulla ultricies nunc eget fermentum tincidunt. Nulla malesuada libero sit amet euismod dignissim. Sed ullamcorper viverra massa, ut maximus quam auctor vitae. Suspendisse potenti. Nulla ligula turpis, pretium at efficitur nec, scelerisque sit amet odio. Phasellus condimentum vestibulum turpis id dapibus. Sed at urna turpis.
+Alguns artigos publicados:
+
+- [Criando um Web Service seguro com SoapHeader](https://raphaelcardoso.com.br/criando-um-web-service-seguro-com-soapheader/)
+- [LINQ – Language Integrated Query](https://raphaelcardoso.com.br/linq-language-integrated-query/)
+- [Criando e consumindo Web Service em C-Sharp](https://raphaelcardoso.com.br/criando-e-consumindo-web-service-em-c-sharp-parte-1)
+- [Desenvolvimento de website com ASP.NET e SQL Server](https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1)
+- [Algoritmos de Ordenação em C#](https://raphaelcardoso.com.br/algoritmos-de-ordenacao-em-csharp)
+- [Criando e consumindo Web API](https://raphaelcardoso.com.br/criando-e-consumindo-web-api-parte-1)
+- [Aprender a programar em C#](https://raphaelcardoso.com.br/aprender-a-programar-em-csharp-parte-1)
+- [Criando Web Api com ASP.NET Core](https://raphaelcardoso.com.br/criando-web-api-com-asp-net-core-parte-1)
+- [Criando aplicação Web com ASP.NET Core MVC](https://raphaelcardoso.com.br/criando-aplicacoes-web-com-aspnet-core-mvc-parte-1/)
