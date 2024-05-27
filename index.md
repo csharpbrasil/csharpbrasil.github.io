@@ -1,6 +1,42 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: default
+pagination: 
+  enabled: true
 ---
+<!-- Posts -->
+<ul id="posts">
+
+	{% for post in paginator.posts %}
+	  <li class="post">
+	  	<h2>
+			{% if site.baseurl == "/" %}
+			<a href="{{ post.url }}">{{ post.title }}</a>
+			{% else %}
+			<a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+			{% endif %}
+		</h2>
+		<time datetime="{{ post.date | date_to_xmlschema }}" class="by-line">
+		{% assign m = post.date | date: "%-m" %}
+		{{ post.date | date: "%-d" }}
+		{% case m %}
+			{% when '1' %}Janeiro
+			{% when '2' %}Fevereiro
+			{% when '3' %}Março
+			{% when '4' %}Abril
+			{% when '5' %}Maio
+			{% when '6' %}Junho
+			{% when '7' %}Julho
+			{% when '8' %}Agosto
+			{% when '9' %}Setembro
+			{% when '10' %}Outubro
+			{% when '11' %}Novembro
+			{% when '12' %}Dezembro
+		{% endcase %}
+		{{ post.date | date: "%Y" }}
+		</time>
+	  	<p>{{ post.content | strip_html | truncatewords:50 }}</p>
+	  </li>
+
+    {% endfor %}
+
+</ul>
