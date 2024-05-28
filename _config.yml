@@ -1,7 +1,7 @@
 # Site settings
 title: C# Brasil | Unindo paixão e código
 description: "O blog do C# Brasil sobre Tecnologia e desenvolvimento"
-url: "http://localhost:4000"
+url: "http://csharpbrasil.com.br"
 author:
   name: "Raphael Cardoso"
   email: "csharpbrasil@outlook.com"
@@ -16,15 +16,18 @@ permalink: /:title
 #paginate: 8
 #paginate_path: /page:num/
 
+paginate: 5
+paginate_path: "/page/:num/"
+
 # Pagination Settings
-pagination:
-  enabled: true
-  per_page: 20
-  permalink: '/page/:num/'
-  title: ':title - Página :num'
-  limit: 0
-  sort_field: 'date'
-  sort_reverse: true
+# pagination:
+#   enabled: true
+#   per_page: 20
+#   permalink: '/page/:num/'
+#   title: ':title - Página :num'
+#   limit: 0
+#   sort_field: 'date'
+#   sort_reverse: true
 
 # Default values
 defaults:
@@ -36,8 +39,8 @@ defaults:
       layout: "post"
 
 # Plugins
-gems:
-  - jekyll-paginate-v2
+plugins:
+  - jekyll-paginate
 
 # Custom variables
 version: "1.0.0"
