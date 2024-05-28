@@ -25,4 +25,6 @@ Alguns artigos publicados:
 - [Criando e consumindo Web API](https://csharpbrasil.com.br/criando-e-consumindo-web-api-parte-1)
 - [Aprender a programar em C#](https://csharpbrasil.com.br/aprender-a-programar-em-csharp-parte-1)
 - [Criando Web Api com ASP.NET Core](https://csharpbrasil.com.br/criando-web-api-com-asp-net-core-parte-1)
-- [Criando aplicação Web com ASP.NET Core MVC](https://csharpbrasil.com.br/criando-aplicacoes-web-com-aspnet-core-mvc-parte-1)
+- [Criando aplicação Web com ASP.NET Core MVC])
+  - [Parte 1](https://csharpbrasil.com.br/criando-aplicacao-web-com-aspnet-core-mvc-parte-1)
+  - [Parte 2](https://csharpbrasil.com.br/criando-aplicacao-web-com-aspnet-core-mvc-parte-2)
