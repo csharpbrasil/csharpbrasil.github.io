@@ -17,12 +17,12 @@ Além disso, tenho uma forte paixão pela comunidade de desenvolvimento de softw
 
 Alguns artigos publicados:
 
-- [Criando um Web Service seguro com SoapHeader](https://raphaelcardoso.com.br/criando-um-web-service-seguro-com-soapheader/)
-- [LINQ – Language Integrated Query](https://raphaelcardoso.com.br/linq-language-integrated-query/)
-- [Criando e consumindo Web Service em C-Sharp](https://raphaelcardoso.com.br/criando-e-consumindo-web-service-em-c-sharp-parte-1)
-- [Desenvolvimento de website com ASP.NET e SQL Server](https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1)
-- [Algoritmos de Ordenação em C#](https://raphaelcardoso.com.br/algoritmos-de-ordenacao-em-csharp)
-- [Criando e consumindo Web API](https://raphaelcardoso.com.br/criando-e-consumindo-web-api-parte-1)
-- [Aprender a programar em C#](https://raphaelcardoso.com.br/aprender-a-programar-em-csharp-parte-1)
-- [Criando Web Api com ASP.NET Core](https://raphaelcardoso.com.br/criando-web-api-com-asp-net-core-parte-1)
-- [Criando aplicação Web com ASP.NET Core MVC](https://raphaelcardoso.com.br/criando-aplicacoes-web-com-aspnet-core-mvc-parte-1/)
+- [Criando um Web Service seguro com SoapHeader](https://csharpbrasil.com.br/criando-um-web-service-seguro-com-soapheader/)
+- [LINQ – Language Integrated Query](https://csharpbrasil.com.br/linq-language-integrated-query/)
+- [Criando e consumindo Web Service em C-Sharp](https://csharpbrasil.com.br/criando-e-consumindo-web-service-em-c-sharp-parte-1)
+- [Desenvolvimento de website com ASP.NET e SQL Server](https://csharpbrasil.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1)
+- [Algoritmos de Ordenação em C#](https://csharpbrasil.com.br/algoritmos-de-ordenacao-em-csharp)
+- [Criando e consumindo Web API](https://csharpbrasil.com.br/criando-e-consumindo-web-api-parte-1)
+- [Aprender a programar em C#](https://csharpbrasil.com.br/aprender-a-programar-em-csharp-parte-1)
+- [Criando Web Api com ASP.NET Core](https://csharpbrasil.com.br/criando-web-api-com-asp-net-core-parte-1)
+- [Criando aplicação Web com ASP.NET Core MVC](https://csharpbrasil.com.br/criando-aplicacoes-web-com-aspnet-core-mvc-parte-1/)
