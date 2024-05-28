@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Testando seu código JavaScript com Jasmine</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Testando seu código JavaScript com Jasmine</h2>		
+	<time datetime="2018-08-13T08:30:02-03:00" class="by-line">
+		
+		13
+		Agosto
+		  
+		2018
+	</time>
+	<div class="content">
+
+		<h2 id="o-que-é-o-jasmine">O que é o Jasmine?</h2>
+
+<p>Nos dias atuais, no âmbito do desenvolvimento de software, muito fala-se em qualidade de desenvolvimento e de entrega. Com isso, novos conceitos vão surgindo, automações de processos são aplicados e novas ferramentas são necessárias para facilitar e agilizar essas entregas.</p>
+
+<p>Para garantir que o que está sendo solicitado pelo nosso cliente está sendo realmente entregue com qualidade é importante que nossa aplicação seja testada. Mas imagina que antes de cada nova entrega nossa aplicação tenha que ser testada. Para uma aplicação pequena como um site institucional por exemplo é até fácil, agora imagine uma aplicação com diversos cadastros, como garantir que tudo está funcionando bem, com qualidade e o mais importante, que a aplicação não tenha quebrado com algum novo desenvolvimento ou até mesmo uma refatoração de código.</p>
+
+<p>Para aplicações desenvolvidas utilizando JavaScript, é possível garantir que tudo que foi desenvolvido possa estar 100% funcionando utilizando o Jasmine.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem1-300x83.png" alt="Jasmine" /></p>
+
+<p>Veja algumas das caracteristicas do Jasmine?</p>
+
+<ul>
+  <li>É um Framework utilizado para criar testes em JavaScript</li>
+  <li>Utiliza o conceito BDD, ou seja, testes guiados por comportamento</li>
+  <li>Possui sintaxe simples e de fácil leitura</li>
+  <li>Executa os testes no navegador ou por linha de comando</li>
+  <li>É independente de qualquer outro Framework</li>
+  <li>Pode ser usado em projetos NodeJs, Ruby ou Python</li>
+</ul>
+
+<h3 id="como-utilizar-em-meu-projeto">Como utilizar em meu projeto?</h3>
+
+<p>Existem algumas formas de utilizar e a mais simples delas é usando a versão standalone do Jasmine</p>
+
+<h4 id="versão-standalone">Versão Standalone</h4>
+
+<p>Para utilizar a versão standalone, basta fazer o seguinte:</p>
+
+<ul>
+  <li>Acesse o site do jasmine e efetue o download da última versão <a href="https://jasmine.github.io/">aqui</a></li>
+  <li>Descompactar no diretório raiz do nosso projeto</li>
+</ul>
+
+<p>No seu projeto teremos uma estrutura semelhante à imagem abaixo contendo o arquivo principal SpecRunner.html que irá ter associado a ele o Jasmine e as specs.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem2.png" alt="Estrutura do diretório da versão standalone do Jasmine" /></p>
+
+<p>Nessa mesma estrutura teremos a pasta src (source) contendo os arquivos fonte do nosso projeto e a pasta spec irá conter todos os arquivos javascript com códigos fonte de teste de nosso projeto.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem3.png" alt="Arquivo Spec Runner" /></p>
+
+<p>Um arquivo de spec de javascript é de facil leitura e conterá sempre as seguintes partes:</p>
+
+<ul>
+  <li><strong>Suite:</strong> representado pela função <strong><em>describe</em></strong> que por sua vez receberá dois parametros, sendo a descrição ou nome do teste e a função que conterá as specs ou outras partes importantes;</li>
+  <li><strong>Spec:</strong> representado pela função it, também irá receber dois parametros, sendo a descrição ou nome da spec e a função que conterá os matchers;</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem4.png" alt="Estrutura do arquivo de spec contendo uma Suite, uma Spec e um Matcher" /></p>
+
+<p>Para que que o Jasmine possa lhe retornar o resultado em um report conforme a imagem abaixo, você deverá abrir o aquivo SpecRunner.html no seu navegador padrão.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem5.png" alt="Relatório contendo o resultado de execução com sucesso do Jasmine" /></p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem6.png" alt="Relatório contendo o resultado de execução com falha do Jasmine" /></p>
+
+<p>Outra forma de executarmos os testes é usando o Karma. Esse por sua vez é um Test Runner que pode utilizar tanto o Jasmine quanto o Mocha ou QUnit.</p>
+
+<p>Se você tiver algum projeto desenvolvido com Angular, provavelmente ele já estará configurado para utilizar o Karma com o Jasmine para testes dos javascript.</p>
+
+<h4 id="executando-usando-o-karma">Executando usando o Karma</h4>
+
+<p>Antes de iniciar com o karma, será necessário instalar alguns pacotes.</p>
+
+<ul>
+  <li>Instalando os pacotes requeridos</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save-dev jasmine jasmine-core karma karma-chrome-launcher karma-jasmine
+</code></pre></div></div>
+
+<ul>
+  <li>Cria a estrutura do jasmine</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.\node_modules\.bin\jasmine init
+</code></pre></div></div>
+
+<ul>
+  <li>Cria a estrutura do karma</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.\node_modules\.bin\karma init
+</code></pre></div></div>
+
+<ul>
+  <li>Executar o karma</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.\node_modules\.bin\karma start
+</code></pre></div></div>
+
+<h3 id="um-pouco-sobre-alguns-matchers">Um pouco sobre alguns Matchers</h3>
+
+<ul>
+  <li><strong>toBe:</strong> Compara o valor e o tipo do objeto</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem7.png" alt="toBe" /></p>
+
+<p>toBe</p>
+
+<ul>
+  <li><strong>toEqual:</strong> Compara o valor do objeto</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem9.png" alt="toEqual" /></p>
+
+<p>toEqual</p>
+
+<ul>
+  <li><strong>toMatch:</strong> Comparação utilizando expressão regular</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem8.png" alt="toMatch" /></p>
+
+<p>toMatch</p>
+
+<ul>
+  <li><strong>toContain:</strong> Verifica se está contido no array</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem10.png" alt="toContain" /></p>
+
+<p>toContain</p>
+
+<ul>
+  <li><strong>not:</strong> Pode ser utilizado em conjunto com outros matchers para inverter a comparação</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem11.png" alt="not" /></p>
+
+<p>not</p>
+
+<h4 id="alguns-outros-matchers">Alguns outros matchers</h4>
+
+<ul>
+  <li>toBeUndefined</li>
+  <li>toBeDefined</li>
+  <li>toBeNull</li>
+  <li>toBeNaN</li>
+  <li>toThrow</li>
+  <li>toThrowError</li>
+</ul>
+
+<p>É possível criar seu próprio Matcher usando <em>jasmine.addMatchers</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem12.png" alt="jasmine.addMatchers" /></p>
+
+<p>jasmine.addMatchers</p>
+
+<p>Foi possível ver como é simples garantir a qualidade da entrega do nosso projeto utilizando a criação de teste de javascript usando o Jasmine.</p>
+
+<p>Deixarei disponível o fonte utilizado como exemplo para esse artigo.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/ferronicardoso/testando-javascript-com-jasmine">Github</a>.</p>
+
+<p>Abraço e bom estudo!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

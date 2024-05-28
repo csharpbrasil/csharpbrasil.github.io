@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Alterando o diretório temporário do ASP.NET</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Alterando o diretório temporário do ASP.NET</h2>		
+	<time datetime="2009-06-12T16:59:11-03:00" class="by-line">
+		
+		12
+		Junho
+		  
+		2009
+	</time>
+	<div class="content">
+
+		<p>Estou de volta! Ultimamente ando um pouco atarefado e me impossibilitando de escrever novos artigos. Mais arrumei um tempo nesse dia chuvoso pós feriado.</p>
+
+<p>Na empresa na qual trabalho possuímos nossa aplicação web toda desenvolvida em asp.net e com isso surgiu a necessidade de mudar o diretório dos arquivos temporários compilados.</p>
+
+<p>Para quem não sabe, o ASP.NET é pré-compilado, por isso o primeiro acesso é sempre mais demorado. Esses arquivos pré-compilados ficam armazenados no diretório padrão <em>C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\Temporary ASP.NET Files</em>, mais nada nos impede de mudar o diretório.</p>
+
+<p>Então suponhamos que você é o administrador dos servidores de web da sua empresa e que cada servidor possui 2 discos <strong>(Drive C: e D:)</strong> e surgiu a necessidade de mudar o diretório temporário para outro disco de maior capacidade.</p>
+
+<p>Basta abrir a sua aplicação e mudar no próprio <strong>web.config</strong>. No meu caso ficaria assim.</p>
+
+<p>[sourcecode language=”csharp”] &lt; ?xml version=”1.0”?&gt; [/sourcecode]</p>
+
+<p>Assim que você tentar acessar o site ele irá pré-compilar o projeto e adiciona-lo nesse diretório criado.</p>
+
+<p>Não se esqueça de dar permissão para os usuário do ASP.NET e do IIS (Internet Information Services) nesse diretório.</p>
+
+<p>Abraço e até a próxima.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

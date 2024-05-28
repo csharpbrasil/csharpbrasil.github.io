@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Algoritmos de Ordenação em C#</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Algoritmos de Ordenação em C#</h2>		
+	<time datetime="2014-07-28T09:00:49-03:00" class="by-line">
+		
+		28
+		Julho
+		  
+		2014
+	</time>
+	<div class="content">
+
+		<p>Quando iniciamos o estudo em programação, um dos primeiros assuntos que se aprende é sobre algoritmo. O algoritmo é um processo de resolução de uma determinada tarefa para a qual ele foi designado. Podemos citar como um exemplo e que é assunto desse artigo o algoritmos de ordenação, que alem de ser o mais comum são também os mais solicitados em atividades acadêmicas quando essa possui como disciplina a programação.</p>
+
+<p>Em programação, um algoritmo de ordenação tem com objetivo realizar a ordenação de uma lista de valores. Citaremos os seguintes métodos:</p>
+
+<ol>
+  <li>Ordenação por inserção
+    <ul>
+      <li>Insertion Sort</li>
+      <li>Shell Sort</li>
+    </ul>
+  </li>
+  <li>Ordenação por seleção
+    <ul>
+      <li>Selection Sort</li>
+      <li>HeapSort</li>
+    </ul>
+  </li>
+  <li>Ordenação por troca
+    <ul>
+      <li>Bubble sort</li>
+      <li>Cocktail sort</li>
+      <li>Comb sort</li>
+      <li>Gnome sort</li>
+      <li>Odd-even sort</li>
+      <li>Quicksort</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="insertion-sort">Insertion Sort</h3>
+
+<p>O Insertion Sort ou Ordenação por inserção é um método simples de ordenação que percorre um vetor ordenando os elementos a esquerda a medida que avança. Vamos ao exemplo em C#.</p>
+
+<p>[code=’csharp’] public static int[] insertionSort(int[] vetor) { int i, j, atual; for (i = 1; i &lt; vetor.Length; i++) { atual = vetor[i]; j = i; while ((j &gt; 0) &amp;&amp; (vetor[j - 1] &gt; atual)) { vetor[j] = vetor[j - 1]; j = j - 1; } vetor[j] = atual; } return vetor; } [/code]</p>
+
+<p>Resultado da execução do Insertion Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/insertionSort.png" alt="Resultado da ordenação usando o Insertion Sort" /></p>
+
+<h3 id="shell-sort">Shell Sort</h3>
+
+<p>É um método de ordenação por inserção criado por Donald Shell que basicamente divide a lista a ser ordenada em grupos menores e aplica o método de ordenação por inserção.</p>
+
+<p>[code=’csharp’] public static int[] shellSort(int[] vetor) { int h = 1; int n = vetor.Length; while (h &lt; n) { h = h * 3 + 1; } h = h / 3; int c, j; while (h &gt; 0) { for (int i = h; i &lt; n; i++) { c = vetor[i]; j = i; while (j &gt;= h &amp;&amp; vetor[j - h] &gt; c) { vetor[j] = vetor[j - h]; j = j - h; } vetor[j] = c; } h = h / 2; } } [/code]</p>
+
+<p>Resultado da execução do Shell Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/shellSort.png" alt="Resultado da ordenação usando o Shell Sort" /></p>
+
+<h3 id="selection-sort">Selection Sort</h3>
+
+<p>O Selection Sort é um método de ordenação por seleção. Ele percorre a lista em busca do menor valor e o move para a posição correta precedido sempre do elemento de menor valor.</p>
+
+<p>[code=’csharp’] public static int[] selectionSort(int[] vetor) { int min, aux; for (int i = 0; i &lt; vetor.Length - 1; i++) { min = i; for (int j = i + 1; j &lt; vetor.Length; j++) if (vetor[j] &lt; vetor[min]) min = j; if (min != i) { aux = vetor[min]; vetor[min] = vetor[i]; vetor[i] = aux; } } return vetor; } [/code]</p>
+
+<p>Resultado da execução do Selection Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/selectionSort.png" alt="Resultado da ordenação usando o Selection Sort" /></p>
+
+<h3 id="heap-sort">Heap Sort</h3>
+
+<p>Desenvolvido em 1964 por Robert W. Floyd e J.W.J. Williams, o algoritmo Heap Sort é um método de ordenação por seleção. Esse algoritmo tem esse nome por utiliza uma estrutura de dados chamada <a href="http://pt.wikipedia.org/wiki/Heap">heap</a>.</p>
+
+<p>[code=’csharp’] public static int[] heapSort(int[] vetor) { buildMaxHeap(vetor); int n = vetor.Length; for (int i = vetor.Length - 1; i &gt; 0; i–) { swap(vetor, i, 0); maxHeapify(vetor, 0, –n); } return vetor; } private static void buildMaxHeap(int[] v) { for (int i = v.Length / 2 - 1; i &gt;= 0; i–) { maxHeapify(v, i, v.Length); } } private static void maxHeapify(int[] v, int pos, int n) { int max = 2 * pos + 1, right = max + 1; if (max &lt; n) { if (right &lt; n &amp;&amp; v[max] &lt; v[right]) { max = right; } if (v[max] &gt; v[pos]) { swap(v, max, pos); maxHeapify(v, max, n); } } } private static void swap(int[] v, int j, int aposJ) { int aux = v[j]; v[j] = v[aposJ]; v[aposJ] = aux; } [/code]</p>
+
+<p>Resultado da execução do Heap Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/heapSort.png" alt="Resultado da ordenação usando o Heap Sort" /></p>
+
+<h3 id="bubble-sort">Bubble Sort</h3>
+
+<p>O Bubble Sort é um algoritmo de ordenação mais simples que tem como característica percorrer a vista várias vezes e a cada passagem fazendo flutuar para o topo o maior elemento da sequência.</p>
+
+<p>[code=’csharp’] public static int[] bubbleSort(int[] vetor) { int tamanho = vetor.Length; int comparacoes = 0; int trocas = 0; for (int i = tamanho - 1; i &gt;= 1; i–) { for (int j = 0; j &lt; i; j++) { comparacoes++; if (vetor[j] &gt; vetor[j + 1]) { int aux = vetor[j]; vetor[j] = vetor[j + 1]; vetor[j + 1] = aux; trocas++; } } } return vetor; } [/code]</p>
+
+<p>Resultado da execução do Bubble Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bubbleSort.png" alt="Resultado da ordenação usando o Bubble Sort" /></p>
+
+<h3 id="cocktail-sort">Cocktail Sort</h3>
+
+<p>O Cocktail Sort ou Bubble Sort Bidirecional é uma variação do Bubble Sort que se difere pelo fato de ordenar a lista em ambas as direções.</p>
+
+<p>[code=’csharp’] public static int[] cocktailSort(int[] vetor) { int tamanho, inicio, fim, swap, aux; tamanho = vetor.Length; inicio = 0; fim = tamanho - 1; swap = 0; while (swap == 0 &amp;&amp; inicio &lt; fim) { swap = 1; for (int i = inicio; i &lt; fim; i = i + 1) { if (vetor[i] &gt; vetor[i + 1]) { aux = vetor[i]; vetor[i] = vetor[i + 1]; vetor[i + 1] = aux; swap = 0; } } fim = fim - 1; for (int i = fim; i &gt; inicio; i = i - 1) { if (vetor[i] &lt; vetor[i - 1]) { aux = vetor[i]; vetor[i] = vetor[i - 1]; vetor[i - 1] = aux; swap = 0; } } inicio = inicio + 1; } return vetor; } [/code]</p>
+
+<p>Resultado da execução do Cocktail Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/cocktailSort.png" alt="Resultado da ordenação usando o Cocktail Sort" /></p>
+
+<h3 id="comb-sort">Comb Sort</h3>
+
+<p>O Comb Sort, é um algoritmo de ordenação por troca. Desenvolvido em 1980 por Wlodzimierz Dobosiewicz e mais tarde, foi redescoberto e popularizado por Stephen Lacey e Richard Box em um artigo publicado na revista Byte em Abril de 1991. O Comb Sort é uma melhoria do Bubble Sort e rivaliza com o Quick Sort.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[code=’csharp’] public static int[] combSort(int[] vetor) { int gap = vetor.Length; bool swapped = true; while (gap &gt; 1</td>
+      <td> </td>
+      <td>swapped) { if (gap &gt; 1) { gap = (int)(gap / 1.247330950103979); } int i = 0; swapped = false; while (i + gap &lt; vetor.Length) { if (vetor[i].CompareTo(vetor[i + gap]) &gt; 0) { int t = vetor[i]; vetor[i] = vetor[i + gap]; vetor[i + gap] = t; swapped = true; } i++; } } return vetor; } [/code]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Resultado da execução do Bubble Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/combSort.png" alt="Resultado da ordenação usando o Comb Sort" /></p>
+
+<h3 id="gnome-sort">Gnome Sort</h3>
+
+<p>O Gnome Sort é um algoritmo com uma sequencia grande de trocas como o Bubble Sort, porem ele é similar ao Insertion Sort com a diferença de levar um elemento para sua posição correta.</p>
+
+<p>[code=’csharp’] public static int[] gnomeSort(int[] vetor) { int p = 0; int aux; while (p &lt; (vetor.Length - 1)) { if (vetor[p] &gt; vetor[p + 1]) { aux = vetor[p]; vetor[p] = vetor[p + 1]; vetor[p + 1] = aux; if (p &gt; 0) { p -= 2; } } p++; } return vetor; } [/code]</p>
+
+<p>Resultado da execução do Gnome Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/gnomeSort.png" alt="Resultado da ordenação usando o Gnome Sort" /></p>
+
+<h3 id="odd-even-sort">Odd-Even Sort</h3>
+
+<p>O Odd-Even Sort é um algoritmo de ordenação por comparação baseado no Bubble Sort.</p>
+
+<p>[code=’csharp’] public static int[] oddEvenSort(int[] vetor) { bool sorted = false; while (!sorted) { sorted = true; // odd-even for (int x = 1; x &lt; vetor.Length - 1; x += 2) { if (vetor[x] &gt; vetor[x + 1]) { int tmp = vetor[x]; vetor[x] = vetor[x + 1]; vetor[x + 1] = tmp; sorted = false; } } // even-odd for (int x = 0; x &lt; vetor.Length - 1; x += 2) { if (vetor[x] &gt; vetor[x + 1]) { int tmp = vetor[x]; vetor[x] = vetor[x + 1]; vetor[x + 1] = tmp; sorted = false; } } } return vetor; } [/code]</p>
+
+<p>Resultado da execução do Odd-Even Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/oddEvenSort.png" alt="Resultado da ordenação usando o Odd-Even Sort" /></p>
+
+<h3 id="quick-sort">Quick Sort</h3>
+
+<p>O Quick Sort é um método de ordenação inventado por <a href="http://pt.wikipedia.org/wiki/C.A.R._Hoare">Charles Antony Richard Hoare</a> em 1960 quando estudante.</p>
+
+<p>[code=’csharp’] public static int[] quickSort(int[] vetor) { int inicio = 0; int fim = vetor.Length - 1; quickSort(vetor, inicio, fim); return vetor; } private static void quickSort(int[] vetor, int inicio, int fim) { if (inicio &lt; fim) { int p = vetor[inicio]; int i = inicio + 1; int f = fim; while (i &lt;= f) { if (vetor[i] &lt;= p) { i++; } else if (p &lt; vetor[f]) { f–; } else { int troca = vetor[i]; vetor[i] = vetor[f]; vetor[f] = troca; i++; f–; } } vetor[inicio] = vetor[f]; vetor[f] = p; quickSort(vetor, inicio, f - 1); quickSort(vetor, f + 1, fim); } } [/code]</p>
+
+<p>Resultado da execução do Quick Sort.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/quickSort.png" alt="Resultado da ordenação usando o Quick Sort" /></p>
+
+<p>Esses são somente alguns dos diversos outros algoritmos de ordenação existentes, alguns mais simples e outros mais complexos. De qualquer forma, poderá fazer download do projeto completo e estudar o seu funcionamento.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/AlgoritmoOrdenacao">Github</a>.</p>
+
+<p>Não deixe de participar do <a href="http://forum.csharpbrasil.com.br">fórum</a>. Siga o C# Brasil no <a href="http://twitter.com/csharpbrasil">Twitter</a> e <a href="http://facebook.com/csharpbrasil">Facebook</a>.</p>
+
+<p>Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

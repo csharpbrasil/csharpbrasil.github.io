@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Gerando Números Randômicos com C-Sharp</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Gerando Números Randômicos com C-Sharp</h2>		
+	<time datetime="2008-11-15T00:39:45-02:00" class="by-line">
+		
+		15
+		Novembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<table>
+  <tbody>
+    <tr>
+      <td>Se precisarmos gerar números randômicos, o C# tem uma classe especifica para isso. A classe Random que faz parte do Framework.NET. [sourcecode language=’csharp’] Random random = new Random(); int i = random.Next(0, 100); TextBox1.Text = i.ToString(); [/sourcecode] Uma dica muito útil para essa classe é a possibilidade de criarmos um gerador de senhas aleatórias como mostro no exemplo abaixo. [sourcecode language=’csharp’] public string GeraSenha() { int Tamanho = 15; // Numero de digitos da senha string senha = string.Empty; for (int i = 0; i &lt; Tamanho; i++) { Random random = new Random(); int codigo = Convert.ToInt32(random.Next(48, 122).ToString()); if ((codigo &gt;= 48 &amp;&amp; codigo &lt; = 57)</td>
+      <td> </td>
+      <td>(codigo &gt;= 97 &amp;&amp; codigo &lt; = 122)) { string _char = ((char)codigo).ToString(); if (!senha.Contains(_char)) { senha += _char; } else { i–; } } else { i–; } } return senha; } [/sourcecode] Esse método pode ser muito útil se você for criar um aplicativo WinForm ou WebForm onde precisará gerar uma senha aleatória para o usuário. Agora teste o exemplos e veja o resultado. Abraço e sucesso!!!</td>
+    </tr>
+  </tbody>
+</table>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

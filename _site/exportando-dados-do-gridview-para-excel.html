@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Exportando dados do GridView para Excel</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Exportando dados do GridView para Excel</h2>		
+	<time datetime="2009-11-28T21:33:34-02:00" class="by-line">
+		
+		28
+		Novembro
+		  
+		2009
+	</time>
+	<div class="content">
+
+		<p>No artigo de hoje ensinarei um jeito simples e rápido de implementar em uma página ASP.NET a opção de exportar o conteudo de um GridView contendo informações para o Excel. Isso será feito sem a necessidade de qualquer outro componente.</p>
+
+<p>Essa semana me foi solicitado a criação e disponibilização de uma opção para que o usuário pudesse exportar os dados de um GridView e pesquisando um pouco na internet (porque alias não sei tanta coisa assim de ASP.NET) encontrei a solução.</p>
+
+<p>Para iniciarmos vamos criar duas páginas ASP.NET. A primeira será para exibir os dados como de costume e a outra será para carregar e exportar os dados.</p>
+
+<p>Poderemos fazer de dois modos:</p>
+
+<ul>
+  <li>Ou carregamos os dados no primeiro WebForm e quando necessário carregamos os dados no segundo WebForm, ou seja, realizamos 2 chamadas ao metodo responsavel em carregar os dados</li>
+  <li>Ou carregamos os dados no primeiro WebForm e quando necessário pegamos esse mesmos dados e atribuimos em um Session para em seguida carregarmos no segundo WebForm, ou seja, realizamos 1 chamada ao metodo responsavel em carregar os dados</li>
+</ul>
+
+<p>Na minha opinião é mais performatico utilizarmos a segunda opção, assim não seria necessário realizar a mesma chamada ao metodo 2 vezes. A única desvantagem é que se no momento em que formos exportar para o Excel, os dados já tenham sido alterados ou não existam mais. Mesmo assim, usaremos a segunda opção.</p>
+
+<p>Vamos a principio criar nosso banco de dados e a tabela de contatos para utilizarmos no exemplo. Sendo assim abra o Microsoft SQL Manager Express e execute o script abaixo.</p>
+
+<p>[sourcecode language=’sql’] CREATE DATABASE ESTUDOS USE ESTUDOS CREATE TABLE CONTATOS ( IDCONTATO INT IDENTITY(1,1) NOT NULL, NOME VARCHAR(100) NULL, TELEFONE VARCHAR(13) NULL ) [/sourcecode]</p>
+
+<p>Agora vamos adicionar algumas informações.</p>
+
+<p>[sourcecode language=’sql’] INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘JOAO’, ‘(11)5421-7414’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘PEDRO’, ‘(11)5785-5421’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘MARIA’, ‘(21)3254-8522’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘RENATO’, ‘(19)3657-8421’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘FATIMA’, ‘(16)3627-7412’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘EMILIA’, ‘(12)7452-7854’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘JOSE’, ‘(34)3214-8521’) INSERT INTO CONTATOS(NOME, TELEFONE) VALUES(‘ISABEL’, ‘(64)8521-8444’) [/sourcecode]</p>
+
+<p>Agora que estamos com o nosso banco de dados pronto e contendo informações, iremos criar nosso WebForm, então inicie o Visual Studio e crie um novo Web site e no WebForm Default.aspx que foi criada adicione 1 GridView e 2 Buttons.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem049-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem049-1-300x213.jpg" alt="imagem049" title="imagem049" /></a> [sourcecode language=’csharp’]  <br />
+[/sourcecode]</p>
+
+<p>Atribuiremos agora o metodo para carregar os dados do GridView.</p>
+
+<p>[sourcecode language=’csharp’] public DataTable CarregaDados() { string ConnectionString = @”Data Source=.\SQLEXPRESS;User Id=sa;Password=jo29si04;Initial Catalog=estudos;”; DataTable dt = new DataTable(); using (SqlConnection connection = new SqlConnection(ConnectionString)) { using (SqlCommand command = new SqlCommand()) { command.Connection = connection; command.CommandText = “select * from contatos”; using (SqlDataAdapter adapter = new SqlDataAdapter()) { adapter.SelectCommand = command; adapter.Fill(dt); } } } return dt; } [/sourcecode]</p>
+
+<p>Esse metodo criado será usado para carregar os dados do banco para o GridView.</p>
+
+<p>Agora vamos ao que realmente importa para nós nesse momento. Iremos criar a opção de exportar para excel.</p>
+
+<p>Abra um novo WebForm chamado exporta_excel.aspx para que possamos adicionar 1 GridView e o metodo abaixo.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem050-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem050-1-300x216.jpg" alt="imagem050" title="imagem050" /></a> [sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { DataTable dt = (Session[“Contatos2Excel”] as DataTable); gridContatos.DataSource = dt; gridContatos.DataBind(); string attachment = “attachment; filename=contatos.xls”; Response.ClearContent(); Response.AddHeader(“content-disposition”, attachment); Response.ContentType = “application/ms-excel”; System.IO.StringWriter sw = new System.IO.StringWriter(); HtmlTextWriter htw = new HtmlTextWriter(sw); gridContatos.RenderControl(htw); Response.Write(sw.ToString()); } public override void VerifyRenderingInServerForm(Control control) { } [/sourcecode]</p>
+
+<p>Quando a página para exportar for chamada, o GridView será carregado com o conteudo da Session e gerado o Excel. Teste e veja o resultado.</p>
+
+<p>Nosso WebForm principal com a opção de carregar os dados e exportar para Excel.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem051-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem051-1-227x300.jpg" alt="imagem051" title="imagem051" /></a></p>
+
+<p>Efetuando a chamada para exportar para Excel</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem052-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem052-1-300x253.jpg" alt="imagem052" title="imagem052" /></a></p>
+
+<p>Excel com o resultado final.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem053-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/imagem053-1-237x300.jpg" alt="imagem053" title="imagem053" /></a></p>
+
+<p>Espero que esse dica seja util para você como foi para mim.</p>
+
+<p>Abraço e até a próxima.</p>
+
+<p>Fonte: <a href="https://raphaelcardoso.com.br/wp-content/uploads/2009/11/exportando-dados-do-gridview-para-excel.zip">Download</a></p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

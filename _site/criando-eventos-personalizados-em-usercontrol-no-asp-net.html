@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Criando eventos personalizados em UserControl no ASP.NET</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando eventos personalizados em UserControl no ASP.NET</h2>		
+	<time datetime="2011-02-14T08:30:32-02:00" class="by-line">
+		
+		14
+		Fevereiro
+		  
+		2011
+	</time>
+	<div class="content">
+
+		<p>Nem sempre os componentes atuais do ASP.NET atendem por completo as nossas necessidades. Com isso muitas vezes precisamos implementar funcionalidades e que também na maioria das vezes necessitam ser reutilizadas. O funcionalidade de um UserControl, é essa, criar controles personalizados que possam ser reutilizados.</p>
+
+<p>É esse o objetivo desse artigo de hoje, criar um UserControl que possua funcionalidade que possam ser reutilizadas como se fosse um componente.</p>
+
+<p>Para dar inicio, abra o Visual Studio, crie um novo WebSite. No Meu caso estou usando o Visual Studio 2010, mais pode ser qualquer versão.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2011/02/criando_eventos_usercontrol001-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2011/02/criando_eventos_usercontrol001-1-300x185.jpg" alt="" title="criando_eventos_usercontrol001" /></a></p>
+
+<p>Como exemplo, vou criar um UserControl que tem como funcionalidade autenticar e receber o login e a senha do usuário. Nele incluirei 2 Labels, 2 TextBox, 1 LinkButton e 2 Button. E ficará da seguinte formar.</p>
+
+<p>[sourcecode language=’csharp’]</p>
+
+<p>[/sourcecode]</p>
+
+<p>Com esse código já temos a tela de login, porem não o mais importante que são os eventos. Para que ele seja funcional, iremos atribuir eventos aos Botões e possibilitar que um WebForm recupere a ação do usuário por meio do evento acionado. Para iniciar criamos o evento Click dos botões e do LinkButon.</p>
+
+<p>[sourcecode language=’csharp’]</p>
+
+<p>[/sourcecode] [sourcecode language=’csharp’] protected void btnAutenticar_Click(object sender, EventArgs e) { } protected void lnkLembrarSenha_Click(object sender, EventArgs e) { } protected void btnCadastrar_Click(object sender, EventArgs e) { } [/sourcecode]</p>
+
+<p>Se você tentar recuperar o evento do botão Autenticar por exemplo vai ver que não será possível, para isso vamos criar agora os eventos necessários.</p>
+
+<p>[sourcecode language=’csharp’] // Delegate public delegate void AutenticarEventHandler(object sender, System.EventArgs e); public delegate void LembrarSenhaEventHandler(object sender, System.EventArgs e); public delegate void CadastrarEventHandler(object sender, System.EventArgs e); // Event public event AutenticarEventHandler Autenticar; public event LembrarSenhaEventHandler LembrarSenha; public event CadastrarEventHandler Cadastrar; [/sourcecode]</p>
+
+<p>Criamos um Event e um Delegate para cada Button e LinkButton e é por meio do evento Click deles que faremos a chamada desses Eventos personalizados.</p>
+
+<p>[sourcecode language=’csharp’] protected void btnAutenticar_Click(object sender, EventArgs e) { if (Autenticar != null) Autenticar(sender, e); } protected void lnkLembrarSenha_Click(object sender, EventArgs e) { if (LembrarSenha != null) LembrarSenha(sender, e); } protected void btnCadastrar_Click(object sender, EventArgs e) { if (Cadastrar != null) Cadastrar(sender, e); } [/sourcecode]</p>
+
+<p>Agora que temos nosso UserControl, abra o Default.aspx em modo designer e arraste o UserControl para ele e adicione um Label.</p>
+
+<p>[sourcecode language=’html’] &lt;%@ Page Language=”C#” AutoEventWireup=”true” CodeFile=”Default.aspx.cs” Inherits=”_Default” %&gt; &lt;%@ Register src=”LoginControl.ascx” tagname=”LoginControl” tagprefix=”uc1” %&gt;</p>
+
+<p>[/sourcecode]</p>
+
+<p>Para finalizar, vamos criar os eventos necessarios no CodeBehind do Default.aspx para que nosso exemplo funcione.</p>
+
+<p>[sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { LoginControl1.Autenticar += new LoginControl.AutenticarEventHandler(LoginControl1_Autenticar); LoginControl1.LembrarSenha += new LoginControl.LembrarSenhaEventHandler(LoginControl1_LembrarSenha); LoginControl1.Cadastrar += new LoginControl.CadastrarEventHandler(LoginControl1_Cadastrar); } // Evento Autenticar protected void LoginControl1_Autenticar(object sender, EventArgs e) { lblResultado.Text = “Evento [AUTENTICAR]”; } // Evento Lembrar Senha protected void LoginControl1_LembrarSenha(object sender, EventArgs e) { lblResultado.Text = “Evento [LEMBRAR SENHA]”; } // Evento Cadastrar protected void LoginControl1_Cadastrar(object sender, EventArgs e) { lblResultado.Text = “Evento [CADASTRAR]”; } [/sourcecode]</p>
+
+<p>Assim, temos o resultado abaixo.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2011/02/criando_eventos_usercontrol003-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2011/02/criando_eventos_usercontrol003-1.jpg" alt="" title="criando_eventos_usercontrol003" /></a></p>
+
+<p>Muito pode ser feito com o uso de Eventos e UserControl e alem do mais, podemos reutilizar e compartilhar os códigos criados.</p>
+
+<p>Deixarei para download o projeto criado: [download id=”6” format=”2”].</p>
+
+<p>Abraço e até a próxima.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

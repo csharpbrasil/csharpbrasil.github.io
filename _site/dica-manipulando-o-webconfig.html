@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Manipulando o Web.Config</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Manipulando o Web.Config</h2>		
+	<time datetime="2008-10-27T11:03:44-02:00" class="by-line">
+		
+		27
+		Outubro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá leitor, em mais uma dica, vou explicar como adicionar, atualizar e excluir ConnectionStrings do nosso Web.config. Primeiro declare as Namespaces que utilizaremos no seu WebForm: [sourcecode language=’csharp’] using System.Configuration; using System.Web.Configuration; [/sourcecode] Agora segue o código abaixo que irá realizar as alterações: [sourcecode language=’csharp’] Configuration webconfig = WebConfigurationManager.OpenWebConfiguration(“~”); ConnectionStringsSection dbConnString = webconfig.ConnectionStrings; // Adicionando dbConnString.ConnectionStrings.Add(new ConnectionStringSettings(“Conn”, “server=localhost;uid=root;pwd=123456;database=MeuBanco;”, “MySql.Data.MySqlClient”)); // Alterando dbConnString.ConnectionStrings[“Conn”].ConnectionString = “server=mysql.servidor.com.br;uid=root;pwd=123456;database=MeuBanco;”; // Excluir dbConnString.ConnectionStrings.Remove(“Conn”); webconfig.Save(); [/sourcecode] Para iniciar o teste comente as linhas que altera e exclui a ConnectionString para adicionar, depois comente a linha que adiciona e excluir para alterar e em seguida comente a linha que adiciona e altera para excluir. Sempre que executar abra o seu web.config e veja o resultado. Abraço e sucesso!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

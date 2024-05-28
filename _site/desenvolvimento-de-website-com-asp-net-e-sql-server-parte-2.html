@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Desenvolvimento de Website com ASP.NET e SQL Server - Parte 2</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Desenvolvimento de Website com ASP.NET e SQL Server - Parte 2</h2>		
+	<time datetime="2012-01-29T17:17:20-02:00" class="by-line">
+		
+		29
+		Janeiro
+		  
+		2012
+	</time>
+	<div class="content">
+
+		<p>Olá caro leitor! Dando continuidade ao <a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 1">artigo anterior</a> que criamos o banco de dados, as tabelas, camada de conexão, camada de entidades e a camada de regras de negocio do nosso projeto, iremos iniciar o desenvolvimento do nosso website. Caso queira acessar as outras partes, veja os links abaixo:</p>
+
+<ul>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 1">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 1</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-2/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 2">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 2</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-3/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 3">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 3</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-4/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 4">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 4</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-5/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 5">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 5</a></li>
+</ul>
+
+<p>Para iniciarmos, faça o download do fonte do projeto disponibilizado no <a href="https://github.com/csharpbrasil/projeto-website-aspnet">Github</a>. Após aberto adicione um novo Web Site conforme imagem abaixo. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0011.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0011-300x162.jpg" alt="" title="imagem001" /></a> Salve o novo projeto no mesmo diretório dos demais projetos anterior e defina um nome. No caso chamarei de <em>WebSite</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0021.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0021-300x185.jpg" alt="" title="imagem002" /></a> Feito isso, vamos adicionar uma MasterPage ao projeto que será o modelo visual padrão de novo projeto. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0031.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0031-300x162.jpg" alt="" title="imagem003" /></a> Defina um novo para a MasterPage. Deixei o nome como <em>MasterPage.masterpage</em> mesmo. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0041.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0041-300x185.jpg" alt="" title="imagem004" /></a> Por padrão quando criamos um novo Web Site é automaticamente incluso uma página <em>Default.aspx</em>, deveremos exclui-la. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0051.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0051-300x162.jpg" alt="" title="imagem005" /></a> Inclua ao projeto uma nova pasta com o nome de <em>css</em> para que nela possamos incluir nossa folha de estilo que será referenciada na MasterPage. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0061.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0061-300x162.jpg" alt="" title="imagem006" /></a> Após criado a pasta, criaremos um novo arquivo de folha de estilo conforme imagem abaixo clicando com o botão direito sobre a pasta css e selecionando a opção <em>Add New Item</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0071.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0071-300x162.jpg" alt="" title="imagem007" /></a> Defina o nome do arquivo Style Sheet como <em>default.css</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0081.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0081-300x185.jpg" alt="" title="imagem008" /></a> Depois de criado o arquivo, inclua a folha de estilo abaixo no arquivo <em>default.css</em>. [sourcecode language=’css’] html, body, form { height: 100%; } body { font-family: Tahoma, Verdana, Arial, Sans-Serif, Times New Roman; padding: 0; margin: 0; } #geral { position: relative; min-height: 100%; } * html #geral { height: 100%; } #cabecalho { background: #f09942; height: 150px; line-height: 150px; } #cabecalho h1 { padding: 0; margin: 0; } #cabecalho h1#logo { text-transform: uppercase; } #menu ul { overflow: auto; background-color: #353535; padding: 0; margin: 0; list-style: none; } #menu ul li { float: left; } #menu ul li a { display: block; height: 50px; line-height: 50px; padding: 5px 20px; color: #fff; text-decoration: none; } #menu ul li a:hover { color: #353535; background: #f09942; text-decoration: underline; } #conteudo { clear: both; } #rodape { position: absolute; background-color: #f09942; width: 100%; bottom: 0; left: 0; padding: 15px 0; text-align: center; font-size: small; } #rodape a { color: #000; text-decoration: none; } #rodape a:hover { color: #000; text-decoration: underline; } [/sourcecode] Agora abra o código HTML do nosso arquivo MasterPage e substitua pelo disponível abaixo. [sourcecode language=’html’] &lt;%@ Master Language=”C#” AutoEventWireup=”true” CodeFile=”MasterPage.master.cs” Inherits=”MasterPage” %&gt;  @import url(‘css/default.css’);</p>
+
+<h1 id="projeto-website-net">Projeto WebSite .NET</h1>
+
+<p>&amp;amp;copy; 2012. Projeto WebSite .NET by <a href="http://raphaelcardoso.com.br">C# Brasil</a></p>
+
+<p>[/sourcecode] Vamos incluir uma nova página Default.aspx que utilizará a MasterPage. Clique com o botão direito sobre o projeto e clique em <em>Add New Item</em>. Defina o nome para <em>default.aspx</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem023.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem023-300x162.jpg" alt="" title="imagem023" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem024.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem024-300x185.jpg" alt="" title="imagem024" /></a> Selecione a MasterPage criada. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem025.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem025-300x182.jpg" alt="" title="imagem025" /></a> Teremos até o momento o nosso website igual à imagem abaixo. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0091.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem0091-300x176.jpg" alt="" title="imagem009" /></a> Como pode perceber, até o momento não temos o menu. Nesse caso iremos criar um <em>Web User Control</em> especifico onde será exibido os links do menu de acordo com as páginas presentes em nosso banco de dados. Para isso clique com o botão direito em cima do projeto WebSite e clique em <em>Add New Item</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem010.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem010-300x162.jpg" alt="" title="imagem010" /></a> Adicionaremos um novo <em>Web User Control</em> e definiremos o nome como <em>MenuControl.ascx</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem011.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem011-300x185.jpg" alt="" title="imagem011" /></a> A partir desse momento começaremos a utilização de nossas bibliotecas criadas no <a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 1">artigo anterior</a>. Clicando com o botão direito em cima do projeto Website, clique em <em>Add Reference</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem012.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem012-300x162.jpg" alt="" title="imagem012" /></a> Na aba Projects, você encontrará todas as bibliotecas presentes em nossa solutions, selecione todas. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem013.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem013-300x253.jpg" alt="" title="imagem013" /></a> Agora abra o código HTML do <em>MenuControl.ascx</em> para adicionarmos o código que ficara como abaixo. [sourcecode language=’html’] &lt;%@ Control Language=”C#” AutoEventWireup=”true” CodeFile=”MenuControl.ascx.cs” Inherits=”MenuControl” %&gt;</p>
+
+<ul>
+  <li>Página inicial</li>
+  <li>Contato</li>
+</ul>
+
+<p>[/sourcecode] Como pode ver no código anterior, foi criado uma lista HTML já com 2 (dois) links, Página inicial e Contato. Entre eles adicionamos um Server Control do tipo Literal. <em>O Server Control do tipo Literal é um componente para escrever textos em tela, ou seja, se escreve um texto sem que seja gerado tag HTML</em>. No nosso caso usaremos para criar os itens do menu. Agora abra o <em>CodeBehind</em> para incluirmos o código C# (C-Sharp) que listará os links do menu. Esse código deverá ser incluso no Page_Load do nosso <em>MenuControl.ascx</em>. [sourcecode language=’csharp’] // Instancia da classe de Negocio WebSite.Business.Paginas paginasBO = new WebSite.Business.Paginas(); // Chamada ao metodo que lista todas as paginas que irá gerar um array das mesmas WebSite.Entities.Paginas[] paginas = paginasBO.ListaPaginas(); // Realizando um laço de repetição no array para ler cada registro foreach (WebSite.Entities.Paginas pagina in paginas) { // Formatando a string para que seja gerado uma saida conforme exemplo //*   Titulo Pagina
+string mnu = string.Format(“*   <a href="\&quot;pagina.aspx?id={0}\&quot;">{1}</a>
+“, pagina.Id, pagina.Titulo); // Atribuindo o texto gerado no Server Control Literal ltlItensMenu.Text += mnu; } [/sourcecode] Agora que nosso menu está pronto, vamos inclui-lo na nossa MasterPage. Para isso abra a MasterPage no modo Design e arraste o MenuControl.ascx que está no Solution Explorer para dentro da MasterPage. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem014.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem014-300x162.jpg" alt="" title="imagem014" /></a> Seu HTML da MasterPage passará a ficar assim. [sourcecode language=’html’] &lt;%@ Master Language=”C#” AutoEventWireup=”true” CodeFile=”MasterPage.master.cs” Inherits=”MasterPage” %&gt; &lt;%– Aqui ficou a referencia ao MenuControl.ascx –%&gt; &lt;%@ Register src=”MenuControl.ascx” tagname=”MenuControl” tagprefix=”uc1” %&gt;  @import url(‘css/default.css’);</p>
+
+<h1 id="projeto-website-net-1">Projeto WebSite .NET</h1>
+
+<p>&lt;%– Aqui ficou o nosso MenuContro.ascx –%&gt;</p>
+
+<p>&amp;amp;copy; 2012. Projeto WebSite .NET by <a href="http://raphaelcardoso.com.br">C# Brasil</a></p>
+
+<p>[/sourcecode] Antes de executar nosso projeto, precisaremos incluir a <em>ConnectionString</em> para conexão com o banco de dados. Para isso abra o <em>Web.config</em> e inclua o código abaixo alterando somente os seus dados de conexao. [sourcecode language=’xml’] [/sourcecode] Salve e execute seu projeto e teremos o resultado até o momento. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem015.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem015-300x162.jpg" alt="" title="imagem015" /></a> Se clicarmos nos links gerados a partir de nossa lista de páginas, irá ocorrer um erro 404 pois o arquivo <em>pagina.aspx</em> ainda não existe. Mais agora é mais fácil criar página pois já temos nosso modelo criado, então criaremos o arquivo pagina.aspx e utilizaremos a MasterPage. Clique com o botão direito sobre o projeto e clique em <em>Add New Item</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem016.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem016-300x162.jpg" alt="" title="imagem016" /></a> Defina o nome para o arquivo como <em>pagina.aspx</em> e selecione a opção <em>Select master page</em> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem017.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem017-300x185.jpg" alt="" title="imagem017" /></a> Uma nova janela será aberta onde selecionaremos nossa master page. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem018.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem018-300x182.jpg" alt="" title="imagem018" /></a> Repare que o código HTML de nossa pagina.aspx quase não possui tags, isso porque já está tudo dentro da nossa MasterPage. [sourcecode language=’html’] &lt;%@ Page Title=”” Language=”C#” MasterPageFile=”~/MasterPage.master” AutoEventWireup=”true” CodeFile=”pagina.aspx.cs” Inherits=”pagina” %&gt;  [/sourcecode] É entre as tag que iremos incluir o conteúdo do site. Porem será incluso a partir do banco de dados. Vamos implementar primeiro o HTML que deverá ficar assim. [sourcecode language=’html’] &lt;%@ Page Title=”” Language=”C#” MasterPageFile=”~/MasterPage.master” AutoEventWireup=”true” CodeFile=”pagina.aspx.cs” Inherits=”pagina” %&gt; [/sourcecode] Repare que novamente fizemos uso do Literal. Ele será uma excelente opção para esses casos pois não queremos que seja gerado tags HTML extras. Agora vamos ao <em>CodeBehind</em> para fazermos a busca das informações da página. Dentro dele terá o evento <em>Page_Load</em> e é onde incluiremos nossa chamada ao método para buscar o conteúdo da pagina e usando como informação o Id da página. O Id dá página é passado por QueryString. Para saber mais sobre QueryString acesse o <a href="http://programandodotnet.wordpress.com/2012/01/22/videoaula-querystring/" title="Video Aula - QueryString">video aula</a> do <a href="http://programandodotnet.wordpress.com">Wellington Camargo</a>. [sourcecode language=’csharp’] // Recebe o ID da página por QueryString e pelo fato de o parametro ser String, realizamos a conversão para Integer int IdPagina; int.TryParse(Request.QueryString[“id”], out IdPagina); // Caso não tenha sido passado o ID dá pagina, redireciona para a pagina padrão (default.aspx) if (IdPagina == 0) Response.Redirect(“default.aspx”); // Instancia da classe de Negocio WebSite.Business.Paginas paginasBO = new WebSite.Business.Paginas(); // Chamada ao metodo que lista todas as paginas passando o ID da página e retornando o primeiro registro WebSite.Entities.Paginas pagina = paginasBO.ListaPaginas(new WebSite.Entities.Paginas(IdPagina)).FirstOrDefault(); // Atribuido os dados nos Literais this.Title = pagina.Titulo; ltlTitulo.Text = pagina.Titulo; ltlConteudo.Text = pagina.Texto; [/sourcecode] <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem019.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem019-300x162.jpg" alt="" title="imagem019" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem020.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem020-300x162.jpg" alt="" title="imagem020" /></a> Como pode ver, em pouco tempo fomos capazes de desenvolver o nosso website e bem flexível, ou seja, caso desejamos ter mais página, basta realizarmos uma inserção na tabela PAGINAS que teremos mais páginas inclusas no menu. Vamos fazer um teste? Execute o script abaixo no banco de dados. [sourcecode language=’sql’] INSERT INTO PAGINAS(TITULO_PAGINA, TEXTO_PAGINA, DATACRIACAO_PAGINA, ATIVO_PAGINA) VALUES(‘Produtos’, ‘Conteudo da página de produtos’, GETDATE(), 1) INSERT INTO PAGINAS(TITULO_PAGINA, TEXTO_PAGINA, DATACRIACAO_PAGINA, ATIVO_PAGINA) VALUES(‘Clientes’, ‘Conteudo da página de clientes’, GETDATE(), 1) [/sourcecode] Agora acesse sua página e repare que foram inclusos mais 2 páginas no menu. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem021.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem021-300x162.jpg" alt="" title="imagem021" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem022.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/01/imagem022-300x162.jpg" alt="" title="imagem022" /></a> Nosso projeto ficou muito simples e de fácil manutenção além de bem flexível o que nos permitira utilizar um mesmo projeto para diversos clientes bastando somente alterar o conteúdo do banco de dados. Até o momento você aprendeu:</p>
+
+<ul>
+  <li>Criar tabela e banco de dados;</li>
+  <li>Desenvolver camada de dados, entidades e negocio;</li>
+  <li>Criar páginas utilizando CSS, MasterPage e utilizando nossa camada de negocio.</li>
+</ul>
+
+<p>Acha que acabou? Pode aguarde o próximo artigo que ainda tem muita coisa boa pela frente e iremos ainda criar nosso painel administrativo.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/projeto-website-aspnet">Github</a></p>
+
+<p>Não deixe de participar do fórum. Siga o C# Brasil no <a href="http://twitter.com/csharpbrasil">Twitter</a> e <a href="http://facebook.com/csharpbrasil">Facebook</a>. Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

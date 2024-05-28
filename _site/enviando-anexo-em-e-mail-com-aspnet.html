@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Enviando anexo em e-mail com ASP.NET</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Enviando anexo em e-mail com ASP.NET</h2>		
+	<time datetime="2008-09-04T21:59:39-03:00" class="by-line">
+		
+		4
+		Setembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá pessoa, a pedido de um amigo que recentemente começou programar em ASP.NET com C-Sharp, vou fazer um passo a passo de como enviar e-mail com anexo.</p>
+
+<p>Estou utilizando o Visual Studio 2005, mais quem não tiver poderá usar o Visual Web Developer Express 2005 ou 2008.</p>
+
+<p>1- Crie um novo projeto ASP.NET Web Site</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/emailcomanexo01-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/emailcomanexo01-1.jpg" alt="" title="emailcomanexo01" /></a></p>
+
+<p>2- Na página inicial que será criada automaticamente nesse novo projeto, adicione 4 Labels, 3 TextBox, 1 FileUpload e 1 Button.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/emailcomanexo02-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/emailcomanexo02-1-300x228.jpg" alt="" title="emailcomanexo02" /></a></p>
+
+<p>3- De um duplo clique no botão e vamos implementar as opções de envio. Declare as seguintes Namespaces: System.Net.Mail, System.Net e System.IO</p>
+
+<p>[sourcecode language=’csharp’] using System.Net.Mail; using System.Net; using System.IO; [/sourcecode]</p>
+
+<p>4- No método do botão vamos atribuir o código abaixo.</p>
+
+<p>[sourcecode language=’csharp’] protected void btnEnviar_Click(object sender, EventArgs e) { // Estancia da Classe de Mensagem MailMessage _mailMessage = new MailMessage(); // Remetente _mailMessage.From = new MailAddress(“meuemail@meuservidor.com”); // Destinatario _mailMessage.CC.Add(txtEmail.Text); // Assunto _mailMessage.Subject = “Email com Anexo”; // A mensagem é do tipo HTML ou Texto Puro? _mailMessage.IsBodyHtml = true; // Corpo da Mensagem _mailMessage.Body = txtNome.Text + “ “ + txtMensagem.Text; // Recupera o binario enviado pelo FileUpload MemoryStream MS = new MemoryStream(fileAnexo.FileBytes); // Anexa o Stream do arquivo Attachment anexo = new Attachment(MS, fileAnexo.FileName); _mailMessage.Attachments.Add(anexo); // Estancia a Classe de Envio SmtpClient _smtpClient = new SmtpClient(“smtp.meuservidor.com”); // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação) _smtpClient.Credentials = new NetworkCredential(“meuemail@meuservidor.com”, “123minhasenha”); // Envia a mensagem _smtpClient.Send(_mailMessage); } [/sourcecode]</p>
+
+<p>Pronto, se executarmos o nosso código iremos receber o e-mail com as informações e anexo informado.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/emailcomanexo04-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/emailcomanexo04-1-300x228.jpg" alt="" title="emailcomanexo04" /></a></p>
+
+<p>Revisão: A mesma técnica utilizada para envio de e-mail no webform, segue para o winform.<br />
+Quem tiver idéias de artigos, deixe seu comentário que irei providenciar para as próximas postagens.</p>
+
+<p>Abraço a todos.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

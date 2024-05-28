@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Converter String para Decimal</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Converter String para Decimal</h2>		
+	<time datetime="2008-10-24T20:56:18-02:00" class="by-line">
+		
+		24
+		Outubro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá caro leitor, em mais uma dica útil, principalmente para os iniciantes, vou ensinar como converter um valor do tipo String para Decimal. Existe várias formas de realizar essa conversão. Esse exemplo se aplica aos demais tipos como: Int, DateTime, Float, etc. Então veja que temos um valor do tipo String e queremos converte-lo para Decimal. Será atribuído o valor convertido a variável declarada <strong><em>preco2</em></strong> e a variável Booleana <strong><em>converteu</em></strong> retornará valor igual a True, ou seja, a conversão ocorreu com sucesso. [sourcecode language=’csharp’] string sPreco1 = “12,95”; decimal dPreco1; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); [/sourcecode] Mais tem um porem, suponhamos que esse valor em string não só possua somente numero mais também algum outro caracter como por exemplo uma letra. Então nesse caso ao tentarmos converter será retornado a variável <strong><em>preco2</em></strong> o valor igual a 0 (zero) e a variável Booleana <strong><em>converteu</em></strong> retornará valor igual a False, ou seja, a conversão não ocorreu. Em que caso podemos aplica-lo? Suponha que você ira realizar um calculo matemática, então realizamos a tratativa antes de executa-lo. [sourcecode language=’csharp’] string sPreco1 = “12,95”; string sPreco2 = “6,76”; decimal dPreco1; decimal dPreco2; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Boolean Convercao2 = decimal.TryParse(sPreco2, out dPreco2); decimal result; if (Convercao1 &amp;&amp; Convercao2) { result = decimal.Add(dPreco1, dPreco2); } else { result = 100; } [/sourcecode] Existe outras formar mais simples de realizar a conversão. Utilizando o Convert.ToDecimal() [sourcecode language=’csharp’] string sPreco1 = “12,95”; decimal result = Convert.ToDecimal(sPreco1); [/sourcecode] Utilizando o decimal.Parse() [sourcecode language=’csharp’] string sPreco1 = “12,95”; decimal result = decimal.Parse(sPreco1); [/sourcecode] Tá ai mais uma dica. Para realizar a conversão em outros tipo, é só seguir o mesmo conceito. Dúvidas? mande comentários. Abraço e sucesso!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

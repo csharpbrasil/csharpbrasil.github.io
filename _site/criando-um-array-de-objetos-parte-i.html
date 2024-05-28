@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Criando um Array de objetos - Parte I</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando um Array de objetos - Parte I</h2>		
+	<time datetime="2009-04-09T01:13:12-03:00" class="by-line">
+		
+		9
+		Abril
+		  
+		2009
+	</time>
+	<div class="content">
+
+		<p>Hoje irei falar um pouco à respeito de Arrays de objetos, mais especificamente, utilizando controles Windows Forms em diversas situações que podem surgir ao longo do desenvolvimento de um sistema. O primeiro passo é entender como podemos instanciar um objeto do tipo controle e como atribuir eventos a eles. Veja no exemplo a seguir: [sourcecode language=’csharp’] private void Form1_Load(object sender, EventArgs e) { // Declarando o Array do tipo ‘Button’, ‘btn’ como identificador e dimensão ‘[10]’. // Button representa um controle ‘Button’ no namespace System.Windows.Forms Button[] btn = new Button[10]; //Inicializando uma nova instancia de ‘btn’,[0] neste caso. //Observação importante: lembre-se sempre que devemos iniciar apartir de [0]. btn[0] = new Button(); //Definindo as propriedades basicas do controle: Localização do controle, tamanho, nome e texto; respectivamente. btn[0].Location = new System.Drawing.Point(100, 100); btn[0].Size = new System.Drawing.Size(100, 25); btn[0].Name = “Botao1”; btn[0].Text = “Botão 1”; //Adicionando o controle especificado à coleção de controles do Form1 this.Controls.Add(btn[0]); } [/sourcecode] [caption id=”attachment_620” align=”aligncenter” width=”339” caption=”Resultado”]<img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/04/img1_post1-1.jpg" alt="Screenshot do 'Resultado da tela'" />[/caption]</p>
+
+<hr />
+
+<p>A seguir iremos criar e assinar eventos neste botão que foi instanciado: [sourcecode language=’csharp’] private void Form1_Load(object sender, EventArgs e) { Button[] btn = new Button[10]; btn[0] = new Button(); btn[0].Location = new System.Drawing.Point(100, 100); btn[0].Size = new System.Drawing.Size(100, 25); btn[0].Name = “Botao1”; btn[0].Text = “Botão 1”; // Assinando o evento btn[0].Click += new System.EventHandler(this.evento_do_botao1); this.Controls.Add(btn[0]); } [/sourcecode] E as ações do evento: [sourcecode language=’csharp’] private void evento_do_botao1(object sender, EventArgs e) { MessageBox.Show(“Evento do botao1”); } [/sourcecode]</p>
+
+<p>[caption id=”attachment_621” align=”aligncenter” width=”160” caption=”Resultado”]<img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/04/post1_img2-1.jpg" alt="Resultado" />[/caption]</p>
+
+<hr />
+
+<p>Outro exemplo utilizando o delegate: [sourcecode language=’csharp’] private void Form1_Load(object sender, EventArgs e) { Button[] btn = new Button[10]; btn[0] = new Button(); btn[0].Location = new System.Drawing.Point(100, 100); btn[0].Size = new System.Drawing.Size(100, 25); btn[0].Name = “Botao1”; btn[0].Text = “Botão 1”; //Atribuindo um evento anonimo btn[0].Click += delegate { MessageBox.Show(“Este é um evento anonimo, e está dentro de outro evento(Form1_Load) npor isso não possui (object sender, EventArgs e) nele tambem pode ser assinado em Run-time”); }; } [/sourcecode]</p>
+
+<p>[caption id=”attachment_622” align=”aligncenter” width=”371” caption=”Resultado”]<img src="https://raphaelcardoso.com.br/wp-content/uploads/2009/04/post1_img3-1.jpg" alt="Resultado" />[/caption] Caso tenha alguma duvida, sinta-se à vontade para perguntar nos comentários. Muito obrigado, e um grande abraço.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

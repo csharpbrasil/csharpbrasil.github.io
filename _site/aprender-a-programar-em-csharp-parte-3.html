@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Aprender a programar em C# – Parte 3</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Aprender a programar em C# – Parte 3</h2>		
+	<time datetime="2015-03-02T07:30:51-03:00" class="by-line">
+		
+		2
+		Março
+		  
+		2015
+	</time>
+	<div class="content">
+
+		<p>Você viu nos artigos anteriores a abordagem sobre a linguagem C# (C-Sharp) de como ela surgiu, tipos de dados, sintaxes, variáveis, operadores, controle de fluxo e laços de repetição, também pode ver o desenvolvimento de uma aplicação simples e compilação por linha de comando.</p>
+
+<ul>
+  <li><a href="/aprender-a-programar-em-csharp-parte-1/">Aprender a programar em C# - Parte 1</a></li>
+  <li><a href="/aprender-a-programar-em-csharp-parte-2/">Aprender a programar em C# - Parte 2</a></li>
+</ul>
+
+<p>Nessa nova parte iremos abordar o desenvolvimento de uma aplicação simples utilizando o Visual Studio para que nós possamos nos familiarizar com a ferramente. Portanto, é importante que já tenha o Visual Studio instalado. Sugiro o uso do Visual Studio Community 2013. Acesse o link <a href="http://www.visualstudio.com/">www.visualstudio.com</a> e faça o download e instalação, é fácil.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_1.png" alt="Tela do Visual Studio Community 2013" /></p>
+
+<p>Com o Visual Studio aberto, vamos criar um novo projeto. Acesse o menu principal <em>File &gt; New &gt; Project</em>. Criaremos um projeto do tipo Windows Forms Application que se encontra no Template Windows Desktop utilizando o .NET Framework 4.5 e definindo o nome do projeto como <em>MeuPrimeiroWindowsFormApplication</em>.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_2.png" alt="Tela de criação do novo projeto." /></p>
+
+<p>Com o nosso projeto criado e aberto no Visual Studio, vamos edita-lo e criar alguns componentes. Enquanto isso vamos conhecendo um pouco mais da ferramenta.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_3.png" alt="Tela do nosso projeto aberto no Visual Studio" /></p>
+
+<p>Vamos fazer algo simples, da barra de ferramentas (Toolbox) arrastaremos alguns componentes para o nosso Windows Form.</p>
+
+<ul>
+  <li>2 Button</li>
+  <li>2 Label</li>
+  <li>2 TextBox</li>
+</ul>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_4.png" alt="Tela contendo os componentes arrastados" /></p>
+
+<p>Edite a propriedade Text dos <em>Buttons</em> e dos <em>Labels</em>.</p>
+
+<ul>
+  <li>Button1 = Confirmar</li>
+  <li>Button2 = Sair</li>
+  <li>Label1 = Nome</li>
+  <li>Label2 = E-mail</li>
+</ul>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_5.png" alt="Tela com a propriedade Text alterada dos TextBox e das Labels" /></p>
+
+<p>Agora vamos codificar os botões. Primeiro clique duas vezes sobre o botão <em>Sair</em> e digite a linha abaixo. Esse será o comando que informaremos ao Form (this) que ele deverá ser fechado.</p>
+
+<p>[code=’csharp’] DialogResult mensagem = MessageBox.Show(“Deseja finalizar a aplicação?”, “Encerrar”, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2); if (mensagem == System.Windows.Forms.DialogResult.Yes) { this.Close(); } [/code]</p>
+
+<p>Aperte a tecla F5 ou clique no menu principal <em>Debug &gt; Starting Debugging</em>.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_6.png" alt="Tela com a pergunta se deseja encerrar" /></p>
+
+<p>Codificaremos o botão confirmar. Clique duas vezes sobre o botão <em>Confirmar</em> e digite o código abaixo.</p>
+
+<p>[code=’csharp’] string nome = textBox1.Text; string email = textBox2.Text; if (nome.Length &gt; 0 &amp;&amp; email.Length &gt; 0) { string mensagem = string.Format(“Olá {0}, o e-mail informado foi {1}”, nome, email); MessageBox.Show(mensagem, “Mensagem”, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1); } [/code]</p>
+
+<p>Aperte a tecla F5 ou clique no menu principal <em>Debug &gt; Starting Debugging</em>.</p>
+
+<p>Preencha os campos com seu nome e e-mail para realizar o teste.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_7.png" alt="Tela com o resultado da execução" /></p>
+
+<p>Adicione um novo botão ao nosso Form e altere a propriedade Text para <em>Abrir Form</em>.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_8.png" alt="Tela com o novo botão" /></p>
+
+<p>Adicione um novo Form ao projeto. Clique com o botão direito sobre o projeto e <em>Add &gt; Windows Form</em>.</p>
+
+<p><img src="/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_9.png" alt="Tela de como adicionar um novo Form" /></p>
+
+<p>Clique duas vezes sobre esse novo botão adicionado ao Form1 e vamos adicionar uma nova ação. Essa ação irá chamar o Form2. Digite o código abaixo.</p>
+
+<p>[code=’csharp’] Form2 form2 = new Form2(); form2.ShowDialog(); [/code]</p>
+
+<p>Aperte a tecla F5 ou clique no menu principal <em>Debug &gt; Starting Debugging</em>.</p>
+
+<p>Clique no botão <em>Abrir Form</em> e terá o resultado abaixo.</p>
+
+<p><img src="/wp-content/uploads/2015/03/aprender_a_programar_em_csharp_3_10.png" alt="Tela do resultado quando botão Abrir Form é clicado" /></p>
+
+<p>Até aqui foi possível você aprender como criar um formulário, fazer chamada a outros formulários, adicionar e utilizar componentes e como alterar suas propriedades.</p>
+
+<p>Para a <a href="/aprender-a-programar-em-csharp-parte-4/">Parte 4</a> desse artigo, iremos abordar o uso de banco de dados.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/aprender_programar_csharp_parte3">Github</a>.</p>
+
+<p>Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

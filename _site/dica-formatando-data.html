@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Formatando Data</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Formatando Data</h2>		
+	<time datetime="2008-10-29T02:24:45-02:00" class="by-line">
+		
+		29
+		Outubro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá leitor, a dica de hoje será como fazer formatação de data em C#. Para isso mostrarei os formatos existentes:</p>
+
+<ul>
+  <li><strong>d</strong> - MM/dd/yyyy</li>
+  <li><strong>D</strong> - dddd, MMMM dd, yyyy</li>
+  <li><strong>f</strong> - dddd, MMMM dd, yyyy HH:mm</li>
+  <li><strong>F</strong> - dddd, MMMM dd, yyyy HH:mm:ss</li>
+  <li><strong>g</strong> - MM/dd/yyyy HH:mm</li>
+  <li><strong>G</strong> - MM/dd/yyyy HH:mm:ss</li>
+  <li><strong>m, M</strong> - MMMM dd</li>
+  <li><strong>r, R</strong> - Ddd, dd MMM yyyy HH’:’mm’:’ss ‘GMT’</li>
+  <li><strong>s</strong> - yyyy-MM-dd HH:mm:ss</li>
+  <li><strong>S</strong> - yyyy-MM-dd HH:mm:ss GMT</li>
+  <li><strong>t</strong> - HH:mm</li>
+  <li><strong>T</strong> - HH:mm:ss</li>
+  <li><strong>u</strong> - yyyy-MM-dd HH:mm:ss</li>
+  <li><strong>U</strong> - dddd, MMMM dd, yyyy HH:mm:ss</li>
+  <li><strong>y, Y</strong> - MMMM, yyyy</li>
+</ul>
+
+<p>Alguns exemplos: Exemplo 1 [sourcecode language=’csharp’] DateTime Data = DateTime.Now; string DataFormato = Data.ToString(“D”); [/sourcecode] Exemplo 2 [sourcecode language=’csharp’] DateTime Data = DateTime.Now; string DataFormato = Data.ToString(“F”); [/sourcecode] Exemplo 3 [sourcecode language=’csharp’] DateTime Data = DateTime.Now; string DataFormato = Data.ToString(“G”); [/sourcecode] Exemplo 4 [sourcecode language=’csharp’] DateTime Data = DateTime.Now; string DataFormato = Data.ToString(“S”); [/sourcecode] Exemplo 4 [sourcecode language=’csharp’] DateTime Data = DateTime.Now; string DataFormato = Data.ToString(“T”); [/sourcecode] Agora teste alguns exemplos e veja o resultado. Abraço e sucesso!!!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

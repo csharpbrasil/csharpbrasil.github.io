@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Tornando um código obsoleto em .NET</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Tornando um código obsoleto em .NET</h2>		
+	<time datetime="2009-01-18T03:16:55-02:00" class="by-line">
+		
+		18
+		Janeiro
+		  
+		2009
+	</time>
+	<div class="content">
+
+		<p>Já ocorreu de precisarmos criar uma classe conteúdo algumas funcionalidades básicas mais usadas e algumas dessas deixaram de ser úteis ou sofreram algum tipo de evolução. OK, mais e as aplicações que utiliza essa nossa classe, como identificar? Em .NET existe o atributo <strong><em>Obsolete</em></strong>, que pode marcar em nossa classe se ele é um código obsoleto e até mesmo impedir que ele seja compilado. Segue abaixo como utiliza-lo [sourcecode language=’csharp’] [Obsolete(“Utilize o método PesquisarCliente()”)] public DataSet ListarClientes() { // Aqui vai o codigo antigo return new DataSet(); } public DataSet PesquisarClientes() { // Aqui vai o codigo novo return new DataSet(); } [/sourcecode] No caso acima, se utilizarmos o método <em>ListarClientes()</em> seremos avisado de que o método é obsoleto e que poderemos utilizar o método <em>PesquisarClientes()</em> como alternativa. Mais e se caso eu queira forçar a substituição do método pelo programador? Segue abaixo. [sourcecode language=’csharp’] [Obsolete(“Utilize o método PesquisarCliente()”, true)] public DataSet ListarClientes() { // Aqui vai o codigo antigo return new DataSet(); } public DataSet PesquisarClientes() { // Aqui vai o codigo novo return new DataSet(); } [/sourcecode] Se observar bem, verá que foi informado um novo parâmetro no atributo <em>Obsolete</em>. Informamos <em>true</em> para que seja exibido erro quando for utilizado o nosso método antigo ou até mesmo onde já esteja utilizando. Esse atributo é ideal para nossas métodos que não sofreram evolução e necessitam ser substituidas. Fica ai a dica. Abraço e sucesso!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

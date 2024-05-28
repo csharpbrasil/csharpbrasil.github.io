@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Converter um DataSet em XML</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Converter um DataSet em XML</h2>		
+	<time datetime="2009-11-24T14:00:46-02:00" class="by-line">
+		
+		24
+		Novembro
+		  
+		2009
+	</time>
+	<div class="content">
+
+		<p>Como você faria para converter um DataSet em XML?</p>
+
+<p>Imagine que você esta desenvolvendo um WebService e que os dados serão recebidos por ele e esses dados gravados em formato XML no disco para que depois uma segunda aplicação possa processa-la.</p>
+
+<p>Criaremos aqui uma função simples que fará esse processo de geração do XML e gravação em disco.</p>
+
+<p>[sourcecode language=’csharp’] /// /// Converte um DataSet para XML em disco /// /// Nosso DataSet /// Caminho e nome do arquivo xml a ser gravado public void GravaXML(DataSet ds, string CaminhoXML) { if (ds != null &amp;&amp; ds.Tables.Count &gt; 0) { ds.WriteXml(CaminhoXML); } } ///  /// Converte um DataTable para XML em disco ///  /// Nosso DataTable /// Caminho e nome do arquivo xml a ser gravado public void GravaXML(DataTable dt, string CaminhoXML) { if (dt != null) { DataSet ds = new DataSet(); ds.Tables.Add(dt); GravaXML(ds, CaminhoXML); } } [/sourcecode]</p>
+
+<p>Nesse caso criei um função com um overload, ou seja, teremos dois metodos com mesmo nome mais que aceitaram parametros diferentes. Para ambos informaremos o caminho completo do arquivo que desejamos gravar e ou segundo será o objeto que desejamos converter. Para um será informado um DataSet e para o outro um DataTable.</p>
+
+<p>Repare que o segundo metodo irá fazer uma chamada para o primeiro. Fiz isso para poupar o trabalho de reescrever o mesmo código.</p>
+
+<p><em><strong>Uma dica:</strong> Junte todas essas funcionalidades que geralmente você sempre utiliza e crie uma classe. Assim seus projetos ficaram mais organizados e faceis de serem gerenciados.</em></p>
+
+<p>Espero que essa dica seja útil.</p>
+
+<p>Abraço e até a próxima.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Desenvolvimento de Website com ASP.NET e SQL Server - Parte 5</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Desenvolvimento de Website com ASP.NET e SQL Server - Parte 5</h2>		
+	<time datetime="2012-02-23T07:24:47-02:00" class="by-line">
+		
+		23
+		Fevereiro
+		  
+		2012
+	</time>
+	<div class="content">
+
+		<p>Olá caro leitor! Você acompanhou até aqui o desenvolvimento de website com ASP.NET e SQL Server. Se não acompanhou, acesse:</p>
+
+<ul>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 1">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 1</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-2/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 2">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 2</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-3/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 3">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 3</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-4/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 4">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 4</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-5/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 5">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 5</a></li>
+</ul>
+
+<p>Hoje iremos finalizar nosso projeto realizando o desenvolvimento das funcionalidades principais do nosso painel de controle. Iremos abordar os seguintes tópicos:</p>
+
+<ul>
+  <li>Criação das telas de gerenciamento de páginas</li>
+  <li>Uso do CK Editor</li>
+  <li>Link para encerrar sessão do usuário</li>
+</ul>
+
+<p>Para iniciarmos, faça o download do fonte do projeto disponibilizado no <a href="https://github.com/csharpbrasil/projeto-website-aspnet">Github</a>.</p>
+
+<p>Na teoria, as funcionalidades para o gerenciamento das páginas serão as mesmas que dos usuários com a diferença que iremos utilizar o CK Editor como nosso editor. Para iniciar, vamos criar a nossa página <em>gerenciar_paginas.aspx</em>. Você já fez isso antes, então não tem segredo. Clique com o botão direito sobre a pasta painel e em seguida <em>Add new item</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0012.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0012-300x265.jpg" alt="" title="image001" /></a> Defina o nome para nossa página. Ela irá se chamar <em>gerenciar_paginas.aspx</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0022.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0022-300x185.jpg" alt="" title="image002" /></a> Defina a MasterPage. Atente-se a selecionar a MasterPage do painel de controle. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0032.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0032-300x183.jpg" alt="" title="image003" /></a> A página ficará semelhante à de usuários. Essa página conterá um GridView para listar as páginas. Para preencher esse GridView utilizaremos um <em>ObjectDataSource</em>. Então, adicione um <em>GridView</em>, um <em>ObjectDataSource</em> e um <em>Button</em>. O Button será usado para nos direcionar para a página de cadastro. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0042.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0042-300x161.jpg" alt="" title="image004" /></a> Clique em cima do <em>ObjectDataSource</em>, e clique na seta para selecionar a opção <em>Configure Data Source</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image005.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image005-300x97.png" alt="" title="image005" /></a> Na janela de configuração selecione o nosso objeto <em>WebSite.Business.Paginas</em> pois é nele que contem nossas regras de negocio. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0061.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0061-300x240.jpg" alt="" title="image006" /></a> Selecionaremos a opção para <em>ListaPaginas</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0072.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0072-300x240.jpg" alt="" title="image007" /></a> Antes de concluir, clique na aba <em>DELETE</em> e selecione a o método <em>ExcluiPagina</em> e em seguida clique no botão <em>Finish</em> para concluirmos. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0082.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0082-300x240.jpg" alt="" title="image008" /></a> Agora que temos definido a opção de excluir e listar as páginas, vamos configurar nosso GridView. Para isso associaremos no GridView o ObjectDataSource. Clique no GridView e na seta que aparece no canto superior direito clique e seleciona o ObjectDataSource na opção <em>Choose Data Source</em>. Aproveite e selecione as opções <em>Enable Paging</em> e <em>Enable Deleting</em>. Essas opções irão habilitar a paginação e o link para excluir registro. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0092.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0092-300x191.jpg" alt="" title="image009" /></a> Vamos definir no GridView qual é o <em>DataKeyNames</em>. No nosso caso informaremos <em>DataKeysName</em> igual <em>Id</em> e foi como fizemos no caso dos usuários. Assim sendo, estamos informando ao GridView que a chave de cada registro será o <em>Id</em> e essa será utilizada quando formos excluir algum registro. Para definir o DataKeyNames, clique no GridView e vá em <em>properties</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image010.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image010-156x300.png" alt="" title="image010" /></a> É possível definir mais de um, mais nesse caso não será necessário. Agora defina um estilo para o GridView. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image011.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image011-300x147.jpg" alt="" title="image011" /></a> Agora já temos nosso resultado. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0121.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0121-300x161.jpg" alt="" title="image012" /></a> Vamos definir a funcionalidade do nosso botão Nova página. De duplo clique e vamos atribuir o evento. [sourcecode language=’csharp’] protected void btnNovaPagina_Click(object sender, EventArgs e) { Response.Redirect(“editar_pagina.aspx”); } [/sourcecode] Crie uma nova página. Ela deverá se chamar <em>editar_pagina.aspx</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image013.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image013-241x300.png" alt="" title="image013" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0141.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0141-300x185.jpg" alt="" title="image014" /></a> Defina a MasterPage do painel de controle. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0151.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0151-300x183.jpg" alt="" title="image015" /></a> Antes de darmos continuidade, nessa página iremos precisar do CKEditor e para isso precisaremos realizar o download. Faça o download do <em>CKEditor</em> e do <em>CKEditor for ASP.NET</em>. Ele será usado como nosso editor HTML. Acesse o link direto da versão utilizada:</p>
+
+<ul>
+  <li><a href="http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.2/ckeditor_3.6.2.zip">CKEditor</a></li>
+  <li><a href="http://download.cksource.com/CKEditor/CKEditor.NET/CKEditor.NET%203.6.2/ckeditor_aspnet_3.6.2.zip">CKEditor for ASP.NET</a></li>
+</ul>
+
+<p>Agora adicionaremos o <em>CKEditor for ASP.NET</em> ao nossa Toolbox do Visual Studio. Descompacte o arquivo que fizemos o download. Clique em Add Tab, defina o nome e em seguida clique em <em>Choose Item</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image016.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image016-156x300.png" alt="" title="image016" /></a> Procure o arquivo do <em>CKEditor</em> e adicione. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0171.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0171-300x215.jpg" alt="" title="image017" /></a> Agora é só utiliza-lo em nosso projeto. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image018.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image018-278x300.png" alt="" title="image018" /></a> Agora abra a página <em>editar_pagina.aspx</em> para adicionarmos os campos necessários para a edição da pagina. Inclua 1 <em>HiddenField</em>, 1 <em>TextBox</em>, 1 <em>CheckBox</em>, 2 <em>Button</em> e o <em>CKEditor</em> conforme o código abaixo. [sourcecode language=’html’]</p>
+
+<h3 id="nova-página">Nova página</h3>
+
+<p>Titulo<br />
+Texto</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[/sourcecode] Se você executar a página agora, o <em>CKEditor for ASP.NET</em> não irá ser exibido. Para isso precisaremos copiar o <em>CKEditor</em> que realizamos o download para dentro do nosso projeto. Abra a pasta onde está salvo o projeto e copie para a raiz. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0191.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0191-300x207.jpg" alt="" title="image019" /></a> Agora sim nosso <em>CKEditor</em> irá aparecer. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0201.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0201-300x161.jpg" alt="" title="image020" /></a> O CKEditor possui muitas funcionalidades, mais muitas delas serão desnecessárias para nós nesse momento. Como desativar? Basta editar a propriedade <em>ToolbarFull</em>. Altere o conteúdo da propriedade incluindo o texto abaixo: [sourcecode language=’html’] Cut</td>
+      <td>Copy</td>
+      <td>Paste</td>
+      <td>PasteText</td>
+      <td>PasteFromWord</td>
+      <td>-</td>
+      <td>Print</td>
+      <td>SpellChecker</td>
+      <td>Scayt</td>
+      <td>Undo</td>
+      <td>Redo</td>
+      <td>-</td>
+      <td>Find</td>
+      <td>Replace</td>
+      <td>-</td>
+      <td>SelectAll / Bold</td>
+      <td>Italic</td>
+      <td>Underline</td>
+      <td>Strike</td>
+      <td>-</td>
+      <td>Subscript</td>
+      <td>Superscript</td>
+      <td>NumberedList</td>
+      <td>BulletedList</td>
+      <td>-</td>
+      <td>Outdent</td>
+      <td>Indent</td>
+      <td>Blockquote</td>
+      <td>JustifyLeft</td>
+      <td>JustifyCenter</td>
+      <td>JustifyRight</td>
+      <td>JustifyBlock</td>
+      <td>Link</td>
+      <td>Unlink</td>
+      <td>Anchor</td>
+      <td>Image</td>
+      <td>Table</td>
+      <td>HorizontalRule</td>
+      <td>Smiley</td>
+      <td>SpecialChar / Styles</td>
+      <td>Format</td>
+      <td>Font</td>
+      <td>FontSize</td>
+      <td>TextColor</td>
+      <td>BGColor</td>
+      <td>Maximize</td>
+      <td>Source [/sourcecode] Agora ficou assim nosso editor. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0211.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0211-300x161.jpg" alt="" title="image021" /></a> Com a nossa página definida, vamos implementar nosso código. No CodeBehind da página, adiciona referencia a nossa classe de negocio e de entidades. [sourcecode language=’csharp’] using UsuariosBO = WebSite.Business.Usuarios; using Usuarios = WebSite.Entities.Usuarios; [/sourcecode] Agora daremos um duplo clique no botão Salvar para implementarmos o código que salvará os dados da nova página. O código do botão ficara assim. [sourcecode language=’csharp’] protected void btnSalvar_Click(object sender, EventArgs e) { int Id; int.TryParse(hdfId.Value, out Id); string Titulo = txtTitulo.Text; string Texto = txtTexto.Text; bool Ativo = chkAtivo.Checked; Paginas pagina = new Paginas(); pagina.Id = Id; pagina.Titulo = Titulo; pagina.Texto = Texto; pagina.Ativo = Ativo; PaginasBO paginasBO = new PaginasBO(); bool Salvou = paginasBO.SalvaPagina(pagina); if (Salvou) { Response.Redirect(“gerenciar_paginas.aspx”); } } [/sourcecode] No código estamos recebendo todos os dados e os atribuindo na classe <em>Paginas</em> para posteriormente salva-lo. Após ser salvo, seremos redirecionados para a página que lista todas as nossas páginas criadas. Vamos atribuir código ao botão cancelar para que o usuário possa desistir de editar os dados. De duplo clique sobre o botão Cancelar. [sourcecode language=’csharp’] protected void btnCancelar_Click(object sender, EventArgs e) { Response.Redirect(“gerenciar_paginas.aspx”); } [/sourcecode] Como ficará nosso código HTML. [sourcecode language=’html’] &lt;%@ Page Title=”” Language=”C#” MasterPageFile=”~/painel/MasterPage.master” AutoEventWireup=”true” CodeFile=”editar_pagina.aspx.cs” Inherits=”painel_editar_pagina” %&gt; &lt;%@ Register Assembly=”CKEditor.NET” Namespace=”CKEditor.NET” TagPrefix=”CKEditor” %&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="nova-página-1">Nova página</h3>
+
+<p>Titulo<br />
+Texto</p>
+
+<p>[/sourcecode] E o código CodeBehind ficará dessa forma. [sourcecode language=’csharp’] using System; using System.Collections.Generic; using System.Linq; using System.Web; using System.Web.UI; using System.Web.UI.WebControls; using PaginasBO = WebSite.Business.Paginas; using Paginas = WebSite.Entities.Paginas; public partial class painel_editar_pagina : System.Web.UI.Page { protected void Page_Load(object sender, EventArgs e) { } protected void btnSalvar_Click(object sender, EventArgs e) { int Id; int.TryParse(hdfId.Value, out Id); string Titulo = txtTitulo.Text; string Texto = txtTexto.Text; bool Ativo = chkAtivo.Checked; Paginas pagina = new Paginas(); pagina.Id = Id; pagina.Titulo = Titulo; pagina.Texto = Texto; pagina.Ativo = Ativo; PaginasBO paginasBO = new PaginasBO(); bool Salvou = paginasBO.SalvaPagina(pagina); if (Salvou) { Response.Redirect(“gerenciar_paginas.aspx”); } } protected void btnCancelar_Click(object sender, EventArgs e) { Response.Redirect(“gerenciar_paginas.aspx”); } } [/sourcecode] Vamos implementar agora a página para que seja possível editar as páginas criadas. Clique sobre o GridView da página de gerencia e clique na seta no canto superior direito em seguinda clique no link <em>Edit Column</em>. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0221.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0221-300x187.jpg" alt="" title="image022" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0231.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0231-300x230.jpg" alt="" title="image023" /></a> Selecione um <em>HyperLinkField</em> e adicione. Mova até o inicio da lista. Selecione o <em>HyperLinkField</em> adicionado e defina o <em>Text</em>, <em>DataNavigationUrlFields</em> e <em>DataNavigationUrlFormat</em> e em seguida clique no botão OK. Teste a página. Será necessário agora implementarmos em nossa página de edição de páginas a opção para receber uma <em>QueryString</em> para buscar os dados. Vamos implementar o <em>Page_Load</em>. [sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { if (!IsPostBack) { if (Request.QueryString[“id”] != null) { int Id; int.TryParse(Request.QueryString[“id”], out Id); PaginasBO paginasBO = new PaginasBO(); Paginas pagina = paginasBO.ListaPaginas(new Paginas(Id)).FirstOrDefault(); hdfId.Value = pagina.Id.ToString(); txtTitulo.Text = pagina.Titulo; txtTexto.Text = pagina.Texto; chkAtivo.Checked = pagina.Ativo; } } } [/sourcecode] Agora teste sua página. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0241.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0241-300x161.jpg" alt="" title="image024" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0251.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0251-300x161.jpg" alt="" title="image025" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0261.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0261-300x161.jpg" alt="" title="image026" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image027.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image027-300x161.jpg" alt="" title="image027" /></a> Agora o resultado da edição de uma das minhas páginas. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0281.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0281-300x161.jpg" alt="" title="image028" /></a> Existe um detalhe importante que não mencionei. As páginas que eu desativo continuam aparecer. Vamos mudar o código do nosso menu. No foreach que monta o menu, vamos fazer um verificação se a página está ativa. Veja como fica o código. [sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { // Instancia da classe de Negocio WebSite.Business.Paginas paginasBO = new WebSite.Business.Paginas(); // Chamada ao metodo que lista todas as paginas que irá gerar um array das mesmas WebSite.Entities.Paginas[] paginas = paginasBO.ListaPaginas(); // Realizando um laço de repetição no array para ler cada registro foreach (WebSite.Entities.Paginas pagina in paginas) { if (pagina.Ativo) { // Formatando a string para que seja gerado uma saida conforme exemplo //*   Titulo Pagina
+string mnu = string.Format(“*   <a href="\&quot;pagina.aspx?id={0}\&quot;">{1}</a>
+“, pagina.Id, pagina.Titulo); // Atribuindo o texto gerado no Server Control Literal ltlItensMenu.Text += mnu; } } } [/sourcecode] Agora para finalizar crie uma página chamado <em>sair.aspx</em>. Essa não necessita ser utilizando a MasterPage pois ela será usada para encerrar a sessão do painel de controle. <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0291.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0291-300x185.jpg" alt="" title="image029" /></a> Agora vamos implementar o código no evento Page_Load que irá destruir a Session relacionada ao login do usuário. [sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { Session.Remove(“PainelAutenticado”); Session.Remove(“Usuario”); Response.Redirect(“login.aspx”); } [/sourcecode] Assim concluímos o projeto proposto. Se você acha que ele para por ai, você tem inúmeras possibilidade basta ter criatividade e implementar em seu projeto. Espero ter sido claro ao longo dos artigos e que não tenha deixado nenhuma dúvida. Fiquem a vontade de abrir um tópico no Forum para postar suas dúvidas e discutir as melhores praticas no desenvolvimento de um projeto com ASP.NET. Podem postar comentários que estarei pronto para responder.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/projeto-website-aspnet">Github</a></p>
+
+<p>Não deixe de participar do fórum. Siga o C# Brasil no Twitter e Facebook. Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

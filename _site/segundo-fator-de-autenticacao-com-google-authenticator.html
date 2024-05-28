@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Segundo fator de autenticação com Google Authenticator</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Segundo fator de autenticação com Google Authenticator</h2>		
+	<time datetime="2014-01-23T07:00:19-02:00" class="by-line">
+		
+		23
+		Janeiro
+		  
+		2014
+	</time>
+	<div class="content">
+
+		<p>Você já pensou em alguma forma de melhorar a segurança de seu aplicativo seja ele web ou desktop? Saiba que com pouco trabalho você pode implementar em sua aplicação o uso do segundo fator de autenticação. Mais o que vem a ser o segundo fator de autenticação?</p>
+
+<p>O segundo fator de autenticação é um método de segurança que podemos usar em nossa aplicação como um complemento que alem de o usuário informar os dados de login, ele deverá informar uma senha aleatória gerada por um dispositivo chamado Token. Normalmente o Token é um dispositivo físico que nos casos mais comuns geram senhas aleatórias baseadas no tempo que mudam a cada intervalo de segundo ou a cada nova solicitação. Alguns bancos utilizam-se desses dispositivos para reforçar a segurança do acesso e das transações.</p>
+
+<p>Existe também os dispositivos virtuais que normalmente são utilizados em dispositivos como os Smartphones.</p>
+
+<p>Nesse artigos, irei abordar a utilização do Google Authenticator em nosso aplicativo.</p>
+
+<p>Para quem não conhece, o Google Authenticatior é um aplicativo que gera esses códigos aleatórios. Ele está presente hoje para Android, IOS e Blackberry.</p>
+
+<p>Com esse mesmo aplicativo você pode utilizar a verificação do segundo fator de segurança em sua conta do Google por exemplo. Existem outros grandes portais que utilizam do Google Authenticatior, tais como o DropBox e Amazon.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator1.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator1-150x150.png" alt="Google Authenticator" /></a></p>
+
+<p>É possível adicionar essa funcionalidade em seu portal e você somente precisará de um dispositivo virtual (Smartphone) para utilizar o Google Authenticator.</p>
+
+<p>Para exemplificar, criei um formulário onde eu terei uma chave secreta e um identificador. Nesse caso, a chave será conhecida para o exemplo, porem o ideal que ela seja secreta. Já o identificador, ele é usado para identificar a conta no Google Authenticator e não é usado como parametro do calculo. No entanto que no próprio Google Authenticator é possível renomea-lo.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator2.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator2-150x150.png" alt="Formulário de geração do segundo fator" /></a></p>
+
+<p>Ao preencher o formulário, é gerado o QR Code na qual utilizarei para configurar o Google Authenticator com uma nova conta.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator3.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator3-150x150.png" alt="Leitura de um código de barra" /></a></p>
+
+<p>E ao ler esse QR Code, é gerado a nossa nova conta.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator4.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator4-150x150.png" alt="Google Authenticator com a conta configurada" /></a></p>
+
+<p>Para o teste, eu criei um outro formulário onde eu informarei o código exibido no Google Authenticator.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator5.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator5-150x150.png" alt="Teste do código gerado pelo Google Authenticator" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator6.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator6-150x150.png" alt="Teste do código gerado pelo Google Authenticator" /></a></p>
+
+<p>Porém, se o código mudar no Google Authenticator e eu ainda informar o anterior, o verificar não irá aceitar. Isso porque passou-se o tempo e o novo código foi gerado.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator7.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/01/google_authenticator7-150x150.png" alt="Teste do código gerado pelo Google Authenticator" /></a></p>
+
+<p>Para que você implemente em sua aplicação, inicialmente você terá que parametrizar a opção para que o usuário escolha usar ou não o Token. Outro ponto importante é, implementar uma forma de ele poder acessar ou recuperar o acesso caso ele perca o dispositivo de Token ou não o tenha em mãos. Lembrando de que não poderá abrir mão da segurança, ou seja, você deverá implementar uma forma alternativa ao token. No caso do Google, ele nos fornece uma tabela com códigos de segurança onde cada código somente pode ser usado uma unica vez.</p>
+
+<p>Deverá ser implementado também em sua aplicação a possibilidade de habilitar e configurar o dispositivo, ou seja, o usuário acessar o portal, habilita o parâmetro e configura o Token da mesma forma como fizemos no exemplo.</p>
+
+<p>Assim, quando tudo certo e o parâmetro estiver ativo, no momento do login o usuário deverá informar as credenciais e o código do token.</p>
+
+<p>Para que você possa estudar e implementar essa funcionalidade em sua aplicação, vou disponibilizar o meu código de exemplo para download.</p>
+
+<p>Em caso de dúvidas, poderá deixar seu comentário ou acessar o nosso <a href="https://raphaelcardoso.com.br/forum">fórum</a>.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/GoogleAuthentication">Github</a>.</p>
+
+<p>Abraço e até a próxima!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

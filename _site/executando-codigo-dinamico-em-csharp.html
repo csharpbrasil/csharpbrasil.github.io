@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Executando código dinâmico em C-Sharp</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Executando código dinâmico em C-Sharp</h2>		
+	<time datetime="2008-11-22T15:04:30-02:00" class="by-line">
+		
+		22
+		Novembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Quem já não pensou em como seria possível executar um código C#(c-sharp) dentro de uma aplicação? Sim, é possível e mais simples do que se imagina. Como isso funciona?</p>
+
+<ol>
+  <li>Informaremos nosso código para a aplicação</li>
+  <li>No código da aplicação já seria referenciado as DLLs possíveis que seria permitido (isso é muito importante)</li>
+  <li>Nosso código será compilado</li>
+  <li>Caso não ocorra erro, a aplicação ira executar o código do modo esperado.</li>
+  <li>Caso ocorra erro, será apresentado os detalhes do erro</li>
+</ol>
+
+<p>Então vamos colocar em pratica!!! Iniciaremos um novo projeto do tipo Windows Form (WinForm) e adicione nele 1 button com o nome de btnExecutar e 1 TextBox com nome de txtCodigo e a propriedade Multiline igual a true. Ainda no nosso txtCodigo deveremos adicionar um código inicial na propriedade Text. Segue ele abaixo. [sourcecode language=’csharp’] using System; using System.IO; using System.Windows.Forms; namespace MyNamespace { public class MyClass { public object DynamicCode(params object[] Parameters) { int A = 100; int B = 40; int Resultado = A + B; return (object)Resultado; } } } [/sourcecode] Feito isso, iremos referenciar as namespaces necessárias para a execução da nossa aplicação. [sourcecode language=’csharp’] using System.CodeDom.Compiler; using Microsoft.CSharp; using System.Reflection; [/sourcecode] Agora vamos ao código do nosso botão Executar. [sourcecode language=’csharp’] private void btnExecutar_Click(object sender, EventArgs e) { // Cria instancia do compilador ICodeCompiler loCompiler = new CSharpCodeProvider().CreateCompiler(); // Cria instancia dos parametros CompilerParameters loParameters = new CompilerParameters(); // Parametros atribuidos loParameters.ReferencedAssemblies.Add(“System.dll”); loParameters.ReferencedAssemblies.Add(“System.Windows.Forms.dll”); loParameters.GenerateInMemory = true; // Cria instancia do resultado da compilação CompilerResults loCompiled = loCompiler.CompileAssemblyFromSource(loParameters, txtCodigo.Text); // Verifica a existencia de erro if (loCompiled.Errors.HasErrors) { string lcErrorMsg = “”; lcErrorMsg = loCompiled.Errors.Count.ToString() + “ Erro:”; for (int x = 0; x &lt; loCompiled.Errors.Count; x++) { lcErrorMsg = lcErrorMsg + “\r\nLinha: “ + loCompiled.Errors[x].Line.ToString() + “ - “ + loCompiled.Errors[x].ErrorText; } MessageBox.Show(lcErrorMsg + “\r\n\r\n” + txtCodigo.Text, “Compilação”, MessageBoxButtons.OK, MessageBoxIcon.Error); return; } // Cria instancia do assemble compilado Assembly loAssembly = loCompiled.CompiledAssembly; object loObject = loAssembly.CreateInstance(“MyNamespace.MyClass”); // Verifica se é possivel carrega-lo if (loObject == null) { MessageBox.Show(“Não foi possivel carregar a Classe.”); return; } object[] loCodeParms = new object[1]; loCodeParms[0] = string.Empty; try { // Executa nosso assemble dinamico e retorna resultado object loResult = loObject.GetType().InvokeMember(“DynamicCode”, BindingFlags.InvokeMethod, null, loObject, loCodeParms); // Exibe uma mensagem com o resultado MessageBox.Show(“Resultado do metodo chamado:\r\n\r\n” + loResult.ToString(), “Compilação”, MessageBoxButtons.OK, MessageBoxIcon.Information); } catch (Exception loError) { // Mensagem caso ocorra erro MessageBox.Show(loError.Message, “Compilação”, MessageBoxButtons.OK, MessageBoxIcon.Information); } } [/sourcecode] Pronto! Basta executar nosso código para vermos o resultado. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/11/executandocodigodinamico001-1.jpg" alt="" title="executandocodigodinamico001" /> Caso ocorra algum erro a aplicação ira lhe informar. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/11/executandocodigodinamico002-1.jpg" alt="" title="executandocodigodinamico002" /> Bom, agora é só adicionar mais recursos e terá resultados interessantes. Dúvidas? Deixe seu comentário! Abraço e sucesso!!!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

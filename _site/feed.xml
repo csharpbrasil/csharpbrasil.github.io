@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-28T20:00:06-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">C# Brasil | Unindo paixão e código</title><subtitle>O blog do C# Brasil sobre Tecnologia e desenvolvimento</subtitle><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><entry><title type="html">Criando aplicação Web com ASP.NET Core MVC – Parte 2</title><link href="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-2" rel="alternate" type="text/html" title="Criando aplicação Web com ASP.NET Core MVC – Parte 2" /><published>2019-05-30T08:00:19-03:00</published><updated>2019-05-30T08:00:19-03:00</updated><id>http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-2</id><content type="html" xml:base="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-2"><![CDATA[<h2 id="resumo">Resumo</h2>
+
+<p>Na primeira parte dessa série de artigos, iniciamos explicando o significado da sigla MVC e sobre o ASP.NET Core para depois abordamos sobre as caracteristicas do nosso projeto e dar início ao desenvolvimento.</p>
+
+<p>Você vai ver ainda ao logo dessa série assuntos variados para que possamos enriquecer nosso projeto com funcionalidades bem úteis. Ainda poderemos fazer uma breve abordagem sobre segurança e testes unitários.</p>
+
+<p>Então, vamos ao que interessa.</p>
+
+<h3 id="continuando-o-desenvolvimento">Continuando o desenvolvimento</h3>
+
+<p>Para dar continuidade ao projeto, será necessario que você faça o download do fonte que está disponibilizado no <a href="https://github.com/csharpbrasil/CriandoAplicacaoAspNetCore">Github</a>.</p>
+
+<h4 id="consulta-de-usuários">Consulta de usuários</h4>
+
+<p>Após autenticar no painel adminitrativo, a primeira visão que o usuário terá é do menu superior com algumas funcionalidades do painel e dentre elas, vamos disponibilizar uma área que permita-nos gerenciar os usuários cadastrados.</p>
+
+<p>Normalmente em um sistema usamos permissão para essas ações, mas a principio, qualquer usuário que tiver acesso ao painel, poderá editar e utilizar todas as funcionalidades existentes.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_painel_administrativo-1024x553.png" alt="" /></p>
+
+<p>Dando sequencia em nosso projeto, vamos criar a tela onde iremos consultar os usuários cadastrados. Para isso, incluiremos um novo controle na area do painel.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/novo_controller.png" alt="" /></p>
+
+<p>Definaremos o nome como UsuarioController.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/novo_controller_usuario.png" alt="" /></p>
+
+<p>E incluiremos a consulta para listar todos os usuários cadastrados.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">CriandoAplicacaoAspNetCore.Model.Dtos</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">CriandoAplicacaoAspNetCore.Model.Interfaces</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Authorization</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Mvc</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CriandoAplicacaoAspNetCore.WebApp.Areas.Painel.Controllers</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="nf">Area</span><span class="p">(</span><span class="s">"Painel"</span><span class="p">)]</span>
+    <span class="p">[</span><span class="n">Authorize</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">UsuarioController</span> <span class="p">:</span> <span class="n">Controller</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">IUsuarioBusiness</span> <span class="n">_usuarioBusiness</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="nf">UsuarioController</span><span class="p">(</span><span class="n">IUsuarioBusiness</span> <span class="n">usuarioBusiness</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">_usuarioBusiness</span> <span class="p">=</span> <span class="n">usuarioBusiness</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Consultar</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">usuarios</span> <span class="p">=</span> <span class="n">_usuarioBusiness</span><span class="p">.</span><span class="nf">Filtrar</span><span class="p">();</span>
+
+            <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">usuarios</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Criaremos também a view referente a tela de consulta de usuários.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">@model</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">CriandoAplicacaoAspNetCore</span><span class="p">.</span><span class="n">Model</span><span class="p">.</span><span class="n">Dtos</span><span class="p">.</span><span class="n">UsuarioDto</span><span class="p">&gt;</span>
+<span class="err">@</span><span class="p">{</span>
+    <span class="n">ViewData</span><span class="p">[</span><span class="s">"Title"</span><span class="p">]</span> <span class="p">=</span> <span class="s">"Usuários"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="err">="</span><span class="nc">row</span><span class="s">"&gt;
+</span>    <span class="p">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="err">="</span><span class="nc">col</span><span class="s">"&gt;
+</span>        <span class="p">&lt;</span><span class="n">h2</span> <span class="k">class</span><span class="err">="</span><span class="nc">display</span><span class="p">-</span><span class="m">4</span><span class="s">"&gt;Consultar Usuários&lt;/h2&gt;
+</span>    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="err">="</span><span class="nc">row</span> <span class="n">mt</span><span class="p">-</span><span class="m">4</span> <span class="n">mb</span><span class="p">-</span><span class="m">4</span><span class="s">"&gt;
+</span>    <span class="p">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="err">="</span><span class="nc">col</span><span class="s">"&gt;
+</span>        <span class="p">&lt;</span><span class="n">a</span> <span class="k">class</span><span class="err">="</span><span class="nc">btn</span> <span class="n">btn</span><span class="p">-</span><span class="n">primary</span><span class="s">" asp-area="</span><span class="n">Painel</span><span class="s">" asp-controller="</span><span class="n">Usuario</span><span class="s">" asp-action="</span><span class="n">Novo</span><span class="s">"&gt;&lt;i class="</span><span class="n">fas</span> <span class="n">fa</span><span class="p">-</span><span class="n">plus</span><span class="p">-</span><span class="n">circle</span><span class="s">"&gt;&lt;/i&gt; Novo&lt;/a&gt;
+</span>    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="err">="</span><span class="nc">row</span><span class="s">"&gt;
+</span>    <span class="p">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="err">="</span><span class="nc">col</span><span class="s">"&gt;
+</span>        <span class="p">&lt;</span><span class="n">table</span> <span class="k">class</span><span class="err">="</span><span class="nc">table</span> <span class="n">table</span><span class="p">-</span><span class="n">striped</span> <span class="n">table</span><span class="p">-</span><span class="n">bordered</span> <span class="n">table</span><span class="p">-</span><span class="n">hover</span><span class="s">"&gt;
+</span>            <span class="p">&lt;</span><span class="n">thead</span> <span class="k">class</span><span class="err">="</span><span class="nc">thead</span><span class="p">-</span><span class="n">dark</span><span class="s">"&gt;
+</span>                <span class="p">&lt;</span><span class="n">tr</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="n">th</span> <span class="n">scope</span><span class="p">=</span><span class="s">"col"</span><span class="p">&gt;</span><span class="err">#</span><span class="p">&lt;/</span><span class="n">th</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="n">th</span> <span class="n">scope</span><span class="p">=</span><span class="s">"col"</span><span class="p">&gt;</span><span class="n">Nome</span><span class="p">&lt;/</span><span class="n">th</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="n">th</span> <span class="n">scope</span><span class="p">=</span><span class="s">"col"</span><span class="p">&gt;</span><span class="n">Login</span><span class="p">&lt;/</span><span class="n">th</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="n">th</span> <span class="n">scope</span><span class="p">=</span><span class="s">"col"</span><span class="p">&gt;</span><span class="n">Email</span><span class="p">&lt;/</span><span class="n">th</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="n">tr</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="n">thead</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="n">tbody</span><span class="p">&gt;</span>
+                <span class="nf">@foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">item</span> <span class="k">in</span> <span class="n">Model</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="p">&lt;</span><span class="n">tr</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="n">th</span> <span class="n">scope</span><span class="p">=</span><span class="s">"row"</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="n">a</span> <span class="k">class</span><span class="err">="</span><span class="nc">btn</span> <span class="n">btn</span><span class="p">-</span><span class="n">info</span> <span class="n">btn</span><span class="p">-</span><span class="n">sm</span><span class="s">" asp-area="</span><span class="n">Painel</span><span class="s">" asp-controller="</span><span class="n">Usuario</span><span class="s">" asp-action="</span><span class="n">Editar</span><span class="s">" asp-route-id="</span><span class="n">@item</span><span class="p">.</span><span class="n">IdUsuario</span><span class="s">"&gt;&lt;i class="</span><span class="n">fas</span> <span class="n">fa</span><span class="p">-</span><span class="n">pen</span><span class="p">-</span><span class="n">alt</span><span class="s">"&gt;&lt;/i&gt;&lt;/a&gt;
+</span>                            <span class="p">&lt;</span><span class="n">a</span> <span class="k">class</span><span class="err">="</span><span class="nc">btn</span> <span class="n">btn</span><span class="p">-</span><span class="n">danger</span> <span class="n">btn</span><span class="p">-</span><span class="n">sm</span><span class="s">" asp-area="</span><span class="n">Painel</span><span class="s">" asp-controller="</span><span class="n">Usuario</span><span class="s">" asp-action="</span><span class="n">Excluir</span><span class="s">" asp-route-id="</span><span class="n">@item</span><span class="p">.</span><span class="n">IdUsuario</span><span class="s">"&gt;&lt;i class="</span><span class="n">fas</span> <span class="n">fa</span><span class="p">-</span><span class="n">trash</span><span class="p">-</span><span class="n">alt</span><span class="s">"&gt;&lt;/i&gt;&lt;/a&gt;
+</span>                        <span class="p">&lt;/</span><span class="n">th</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="n">td</span><span class="p">&gt;</span><span class="n">@item</span><span class="p">.</span><span class="n">Nome</span><span class="p">&lt;/</span><span class="n">td</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="n">td</span><span class="p">&gt;</span><span class="n">@item</span><span class="p">.</span><span class="n">Login</span><span class="p">&lt;/</span><span class="n">td</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="n">td</span><span class="p">&gt;</span><span class="n">@item</span><span class="p">.</span><span class="n">Email</span><span class="p">&lt;/</span><span class="n">td</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="n">tr</span><span class="p">&gt;</span>
+                <span class="p">}</span>
+            <span class="p">&lt;/</span><span class="n">tbody</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="n">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span></code></pre></figure>
+
+<p>Ao executar nosso projeto, teremos agora a lista de todos os usuários cadastrados.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/consulta_usuarios-1024x553.png" alt="" /></p>
+
+<h4 id="melhorando-a-segurança">Melhorando a segurança</h4>
+
+<p>Se reparar, a nossa senha esta armazenada de forma que qualquer um que tenha acesso ao nosso banco de dados poderá visualiza-la.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/senha_banco.png" alt="" /></p>
+
+<p>Para melhorar a segurança, não vamos mais armazenar nossa senha, mas sim o hash.</p>
+
+<p>Criaremos um novo projeto contendo nosso <strong><em>SecurityManager.cs</em></strong> que será responsável por criar e validar nosso hash.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Cryptography.KeyDerivation</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Security.Cryptography</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CriandoAplicacaoAspNetCore.Utils</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">SecurityManager</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">ITERATION_COUNT</span> <span class="p">=</span> <span class="m">10000</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">CreateSalt</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">generator</span> <span class="p">=</span> <span class="n">RandomNumberGenerator</span><span class="p">.</span><span class="nf">Create</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="kt">byte</span><span class="p">[]</span> <span class="n">randomBytes</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="m">128</span> <span class="p">/</span> <span class="m">8</span><span class="p">];</span>
+                <span class="n">generator</span><span class="p">.</span><span class="nf">GetBytes</span><span class="p">(</span><span class="n">randomBytes</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">Convert</span><span class="p">.</span><span class="nf">ToBase64String</span><span class="p">(</span><span class="n">randomBytes</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">CreateHash</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">string</span> <span class="n">salt</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">valueBytes</span> <span class="p">=</span> <span class="n">KeyDerivation</span><span class="p">.</span><span class="nf">Pbkdf2</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="k">value</span><span class="p">,</span> <span class="n">salt</span><span class="p">:</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="nf">GetBytes</span><span class="p">(</span><span class="n">salt</span><span class="p">),</span>
+                                                  <span class="n">prf</span><span class="p">:</span> <span class="n">KeyDerivationPrf</span><span class="p">.</span><span class="n">HMACSHA512</span><span class="p">,</span> <span class="n">iterationCount</span><span class="p">:</span> <span class="n">ITERATION_COUNT</span><span class="p">,</span>
+                                                  <span class="n">numBytesRequested</span><span class="p">:</span> <span class="m">256</span> <span class="p">/</span> <span class="m">8</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">Convert</span><span class="p">.</span><span class="nf">ToBase64String</span><span class="p">(</span><span class="n">valueBytes</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="nf">Validate</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">string</span> <span class="n">salt</span><span class="p">,</span> <span class="kt">string</span> <span class="n">hash</span><span class="p">)</span>
+            <span class="p">=&gt;</span> <span class="nf">CreateHash</span><span class="p">(</span><span class="k">value</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span> <span class="p">==</span> <span class="n">hash</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> </code></pre></figure>
+
+<p>E agora vamos alterar a autenticação do usuário para que ele passe a fazer uso da validação pelo hash.</p>
+
+<p>Primeiro, vamos remover a coluna de <strong><em>Senha</em></strong> e criar as Colunas para o <em><strong>Hash</strong></em> e outra para p <strong><em>Salt</em></strong>.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">Usuario</span> <span class="k">DROP</span> <span class="k">COLUMN</span> <span class="n">Senha</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">usuario</span> <span class="k">ADD</span> <span class="n">Hash</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">usuario</span> <span class="k">ADD</span> <span class="n">Salt</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span></code></pre></figure>
+
+<p>E atualizaremos a senha do usuário <em><strong>Admin</strong></em> para a senha padrão <em><strong>123456</strong></em>, porém, será armazenado somente o Hash e o Salt. Não teremos mais a senha gravada.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">UPDATE</span> <span class="n">Usuario</span> <span class="k">SET</span> <span class="n">Hash</span> <span class="o">=</span> <span class="s1">'NLAZBttBU8HbUrODUPQxViEDr1d7RMi4B/2F6yaKOrQ='</span><span class="p">,</span> <span class="n">Salt</span> <span class="o">=</span> <span class="s1">'Nkt8krN4/TBHUJXu4zEm6A=='</span> 
+<span class="k">WHERE</span> <span class="n">Login</span> <span class="o">=</span> <span class="s1">'admin'</span></code></pre></figure>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/hash_salt_banco.png" alt="" /></p>
+
+<p>Atualizaremos a entidade Usuario e a configuração do Entity Framework.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nn">CriandoAplicacaoAspNetCore.Model.Entities</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">class</span> <span class="nc">Usuario</span>
+	<span class="p">{</span>
+		<span class="k">public</span> <span class="k">virtual</span> <span class="kt">int</span> <span class="n">IdUsuario</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+		<span class="k">public</span> <span class="k">virtual</span> <span class="kt">string</span> <span class="n">Nome</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+		<span class="k">public</span> <span class="k">virtual</span> <span class="kt">string</span> <span class="n">Email</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+		<span class="k">public</span> <span class="k">virtual</span> <span class="kt">string</span> <span class="n">Login</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+		<span class="k">public</span> <span class="k">virtual</span> <span class="kt">string</span> <span class="n">Hash</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+		<span class="k">public</span> <span class="k">virtual</span> <span class="kt">string</span> <span class="n">Salt</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span> </code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">CriandoAplicacaoAspNetCore.Model.Entities</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore.Metadata.Builders</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CriandoAplicacaoAspNetCore.Data.Mapping</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">class</span> <span class="nc">UsuarioConfig</span> <span class="p">:</span> <span class="n">IEntityTypeConfiguration</span><span class="p">&lt;</span><span class="n">Usuario</span><span class="p">&gt;</span>
+	<span class="p">{</span>
+		<span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">EntityTypeBuilder</span><span class="p">&lt;</span><span class="n">Usuario</span><span class="p">&gt;</span> <span class="n">builder</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">ToTable</span><span class="p">(</span><span class="s">"Usuario"</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">HasKey</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">IdUsuario</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">Property</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">IdUsuario</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">Property</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Nome</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">Property</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Email</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">Property</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Login</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">Property</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Hash</span><span class="p">);</span>
+			<span class="n">builder</span><span class="p">.</span><span class="nf">Property</span><span class="p">(</span><span class="n">t</span> <span class="p">=&gt;</span> <span class="n">t</span><span class="p">.</span><span class="n">Salt</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Agora vamos alterar a autenticação do usuário para que seja validado atraves do hash.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">CriandoAplicacaoAspNetCore.Model.Dtos</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">CriandoAplicacaoAspNetCore.Model.Interfaces</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">CriandoAplicacaoAspNetCore.Utils</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">CriandoAplicacaoAspNetCore.Business</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">UsuarioBusiness</span> <span class="p">:</span> <span class="n">IUsuarioBusiness</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">IUnitOfWork</span> <span class="n">_unitOfWork</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="nf">UsuarioBusiness</span><span class="p">(</span><span class="n">IUnitOfWork</span> <span class="n">unitOfWork</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">_unitOfWork</span> <span class="p">=</span> <span class="n">unitOfWork</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">virtual</span> <span class="n">UsuarioDto</span> <span class="nf">Autenticar</span><span class="p">(</span><span class="n">LoginDto</span> <span class="n">loginDto</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">usuario</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">_unitOfWork</span>
+                <span class="p">.</span><span class="n">UsuarioRepository</span>
+                <span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="n">q</span> <span class="p">=&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">Login</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">().</span><span class="nf">Equals</span><span class="p">(</span><span class="n">loginDto</span><span class="p">.</span><span class="n">Usuario</span><span class="p">))</span>
+                <span class="p">.</span><span class="nf">FirstOrDefault</span><span class="p">();</span>
+
+            <span class="k">if</span> <span class="p">(!</span><span class="n">SecurityManager</span><span class="p">.</span><span class="nf">Validate</span><span class="p">(</span><span class="n">loginDto</span><span class="p">.</span><span class="n">Senha</span><span class="p">,</span> <span class="n">usuario</span><span class="p">.</span><span class="n">Salt</span><span class="p">,</span> <span class="n">usuario</span><span class="p">.</span><span class="n">Hash</span><span class="p">))</span>
+                <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="k">new</span> <span class="n">UsuarioDto</span>
+            <span class="p">{</span>
+                <span class="n">IdUsuario</span> <span class="p">=</span> <span class="n">usuario</span><span class="p">.</span><span class="n">IdUsuario</span><span class="p">,</span>
+                <span class="n">Nome</span> <span class="p">=</span> <span class="n">usuario</span><span class="p">.</span><span class="n">Nome</span><span class="p">,</span>
+                <span class="n">Email</span> <span class="p">=</span> <span class="n">usuario</span><span class="p">.</span><span class="n">Email</span><span class="p">,</span>
+                <span class="n">Login</span> <span class="p">=</span> <span class="n">usuario</span><span class="p">.</span><span class="n">Login</span>
+            <span class="p">};</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">UsuarioDto</span><span class="p">&gt;</span> <span class="nf">Filtrar</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">query</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">_unitOfWork</span>
+                <span class="p">.</span><span class="n">UsuarioRepository</span>
+                <span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">o</span> <span class="p">=&gt;</span> <span class="n">o</span><span class="p">.</span><span class="nf">OrderBy</span><span class="p">(</span><span class="n">u</span> <span class="p">=&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">Nome</span><span class="p">))</span>
+                <span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">UsuarioDto</span>
+                <span class="p">{</span>
+                    <span class="n">IdUsuario</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">IdUsuario</span><span class="p">,</span>
+                    <span class="n">Nome</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Nome</span><span class="p">,</span>
+                    <span class="n">Email</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Email</span><span class="p">,</span>
+                    <span class="n">Login</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Login</span>
+                <span class="p">});</span>
+            <span class="k">return</span> <span class="n">query</span><span class="p">.</span><span class="nf">ToList</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Feito isso, o usuário passará a se autenticar informando a senha, porém para validar será necessário buscar o usuário no banco de dados, pegar a senha informada juntamente com o Hash e o Salt para validar.</p>
+
+<p>Dessa forma garantimos que mesmo que um usuário mal intensionado tenha acesso ao banco de dados e consiga roubar o hash e o salt, não teria como ter acesso ao sistema por não ter a senha do usuário e para descobrir a senha.</p>
+
+<p>Em caso de o usuário esquecer a senha, será necessário resetar a senha, gerando uma nova aleatória para que ele possa alterar em outro momeno. No caso de ele necessitar alterar a senha, será necessário que ele informe a senha atual e informa nova senha. Mas essa será uma implementação futura.</p>
+
+<h4 id="inclusão-edição-e-exclusão-de-usuários">Inclusão, edição e exclusão de usuários</h4>
+
+<p>Agora para completar a funcionalidade de cadastro de usuários, será necessário criar o formulário para inclusão e edição de usuários, além da opção para exclusão.</p>
+
+<p>Seguindo os passos anteriores, vamos criar uma nova View.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/nova_view_salvar.png" alt="" /></p>
+
+<p>Teremos uma view para listar a Consulta de Usuários e uma View para Salvar. Essa view de Salvar, será usado tanto para Novo quanto para edição. O detalhe é que para Novo, teremos o campo senha sendo exibido, já na edição, não iremos editar a senha.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_novo_usuario-1024x553.png" alt="" /></p>
+
+<p>Tela de cadastro de usuário</p>
+
+<p>Não me preocupei muito com valiação dos campos. A principio iremos nos preocupar em criar as funcionalidades.</p>
+
+<p>Teremos também a tela de edição de usuário.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_editar_usuario-1024x553.png" alt="" /></p>
+
+<p>Em ambas as funcionalidades, iremos utilizar o <a href="http://bootboxjs.com/">Bootbox</a>, biblioteca que facilitar a criação de modal utilizando o <a href="https://getbootstrap.com/">Bootstrap</a>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_editar_usuario_mensagem_sucesso-1024x553.png" alt="" /></p>
+
+<p>Para a exclusão, iremos fazer uso do bootbox para informar ao usuário sobre a ação que ele esta executando e permitir que ele escolha continuar ou não.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_excluir_usuario-1024x553.png" alt="" /></p>
+
+<p>E o usuário é alertado sobre a execução que acabou de ser realizada, dando a opção para ele clicar no botão <em>OK</em> e regarregar a página de consulta de usuários.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_usuario_excluido_sucesso-1024x553.png" alt="" /></p>
+
+<p>Com isso temos a nossa funcionalidade de cadastro de usuários praticamente pronto. É claro que poderiamos colocar validações dos campos, opção para checar se o login já esta cadastrado e até dar opção para que o usuário possa alterar a senha. Mas deixaremos essas funcionalidades para uma outra ocasião.</p>
+
+<p>Para os próximos artigos, iremos abordar a implementação de algumas outras funcionalidades ou até quem sabe melhorias das atuais.</p>
+
+<p>Caso tenha alguma dúvida ou sugestão, pode mandar para mim.</p>
+
+<h4 id="referências">Referências</h4>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/mvc/views/layout">Layout no ASP.NET Core</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/mvc/views/tag-helpers/built-in">Auxiliares de marcação internos do ASP.NET Core</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/mvc/views/razor">Referência da sintaxe Razor para ASP.NET Core</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/security/data-protection/consumer-apis/password-hashing">Hash de senhas no ASP.NET Core</a></li>
+  <li><a href="http://bootboxjs.com/">Bootbox.js</a></li>
+</ul>
+
+<h4 id="fonte-do-projeto">Fonte do projeto</h4>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/CriandoAplicacaoAspNetCore">Github</a>.</p>
+
+<p>Abraço e bom estudo!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term=".NET Core" /><category term="aspnet-core" /><category term="aspnet-core-mvc" /><category term="C#" /><category term="C#" /><category term="Criando Aplicação Web" /><category term="Criando Aplicação Web com ASP.NET Core MVC" /><category term="dotnetcore" /><category term="Linux" /><category term="Mac" /><category term="Windows" /><summary type="html"><![CDATA[Resumo]]></summary></entry><entry><title type="html">Criando aplicação Web com ASP.NET Core MVC - Parte 1</title><link href="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1" rel="alternate" type="text/html" title="Criando aplicação Web com ASP.NET Core MVC - Parte 1" /><published>2018-08-23T13:50:28-03:00</published><updated>2018-08-23T13:50:28-03:00</updated><id>http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1</id><content type="html" xml:base="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1"><![CDATA[<h2 id="introdução">Introdução</h2>
+
+<p>Como de costume, estou trazendo mais uma série de artigos e dessa vez falaremos sobre como criar aplicação web com ASP.NET Core MVC. Nesse artigo foi realizar o passo a passo para que você tenha conhecimento para explorar esse mais novo recurso. Sendo assim, esse série tem como principal foco o desenvolvimento de uma aplicação web utilizando-se da tecnologia mais comentada do momento e seguindo um dos padrões mais populares quando o assunto é desenvolvimento Web.</p>
+
+<p>Esse artigo é para todos aqueles que tenha um conhecimento prévio de desenvolvimento web com HTML, CSS e JavaScript, além de também conhecimento em C# e banco de dados. Se você não tiver conhecimento em C#, aconselho ler meu artigo <strong><a href="https://raphaelcardoso.com.br/aprender-a-programar-em-csharp-parte-1/">Aprender a programar em C#</a></strong>.</p>
+
+<p>Então vamos ao que interessa.</p>
+
+<h3 id="sobre-o-padrão-mvc">Sobre o padrão MVC</h3>
+
+<p>A sigla <strong>MVC</strong> é o acrónimo de <em>Model-View-Controller</em> (Modelo-Visão-Controlador), padrão de arquitetura de software que divide um determinado aplicativo de software em três partes interconectadas, de modo a separar as representações internas de informações das formas pelas quais as informações são apresentadas ou aceitas pelo usuário.</p>
+
+<h3 id="sobre-o-aspnet-core">Sobre o ASP.NET Core</h3>
+
+<p>O <a href="https://github.com/aspnet/Home">ASP.NET Core</a> é um projeto enxuto para criação de aplicações web, open source, multiplataforma (disponível para Windows, Mac e Linux) e que está disponível no Github. Ele é uma evolução do ASP.NET, com uma arquitetura mais exuta e modular que pode ser executado desenvolvido e executado em sua plataforma favorita.</p>
+
+<p>Para saber mais sobre o ASP.NET Core, leia a <a href="https://docs.microsoft.com/pt-br/aspnet/core/?view=aspnetcore-2.1">Introdução ao ASP.NET Core</a>.</p>
+
+<h4 id="configurando-o-nosso-ambiente">Configurando o nosso ambiente</h4>
+
+<p>Para que possamos iniciar o desenvolvido, é necessário instalar algumas ferramentas dependendo do sistema operacional que esteja utilizando:</p>
+
+<ul>
+  <li><a href="https://www.microsoft.com/net/download/all">SDK do .NET Core 2.2 ou posterior</a></li>
+  <li><a href="https://code.visualstudio.com/">Visual Studio Code</a>, <a href="https://visualstudio.microsoft.com/pt-br/downloads/">Microsoft Visual Studio 2017</a> ou <a href="https://www.monodevelop.com/download/">MonoDevelop</a></li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp">C# para Visual Studio Code</a></li>
+  <li><a href="https://www.microsoft.com/pt-br/sql-server/sql-server-downloads">Microsoft SQL Server 2017 Express</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms">SQL Server Management Studio</a> ou <a href="https://docs.microsoft.com/pt-br/sql/sql-operations-studio/download?view=sql-server-2017">SQL Operation Studio</a></li>
+</ul>
+
+<p>Quanto o uso da IDE, poderá utilizar qualquer uma das citadas. Vale ressaltar que diferente do Visual Studio Code e do MonoDevelop, o Microsoft Visual Studio é exclusivo do Windows. Sendo assim, para Mac e Linux deverá fazer uso dos outros dois citados.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/0_mono_develop.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/0_mono_develop-1024x576.jpg" alt="" /></a></p>
+
+<p>Caso esteja utilizando o Mac, o SQL Server deverá ser executado em um Container no Docker, já para sistemas Linux, também poderá ser executado em um Container ou instalado diretamente caso sua versão seja suportada.</p>
+
+<p>Para que possamos nos conectar ao SQL Server, utilizaremos o SQL Server Management Studio para Windows e o SQL Operation Studio para qualquer sistema operacional, seja ele Linux, Mac ou Windows.</p>
+
+<p>Com nosso ambiente configurado, podemos iniciar a criação do projeto.</p>
+
+<h4 id="informações-sobre-o-projeto">Informações sobre o projeto</h4>
+
+<p>Antes de iniciarmos o desenvolvimento do nosso projeto, é importante citar alguns pontos que iremos abordar inicialmente. O desafio será criar uma aplicação web completa.</p>
+
+<p>O projeto será desenvolvido utilizando os seguintes recursos:</p>
+
+<ul>
+  <li>ASP.NET Core MVC</li>
+  <li>Bootstrap</li>
+  <li>Font Awesome</li>
+  <li>Entity Framework Core</li>
+  <li>SQL Server</li>
+</ul>
+
+<p>Nessa primeira parte teremos as seguintes funcionalidades:</p>
+
+<ul>
+  <li><strong>Acesso protegido por senha:</strong> Para que o usuário possa utilizar a aplicação, será necessário informar login e senha para ter acesso as funcionalidades da aplicação;</li>
+</ul>
+
+<h4 id="iniciando-o-desenvolvimento">Iniciando o desenvolvimento</h4>
+
+<p>Abra o Visual Studio para criarmos a estrutura do projeto clicando em <em>File &gt; New Project</em>, selecionando <em>ASP.NET Core Web Application</em> e em seguinda escolhendo a opção <em>Web Application (Model-View-Controller)</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/1_criar_solution_e_webapp.jpg" alt="" /></p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/2_definir_tipo_aplicacao.png" alt="" /></p>
+
+<p>Dessa forma já teremos um projeto padrão em ASP.NET Core MVC funcionando.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/3_projeto_padrao-1024x553.png" alt="" /></p>
+
+<p>O próximo passo é criar mais 3 novos projetos do tipo Class Library.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/4_projeto_class_library.jpg" alt="" /></p>
+
+<p>Sendo assim, teremos:</p>
+
+<ul>
+  <li>Business: Camada onde teremos nossa regra de negócio;</li>
+  <li>Data: Camada responsável pela interface de conexão com o banco de dados;</li>
+  <li>Model: Camada que conterá todos as nossas entidade, Dtos, etc.</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/4_projeto_class_library.jpg" alt="" /></p>
+
+<p>Para seguirmos com o nosso desenvolvimento, vamos analisar a estrutura do projeto Web Application.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/6_estrutura_projeto_web.jpg" alt="" /></p>
+
+<p>Analisando a estrutura temos:</p>
+
+<ul>
+  <li><strong>wwwroot</strong>: diretório que contem arquivos estativos como imagens, javascripts, css, e outros;</li>
+  <li><strong>Areas</strong>: diretório que permite organizar nossa aplicação de forma que facilite a manutenção. No nosso projeto por exemplo, teremos uma área especifica para o nosso painel de controle e ainda poderia ter uma área para acesso de cliente ou até com divisões relacionados a negócio.</li>
+  <li><strong>Controllers</strong>: como o próprio nome diz, é o diretório que contem os controllers utilizados no projeto;</li>
+  <li><strong>Models</strong>: diretório dos arquivos de models utilizados pelas Views e pelas Controllers;</li>
+  <li><strong>Views</strong>: diretorio que irá conter outros subdiretorios. Esses subdiretorios estarão relacionados diretamente com os controllers, ou seja, teremos as views de cada controller alem de views, partial views e layout utilizados;</li>
+  <li><strong>Program.cs</strong>: arquivo principal responsavel por inicializar a aplicação;</li>
+  <li><strong>Startup.cs</strong>: possui configurações de nosso projeto, tais como, definição de rotas, ativação de recursos relacionados ao ASP.NET Core ou ao projeto</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/7_estrutura_wwwroot.jpg" alt="" /></p>
+
+<p>Feito isso, vamos configurar os Layouts, Views e Controllers.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/8_estrutura_projeto.jpg" alt="" /></p>
+
+<p>Foi criado um layout para o login e um layout para o próprio painel. Separamos o SideBar, NavBar e Profile do layout para arquivos separados para facilitar o entendimento e manutenção.</p>
+
+<p>Repare que temos os diretórios, <em>Home</em> e <em>Secure</em>. No <em>Home</em> temos o <em>Index</em> do painel de controle e no <em>Secure</em> temos a View de <em>Login</em>.</p>
+
+<p>Em relação ao banco de dados, criaremos a tabela <em>Usuario</em>. Para essa primeira parte iremos somente autenticar no painel.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE TABLE Usuario
+(
+	IdUsuario INT IDENTITY(1, 1) NOT NULL,
+	Nome VARCHAR(100) NOT NULL,
+	Email VARCHAR(150) NULL,
+	Login VARCHAR(50) NOT NULL,
+	Senha VARCHAR(50) NOT NULL,
+	CONSTRAINT PK_Usuario PRIMARY KEY (IdUsuario)
+)
+GO
+</code></pre></div></div>
+
+<p>Vamos incluir também o usuário administrador</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSERT INTO Usuario (Nome, Login, Senha) VALUES ('Administrador', 'admin', '123456')
+</code></pre></div></div>
+
+<p>Para a camada de Dados, criamos o ApplicationContext e o repositório de usuários. O ApplicationContext é a classe que implementa o DbContext que é responsável por abrir conexão de nossa aplicação com o banco de dados. Já o repositório nos permitirá utilizar o ApplicationContext para interagir com nossas tabelas realizando operações de consulta, inclusão, exclusão e atualização. Inicialmente teremos somente o repositório de usuário para que possamos implementar a autenticação.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using CriandoAplicacaoAspNetCore.Data.Mapping;
+using CriandoAplicacaoAspNetCore.Model.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace CriandoAplicacaoAspNetCore.Data
+{
+    public class ApplicationContext : DbContext
+    {
+        public DbSet Usuarios { get; set; }
+
+        public ApplicationContext(DbContextOptions options)
+        : base(options)
+        {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UsuarioConfig());
+        }
+    }
+}
+</code></pre></div></div>
+<p>using System;
+using CriandoAplicacaoAspNetCore.Model.Entities;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;</p>
+
+<p>namespace CriandoAplicacaoAspNetCore.Data.Repositories
+{
+    public class UsuarioRepository : GenericRepository, IUsuarioRepository
+    {
+        public UsuarioRepository(ApplicationContext context)
+        : base(context)
+        {
+        }
+    }
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Repare que nosso repositório de usuário não possui nenhum metodo implementado. Ele herda do GenericRepository todas os métodos necessários.
+
+</code></pre></div></div>
+<p>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;
+using Microsoft.EntityFrameworkCore;</p>
+
+<p>namespace CriandoAplicacaoAspNetCore.Data.Repositories
+{
+    public abstract class GenericRepository : IGenericRepository where TEntity : class
+    {
+        private readonly ApplicationContext _context;
+        private readonly DbSet _dbSet;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    public GenericRepository(ApplicationContext context)
+    {
+        this._context = context;
+        this._dbSet = this._context.Set();
+    }
+
+    public virtual void Add(TEntity entity)
+    {
+        this._dbSet.Add(entity);
+    }
+
+    public virtual void AddRange(List list)
+    {
+        list.ForEach(this.Add);
+    }
+
+    public virtual TEntity GetById(int id)
+    {
+        return this._dbSet.Find(id);
+    }
+
+    public virtual IQueryable Get(Expression&lt;Func&lt;TEntity, bool&gt;&gt; expression = null, Func&lt;iqueryable, IOrderedQueryable&gt; orderby = null, string includes = "", bool noTracking = false)
+    {
+        IQueryable query = this._dbSet;
+
+        if (expression != null)
+        {
+            query = query.Where(expression);
+        }
+
+        foreach (var include in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        {
+            query = query.Include(include);
+        }
+
+        if (noTracking)
+            query = query.AsNoTracking();
+
+        if (orderby != null)
+        {
+            return orderby(query).AsQueryable();
+        }
+        else
+        {
+            return query;
+        }
+    }
+
+    public virtual void Update(TEntity entity)
+    {
+        this._context.Entry(entity).State = EntityState.Modified;
+    }
+
+    public virtual void Delete(int id)
+    {
+        var entity = this._dbSet.Find(id);
+        this._dbSet.Remove(entity);
+    }
+
+    public virtual void Delete(TEntity entity)
+    {
+        this._dbSet.Attach(entity);
+        this._dbSet.Remove(entity);
+    }
+
+    public virtual void Delete(Expression&lt;Func&lt;TEntity, bool&gt;&gt; expression)
+    {
+        foreach (var entity in this._dbSet.Where(expression).AsEnumerable())
+        {
+            this._dbSet.Remove(entity);
+        }
+    }
+
+    public virtual bool Any(int id)
+    {
+        return this._dbSet.Find(id) != null;
+    }
+
+    public virtual bool Any(Expression&lt;func&lt;tentity, bool&gt;&gt; expression)
+    {
+        return this._dbSet.Any(expression);
+    }
+} } ```
+</code></pre></div></div>
+
+<p>Na camada de negócio, criamos o código que irá autenticar o usuário.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using System.Linq;
+using System.Linq.Expressions;
+using CriandoAplicacaoAspNetCore.Model.Dtos;
+using CriandoAplicacaoAspNetCore.Model.Entities;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;
+
+namespace CriandoAplicacaoAspNetCore.Business
+{
+    public class UsuarioBusiness : IUsuarioBusiness
+    {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public UsuarioBusiness(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
+
+        public virtual UsuarioDto Autenticar(LoginDto loginDto)
+        {
+            Expression&lt;Func&lt;Usuario, bool&gt;&gt; expression = q =&gt; q.Login.ToLower().Equals(loginDto.Usuario) &amp;&amp; q.Senha.Equals(loginDto.Senha);
+            var usuarioDto = this._unitOfWork.UsuarioRepository
+                                             .Get(expression)
+                                             .Select(s =&gt; new UsuarioDto
+                                             {
+                                                 IdUsuario = s.IdUsuario,
+                                                 Nome = s.Nome,
+                                                 Email = s.Email,
+                                                 Login = s.Login
+                                             })
+                                             .FirstOrDefault();
+
+            return usuarioDto;
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>Não me preocupei muito com a parte de segurança nesse momento. Então, nossa senha estará armazenada no banco de dados sem nenhuma criptografia.</p>
+
+<p>Tendo agora nossa camada de dados e de negócio pronta, poderemos criar o controller que será o reponsável por interagir com a nossa view. Criamos então o controller do login em nosso Web Application.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using CriandoAplicacaoAspNetCore.Model.Dtos;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CriandoAplicacaoAspNetCore.WebApp.Areas.Painel.Controllers
+{
+    [Area("Painel")]
+    public class SecureController : Controller
+    {
+        private readonly IUsuarioBusiness _usuarioBusiness;
+
+        public SecureController(IUsuarioBusiness usuarioBusiness)
+        {
+            this._usuarioBusiness = usuarioBusiness;
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            var model = new LoginDto();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task Login(LoginDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = this._usuarioBusiness.Autenticar(model);
+
+                if (usuario != null)
+                {
+                    var claims = new List()
+                    {
+                    new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Nome),
+                    new Claim(ClaimTypes.GivenName, usuario.Login)
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        AllowRefresh = true,
+                        IsPersistent = true,
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(2)
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    model = new LoginDto();
+
+                    TempData["ErroAutenticacao"] = "Usuário ou senha inválido";
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Secure");
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>Em nosso controller temos três actions, uma responsável por exibir o formulário de login, que apesar de estar omitido, ele é do tipo HttpGet, outra action responsável por processar os dados submetidos, ou seja, irá receber a operação de Post do formulário de login e outra para deslogar o usuário.</p>
+
+<p>Para que possa entender melhor como é realizado a autenticação, o action de login, após receber os dados e autenticar, utilizamos os dados do usuário para gerar a lista de Claim para criação do cookies. Para saber mais, leia sobre como <a href="https://docs.microsoft.com/pt-br/aspnet/core/security/authentication/cookie">Usar autenticação de cookie sem o ASP.NET Core Identity</a>.</p>
+
+<p>Quando o usuário realizar a autenticação, será redirecionado para a tela inicial do painel. Se eu executar nosso projeto, terei acesso ao painel pelo porta 5000 que é padrão do ASP.NET Core.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/9_tela_login-1024x553.png" alt="" /></p>
+
+<p>Espero que com esse artigo você tenha conseguido entender um pouco do ASP.NET Core MVC que na minha opinião, quem já tem um conhecimento prévio do ASP.NET MVC conseguirá seguir tranquilamente com o desenvolvimento.</p>
+
+<p>Para os próximos artigos, iremos abordar a implementação de algumas telas. Caso tenha alguma dúvida ou sugestão, pode mandar para mim.</p>
+
+<h4 id="referências">Referências</h4>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/tutorials/first-mvc-app/start-mvc">Introdução ao ASP.NET Core MVC e ao Visual Studio</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/mvc/overview">Visão geral do ASP.NET Core MVC</a></li>
+  <li><a href="https://www.microsoft.com/pt-br/sql-server/sql-server-downloads">Download do SQL Server</a></li>
+</ul>
+
+<h4 id="fonte-do-projeto">Fonte do projeto</h4>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/CriandoAplicacaoAspNetCore">Github</a>.</p>
+
+<p>Abraço e bom estudo!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term=".NET Core" /><category term="aspnet-core" /><category term="aspnet-core-mvc" /><category term="C#" /><category term="C#" /><category term="claim" /><category term="Criando Aplicação Web" /><category term="Criando Aplicação Web com ASP.NET Core MVC" /><category term="dotnetcore" /><category term="Linux" /><category term="Mac" /><category term="MVC" /><category term="Windows" /><summary type="html"><![CDATA[Introdução]]></summary></entry><entry><title type="html">Testando seu código JavaScript com Jasmine</title><link href="http://localhost:4000/testando-seu-codigo-javascript-com-jasmine" rel="alternate" type="text/html" title="Testando seu código JavaScript com Jasmine" /><published>2018-08-13T08:30:02-03:00</published><updated>2018-08-13T08:30:02-03:00</updated><id>http://localhost:4000/testando-seu-codigo-javascript-com-jasmine</id><content type="html" xml:base="http://localhost:4000/testando-seu-codigo-javascript-com-jasmine"><![CDATA[<h2 id="o-que-é-o-jasmine">O que é o Jasmine?</h2>
+
+<p>Nos dias atuais, no âmbito do desenvolvimento de software, muito fala-se em qualidade de desenvolvimento e de entrega. Com isso, novos conceitos vão surgindo, automações de processos são aplicados e novas ferramentas são necessárias para facilitar e agilizar essas entregas.</p>
+
+<p>Para garantir que o que está sendo solicitado pelo nosso cliente está sendo realmente entregue com qualidade é importante que nossa aplicação seja testada. Mas imagina que antes de cada nova entrega nossa aplicação tenha que ser testada. Para uma aplicação pequena como um site institucional por exemplo é até fácil, agora imagine uma aplicação com diversos cadastros, como garantir que tudo está funcionando bem, com qualidade e o mais importante, que a aplicação não tenha quebrado com algum novo desenvolvimento ou até mesmo uma refatoração de código.</p>
+
+<p>Para aplicações desenvolvidas utilizando JavaScript, é possível garantir que tudo que foi desenvolvido possa estar 100% funcionando utilizando o Jasmine.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem1-300x83.png" alt="Jasmine" /></p>
+
+<p>Veja algumas das caracteristicas do Jasmine?</p>
+
+<ul>
+  <li>É um Framework utilizado para criar testes em JavaScript</li>
+  <li>Utiliza o conceito BDD, ou seja, testes guiados por comportamento</li>
+  <li>Possui sintaxe simples e de fácil leitura</li>
+  <li>Executa os testes no navegador ou por linha de comando</li>
+  <li>É independente de qualquer outro Framework</li>
+  <li>Pode ser usado em projetos NodeJs, Ruby ou Python</li>
+</ul>
+
+<h3 id="como-utilizar-em-meu-projeto">Como utilizar em meu projeto?</h3>
+
+<p>Existem algumas formas de utilizar e a mais simples delas é usando a versão standalone do Jasmine</p>
+
+<h4 id="versão-standalone">Versão Standalone</h4>
+
+<p>Para utilizar a versão standalone, basta fazer o seguinte:</p>
+
+<ul>
+  <li>Acesse o site do jasmine e efetue o download da última versão <a href="https://jasmine.github.io/">aqui</a></li>
+  <li>Descompactar no diretório raiz do nosso projeto</li>
+</ul>
+
+<p>No seu projeto teremos uma estrutura semelhante à imagem abaixo contendo o arquivo principal SpecRunner.html que irá ter associado a ele o Jasmine e as specs.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem2.png" alt="Estrutura do diretório da versão standalone do Jasmine" /></p>
+
+<p>Nessa mesma estrutura teremos a pasta src (source) contendo os arquivos fonte do nosso projeto e a pasta spec irá conter todos os arquivos javascript com códigos fonte de teste de nosso projeto.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem3.png" alt="Arquivo Spec Runner" /></p>
+
+<p>Um arquivo de spec de javascript é de facil leitura e conterá sempre as seguintes partes:</p>
+
+<ul>
+  <li><strong>Suite:</strong> representado pela função <strong><em>describe</em></strong> que por sua vez receberá dois parametros, sendo a descrição ou nome do teste e a função que conterá as specs ou outras partes importantes;</li>
+  <li><strong>Spec:</strong> representado pela função it, também irá receber dois parametros, sendo a descrição ou nome da spec e a função que conterá os matchers;</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem4.png" alt="Estrutura do arquivo de spec contendo uma Suite, uma Spec e um Matcher" /></p>
+
+<p>Para que que o Jasmine possa lhe retornar o resultado em um report conforme a imagem abaixo, você deverá abrir o aquivo SpecRunner.html no seu navegador padrão.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem5.png" alt="Relatório contendo o resultado de execução com sucesso do Jasmine" /></p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem6.png" alt="Relatório contendo o resultado de execução com falha do Jasmine" /></p>
+
+<p>Outra forma de executarmos os testes é usando o Karma. Esse por sua vez é um Test Runner que pode utilizar tanto o Jasmine quanto o Mocha ou QUnit.</p>
+
+<p>Se você tiver algum projeto desenvolvido com Angular, provavelmente ele já estará configurado para utilizar o Karma com o Jasmine para testes dos javascript.</p>
+
+<h4 id="executando-usando-o-karma">Executando usando o Karma</h4>
+
+<p>Antes de iniciar com o karma, será necessário instalar alguns pacotes.</p>
+
+<ul>
+  <li>Instalando os pacotes requeridos</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save-dev jasmine jasmine-core karma karma-chrome-launcher karma-jasmine
+</code></pre></div></div>
+
+<ul>
+  <li>Cria a estrutura do jasmine</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.\node_modules\.bin\jasmine init
+</code></pre></div></div>
+
+<ul>
+  <li>Cria a estrutura do karma</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.\node_modules\.bin\karma init
+</code></pre></div></div>
+
+<ul>
+  <li>Executar o karma</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.\node_modules\.bin\karma start
+</code></pre></div></div>
+
+<h3 id="um-pouco-sobre-alguns-matchers">Um pouco sobre alguns Matchers</h3>
+
+<ul>
+  <li><strong>toBe:</strong> Compara o valor e o tipo do objeto</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem7.png" alt="toBe" /></p>
+
+<p>toBe</p>
+
+<ul>
+  <li><strong>toEqual:</strong> Compara o valor do objeto</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem9.png" alt="toEqual" /></p>
+
+<p>toEqual</p>
+
+<ul>
+  <li><strong>toMatch:</strong> Comparação utilizando expressão regular</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem8.png" alt="toMatch" /></p>
+
+<p>toMatch</p>
+
+<ul>
+  <li><strong>toContain:</strong> Verifica se está contido no array</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem10.png" alt="toContain" /></p>
+
+<p>toContain</p>
+
+<ul>
+  <li><strong>not:</strong> Pode ser utilizado em conjunto com outros matchers para inverter a comparação</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem11.png" alt="not" /></p>
+
+<p>not</p>
+
+<h4 id="alguns-outros-matchers">Alguns outros matchers</h4>
+
+<ul>
+  <li>toBeUndefined</li>
+  <li>toBeDefined</li>
+  <li>toBeNull</li>
+  <li>toBeNaN</li>
+  <li>toThrow</li>
+  <li>toThrowError</li>
+</ul>
+
+<p>É possível criar seu próprio Matcher usando <em>jasmine.addMatchers</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem12.png" alt="jasmine.addMatchers" /></p>
+
+<p>jasmine.addMatchers</p>
+
+<p>Foi possível ver como é simples garantir a qualidade da entrega do nosso projeto utilizando a criação de teste de javascript usando o Jasmine.</p>
+
+<p>Deixarei disponível o fonte utilizado como exemplo para esse artigo.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/ferronicardoso/testando-javascript-com-jasmine">Github</a>.</p>
+
+<p>Abraço e bom estudo!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term="addMatchers" /><category term="bdd" /><category term="jasmine" /><category term="JavaScript" /><category term="JavaScript" /><category term="karma" /><category term="matcher" /><category term="NodeJS" /><category term="spec" /><category term="suite" /><category term="Teste Unitário" /><category term="toBe" /><category term="toContain" /><category term="toEqual" /><category term="toMatch" /><category term="Unit Test" /><summary type="html"><![CDATA[O que é o Jasmine?]]></summary></entry><entry><title type="html">Conhecendo e usando o LiteDb</title><link href="http://localhost:4000/conhecendo-e-usando-o-litedb" rel="alternate" type="text/html" title="Conhecendo e usando o LiteDb" /><published>2017-05-12T08:30:23-03:00</published><updated>2017-05-12T08:30:23-03:00</updated><id>http://localhost:4000/conhecendo-e-usando-o-litedb</id><content type="html" xml:base="http://localhost:4000/conhecendo-e-usando-o-litedb"><![CDATA[<p>O LiteDb é um banco de dados NoSql desenvolvido e mantido pelo Mauricio David. Você pode conhecer mais sobre acessando a <a href="http://www.litedb.org/">página do projeto</a>. Mas o que o LiteDb tem de diferença que os outros banco de dados NoSql não tem?</p>
+
+<ul>
+  <li>Não necessita de um servidor de documentos NoSql</li>
+  <li>Possui uma API simples muito semelhante ao do MongoDb</li>
+  <li>Pequena biblioteca desenvolvida 100% em código C# NET 3.5 / NETStandard 1.4</li>
+  <li>Suporte para Portable UWP/PCL</li>
+  <li>Recuperação de dados após falha de gravação</li>
+  <li>Criptografia de arquivo de dados usando criptografia DES (AES)</li>
+  <li>Transações ACID (atomicidade, consistência, isolamento e durabilidade)</li>
+  <li>Recuperação de dados após falha de gravação (journal mode)</li>
+  <li>Mapeie suas classes POCO para o BsonDocument usando atributos ou usando Fluent Mapper API</li>
+  <li>Armazenar arquivos e dados de fluxo (como GridFS no MongoDB)</li>
+  <li>Armazenamento de arquivos de dados simples (como SQLite)</li>
+  <li>Indexação de campos dos documentos para pesquisa rápida (até 16 índices por coleção)</li>
+  <li>Suporte a consultas LINQ</li>
+  <li>Shell de comando</li>
+  <li>Código-fonte aberto e gratuito, inclusive para uso comercial</li>
+  <li>Pode ser instalado via NuGet</li>
+</ul>
+
+<p>Para demonstrar o uso do LiteDb, vamos criar uma aplicação de cadastro simples, realizando as operações básicas como Consulta, Inclusão, Exclusão e Atualização. Iniciaremos criando um novo projeto, pra isso utilizarei o Visual Studio Community 2015. Abra-o e crie um novo projeto usando o template Windows Form Application. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_001-1.png" alt="Criando um novo projeto" /> No Form1 desse novo projeto adicionaremos 4 Button e 1 DataGridView. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_002-1.png" alt="Formulário do projeto" /> Com o nosso form criado, vamos adicionar a referencia do LiteDb usando o NuGet Package Manager. Pesquise por LiteDb e adicione ao projeto. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_003-1.png" alt="LiteDb - Nuget" /> Vamos agora criar o objeto necessário para o nosso projeto. Usaremos o objeto com o nome de Agenda e definiremos para ele qual a coluna é um Id e quais as colunas deverão ser indexadas. [code=’csharp’] using LiteDB; public class Agenda { [BsonId] public int Id { get; set; } [BsonIndex] public string Nome { get; set; } [BsonIndex] public string Email { get; set; } public string Telefone { get; set; } } [/code] Adicione um novo form e inclua nele 3 Label, 3 TextBox e 2 Button. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_004-1.png" alt="Formulário do Projeto" /> Agora vamos implementar o código responsavel em gravar os dados. Dê um duplo clique no button1 do Form2, esse botão será responsavel por incluir os dados. [code=’csharp’] private void button1_Click(object sender, EventArgs e) { var agenda = new Agenda(); agenda.Nome = textBox1.Text; agenda.Email = textBox2.Text; agenda.Telefone = textBox3.Text; using (var db = new LiteDatabase(“Filename=criandoUsandoLiteDb.db”)) { db.GetCollection().Insert(agenda); } this.Close(); } [/code] Repare no código anterior que para salvar simplesmente criamos uma instancia do objeto agenda, atribuimos os valores para ele e salvamos. Para testar precisamos criar um evento no botão incluir do form1. [code=’csharp’] private void button2_Click(object sender, EventArgs e) { var form2 = new Form2(); form2.ShowDialog(); } [/code] Ao executar nosso projeto, já podemos incluir registro no LiteDb. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_005-1.png" alt="Formulário do Projeto" /> E podemos confir se os dados estão lá usando o LiteDb Shell (falarei sobre ele mais para frente). <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_006-1.png" alt="LiteDb Shell" /> Agora em nosso form1 vamos implementar o botão que irá listar todos os dados no DataGridView. [code=’csharp’] private void button1_Click(object sender, EventArgs e) { using (var db = new LiteDatabase(“Filename=criandoUsandoLiteDb.db”)) { var agendas = db.GetCollection().FindAll().ToList(); dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect; dataGridView1.DataSource = agendas; } } [/code] <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_007-1.png" alt="Formulário do Projeto" /> Para realizar a atualização, vamos criar um novo form, o form3 e adicionar 4 Label, 4 TextBox e 2 Button; <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_008-1.png" alt="Formulário do Projeto" /> Precisaremos também fazer uma pequena mudança no form3 para que ele receba o id do registro para ser consultado e posteriormente editado. Alteraremos o construtor para receber o Id e carregar os dados para o formulário. [code=’csharp’] protected readonly int Id; protected Agenda agenda; public Form3(int id) { this.Id = id; InitializeComponent(); CarregaDados(); } private void CarregaDados() { using (var db = new LiteDatabase(“Filename=criandoUsandoLiteDb.db”)) { agenda = db.GetCollection().FindById(this.Id); } textBox1.Text = agenda.Id.ToString(); textBox2.Text = agenda.Nome; textBox3.Text = agenda.Email; textBox4.Text = agenda.Telefone; } [/code] Agora criaremos o evento para salvar os dados. [code=’csharp’] private void button1_Click(object sender, EventArgs e) { agenda.Nome = textBox2.Text; agenda.Email = textBox3.Text; agenda.Telefone = textBox4.Text; using (var db = new LiteDatabase(“Filename=criandoUsandoLiteDb.db”)) { db.GetCollection().Update(agenda); } this.Close(); } [/code] Voltando ao form1, vamos definir o evento do botão atualizar. [code=’csharp’] private void button3_Click(object sender, EventArgs e) { int id; int.TryParse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), out id); var form3 = new Form3(id); form3.ShowDialog(); } [/code] <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_009-1.png" alt="Formulário do Projeto" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_010-1.png" alt="Formulário do Projeto" /> Para concluir, iremos definir a opção de excluir. Vamos definir o evento do button4. [code=’csharp’] private void button4_Click(object sender, EventArgs e) { int id; int.TryParse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), out id); if (id &gt; 0) { var dialogResult = MessageBox.Show(“Deseja excluir o registro selecionado?”, “Excluir”, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2); if (dialogResult == DialogResult.Yes) { using (var db = new LiteDatabase(“Filename=criandoUsandoLiteDb.db”)) { db.GetCollection().Delete(id); } } } } [/code] <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_011-1.png" alt="Formulário do Projeto" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_012-1.png" alt="Formulário do Projeto" /> Como pode perceber, em nenhum momento foi preciso abrir qualquer tipo de gerenciador de banco de dados, tão pouco executar comandos SQL. Porem é possível criar as consultas utilizando expressão Linq ou o próprio Helper do LiteDb. [code=’csharp’] db.GetCollection().Find(x =&gt; x.Nome.Contains(“Pedro”)).ToList(); db.GetCollection().Find(Query.Contains(“Nome”, “Pedro”)); [/code] Outro ponto interessante que pode perceber que somente definimos um nome para o banco de dados e ele foi criado junto com o nosso executável. É possível gerenciar o banco criado, basta utilizar o LiteDb Shell que você irá encontrar <a href="https://github.com/mbdavid/LiteDB/releases">aqui</a> e consultar seu uso <a href="https://github.com/mbdavid/LiteDB/wiki/Shell">aqui</a>. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/04/criando_usando_litedb_013-1.png" alt="LiteDb Shell" /> Como pode perceber o LiteDb pode nos atender muito bem para pequenos e médios projetos, tanto para aplicações Windows, Web ou Mobile (esse ainda não vi funcionar mas a proposta parece muito boa). Não deixe de acompanhar o projeto no <a href="https://github.com/ferronicardoso/ConhecendoUsandoLiteDb">GitHub</a> e qualquer dúvida pode deixar seu comentário. Abraço e bom estudo!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term=".NET Core" /><category term="ASP.NET" /><category term="ASP.NET MVC" /><category term="Bson" /><category term="C#" /><category term="JSON" /><category term="LiteDb" /><category term="LiteDb" /><category term="Mauricio David" /><category term="NoSql" /><category term="NoSql" /><summary type="html"><![CDATA[O LiteDb é um banco de dados NoSql desenvolvido e mantido pelo Mauricio David. Você pode conhecer mais sobre acessando a página do projeto. Mas o que o LiteDb tem de diferença que os outros banco de dados NoSql não tem?]]></summary></entry><entry><title type="html">Criando Web Api com ASP.NET Core - Parte 1</title><link href="http://localhost:4000/criando-web-api-com-asp-net-core-parte-1" rel="alternate" type="text/html" title="Criando Web Api com ASP.NET Core - Parte 1" /><published>2017-02-16T08:00:49-02:00</published><updated>2017-02-16T08:00:49-02:00</updated><id>http://localhost:4000/criando-web-api-com-asp-net-core-parte-1</id><content type="html" xml:base="http://localhost:4000/criando-web-api-com-asp-net-core-parte-1"><![CDATA[<p>Daremos inicio a série de artigos Criando Web Api com ASP.NET Core. Antes disso, o que você precisa saber sobre o ASP.NET Core:</p>
+
+<ul>
+  <li>Nova geração do ASP.NET</li>
+  <li>Desenvolvido pela Microsoft e pela Comunidade</li>
+  <li>Open-source</li>
+  <li>Cross-Plataform</li>
+  <li>Modular</li>
+</ul>
+
+<p>Para saber mais, acesse o site da fundação <a href="https://dotnetfoundation.org/">.NET Foundation</a></p>
+
+<p>Para iniciar o projeto é necessário ter instalado o <strong>.NET Core e o Visual Studio 2017</strong> ou mais recente. Caso não tenha instalado, leia o artigo <a href="https://raphaelcardoso.com.br/instalando-o-net-core">Instalando o .NET Core</a> será necessário baixar e instalar para prosseguir.</p>
+
+<p>Abra o seu Visual Studio e crie um novo projeto. Clique no menu <strong>File &gt; New &gt; Project</strong> e escolha a opção <strong>Visual C# &gt; .NET Core &gt; ASP.NET Core Web Application (.NET Core)</strong> e defina um nome para o seu projeto. No meu caso será <strong>AspNetCoreWebApi</strong>:</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/novo_projeto_webapplication_dotnetcore.png" alt="" /></p>
+
+<p>Na próxima janela, defina o template para o tipo <strong>Empty</strong>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/template_novo_projeto.png" alt="" /></p>
+
+<p>O template escolhido já auxilia trazendo a nossa API funcionando, bastanto somente executar.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/resultado_api.png" alt="" /></p>
+
+<p>Dentro da nossa solution já temos um Controller criado.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/solutions.png" alt="" /></p>
+
+<p>Se abrir a classe ValueController criada, iá reparar que várias actions foram criados como exemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
+namespace AspNetCoreWebApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ValuesController : ControllerBase
+    {
+        // GET api/values
+        [HttpGet]
+        public ActionResult&lt;IEnumerable&lt;string&gt;&gt; Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public ActionResult&lt;string&gt; Get(int id)
+        {
+            return "value";
+        }
+
+        // POST api/values
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
+
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>Ao executar, nossa api irá responder pelos seguintes link:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**GET: http://\[servidor\]:\[porta\]/api/value**
+</code></pre></div></div>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/api_value_get-1024x553.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**POST: http://\[servidor\]:\[porta\]/api/value**
+</code></pre></div></div>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/api_value_post-1024x553.png" alt="" /></p>
+
+<p>Nesse artigo você pode ter uma breve introdução sobre o ASP.NET Core e como cria-lo de forma simples.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/AspNetCoreWebApi">GitHub</a></p>
+
+<p>Abraço e até os próximos artigos!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term=".NET Core" /><category term=".NET Core" /><category term="ASP.NET" /><category term="ASP.NET MVC" /><category term="ASP.NET Web API" /><category term="C#" /><category term="Criando Web Api" /><category term="Criando Web Api ASP.NET Core" /><category term="Desenvolvimento Web API" /><category term="dotnetcore" /><category term="Visual Studio" /><category term="Web API" /><summary type="html"><![CDATA[Daremos inicio a série de artigos Criando Web Api com ASP.NET Core. Antes disso, o que você precisa saber sobre o ASP.NET Core:]]></summary></entry><entry><title type="html">Instalando o .NET Core</title><link href="http://localhost:4000/instalando-o-net-core" rel="alternate" type="text/html" title="Instalando o .NET Core" /><published>2017-02-15T17:18:19-02:00</published><updated>2017-02-15T17:18:19-02:00</updated><id>http://localhost:4000/instalando-o-net-core</id><content type="html" xml:base="http://localhost:4000/instalando-o-net-core"><![CDATA[<p>Para iniciar o desenvolvimento de projetos usando o .NET Core, é necessário ter instalado as versões mais recentes do Framework e do Visual Studio.</p>
+
+<p>Caso não tenha, faça o download do <a href="https://visualstudio.microsoft.com/pt-br/downloads/">Visual Studio 2017 ou superior</a>.</p>
+
+<p>Após ter instalado o Visual Studio, terá também a versão mais recente do .NET Core.</p>
+
+<p>Depois de instalado, basta abrir o Visual Studio para iniciar o desenvolvimento de um novo projeto.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/novo_projeto_dotnetcore.png" alt="" /></p>
+
+<p>Para maiores informações sobre o .NET Core, acesse: <a href="https://www.microsoft.com/net/core/platform">https://www.microsoft.com/net/core/platform</a></p>
+
+<p>Abraço e até o próximo artigo</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term=".NET Core" /><category term=".NET Core" /><category term="ASP.NET" /><category term="ASP.NET Core" /><category term="C#" /><category term="dotnetcore" /><category term="Instalação" /><category term="Instalando .NET Core" /><category term="instalar .NET Core" /><category term="instalar ASP.NET Core" /><summary type="html"><![CDATA[Para iniciar o desenvolvimento de projetos usando o .NET Core, é necessário ter instalado as versões mais recentes do Framework e do Visual Studio.]]></summary></entry><entry><title type="html">Configurando proxy no Visual Studio Code</title><link href="http://localhost:4000/configurando-proxy-no-visual-studio-code" rel="alternate" type="text/html" title="Configurando proxy no Visual Studio Code" /><published>2017-02-15T13:29:36-02:00</published><updated>2017-02-15T13:29:36-02:00</updated><id>http://localhost:4000/configurando-proxy-no-visual-studio-code</id><content type="html" xml:base="http://localhost:4000/configurando-proxy-no-visual-studio-code"><![CDATA[<p>Darei hoje uma dica bem simples e de suma importancia para que utilza ferramentas de desenvolvimento com suporte a instalação de complementos. No caso, a dica é valida para a configuração do proxy no Visual Studio Code. É muito comum em grandes corporações encontrarmos o uso de proxy e em alguns casos (pelo menos no meu) é preciso configurar a ferramenta para que ela utilize as configurações do proxy. No meu caso, a configuração do proxy é feito de forma automatica por meio de scripts com extensão <strong>pac</strong>, porem algumas ferramentas que utilizo não utilizam dessa configurações de forma automatica. Para resolver isso, vamos aos passos: Abra o Visual Studio Code: <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/1_vscode-1-1024x553.png" alt="Visual Studio" />  Acesse o menu <strong>File &gt; Preferences &gt; Settings</strong>: <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/2_settings_vscode-1-1024x553.png" alt="Arquivo settings.json do Visual Studio Code" /> Na campo de pesquisa, digite <strong>http.proxy</strong> e na linha clique para copiar a configuração: <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/3_configurar_vscode-1-1024x553.png" alt="Configuração do proxy" /> Agora informa as configurações do proxy no seguinte formato: <strong>http://[usuario_proxy]:[senha_proxy]@[servidor_proxy]:[porta]</strong> Caso não saiba quais as configurações, se informe com a TI da sua empresa. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/4_configurar_vscode-1-1024x553.png" alt="Configurando o proxy" /> Feito isso, reinicie o Visual Studio Code e já é possível utilizar. Veja o exemplo de funcionamento da busca por extensões do VSCode. <img src="https://raphaelcardoso.com.br/wp-content/uploads/2017/02/5_exemplo_vscode-1-1024x553.png" alt="Busca por extensões" /> Espero que a dica seja útil. Abraço</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term="C#" /><category term="configurando proxy" /><category term="Dicas" /><category term="proxy" /><category term="Visual Studio" /><category term="Visual Studio" /><category term="VSCode" /><category term="VSCode" /><summary type="html"><![CDATA[Darei hoje uma dica bem simples e de suma importancia para que utilza ferramentas de desenvolvimento com suporte a instalação de complementos. No caso, a dica é valida para a configuração do proxy no Visual Studio Code. É muito comum em grandes corporações encontrarmos o uso de proxy e em alguns casos (pelo menos no meu) é preciso configurar a ferramenta para que ela utilize as configurações do proxy. No meu caso, a configuração do proxy é feito de forma automatica por meio de scripts com extensão pac, porem algumas ferramentas que utilizo não utilizam dessa configurações de forma automatica. Para resolver isso, vamos aos passos: Abra o Visual Studio Code: Acesse o menu File &gt; Preferences &gt; Settings: Na campo de pesquisa, digite http.proxy e na linha clique para copiar a configuração: Agora informa as configurações do proxy no seguinte formato: http://[usuario_proxy]:[senha_proxy]@[servidor_proxy]:[porta] Caso não saiba quais as configurações, se informe com a TI da sua empresa. Feito isso, reinicie o Visual Studio Code e já é possível utilizar. Veja o exemplo de funcionamento da busca por extensões do VSCode. Espero que a dica seja útil. Abraço]]></summary></entry><entry><title type="html">Aprender a programar em C# – Parte 4</title><link href="http://localhost:4000/aprender-a-programar-em-csharp-parte-4" rel="alternate" type="text/html" title="Aprender a programar em C# – Parte 4" /><published>2016-09-29T07:30:00-03:00</published><updated>2016-09-29T07:30:00-03:00</updated><id>http://localhost:4000/aprender-a-programar-em-csharp-parte-4</id><content type="html" xml:base="http://localhost:4000/aprender-a-programar-em-csharp-parte-4"><![CDATA[<p>No parte anterior dessa série de artigos que abordamos como Aprender a Programar em C#, você viu um pouco sobre a linguagem C# (C-Sharp) de como ela surgiu, tipos de dados, sintaxes, variáveis, operadores, controle de fluxo e laços de repetição, também pode ver um pouco sobre o desenvolvimento de uma aplicação e a compilação por linha de comando e também viu o desenvolvimento utilizando o Visual Studio.</p>
+
+<ul>
+  <li><a href="/aprender-a-programar-em-csharp-parte-1/">Aprender a programar em C# - Parte 1</a></li>
+  <li><a href="/aprender-a-programar-em-csharp-parte-2/">Aprender a programar em C# - Parte 2</a></li>
+  <li><a href="/aprender-a-programar-em-csharp-parte-3/">Aprender a programar em C# - Parte 3</a></li>
+</ul>
+
+<p>Nessa nova parte, iremos abordar o desenvolvimento de uma aplicação C# utilizando o Visual Studio, porém essa aplicação irá utilizar banco de dados SQL Server, ou seja, criaremos uma simples aplicação que realizar CRUD (Create, Read, Update e Delete) em um banco de dados. Se você não conhece nada de banco de dados, é uma oportunidade para começar a aprender. Imaginando que você conhece banco de dados, em especial o SQL Server, que também sabe utilizar o SQL Server Manager e já tenha uma instancia do SQL Server ou SQL Server Express instalado, vamos criar a tabela de clientes. Abra seu SQL Manager e crie a tabela utilizando o script sql abaixo. [code=’sql’] CREATE TABLE CLIENTES ( ID INT IDENTITY(1, 1) NOT NULL, NOME VARCHAR(60) NOT NULL, DATA_NASCIMENTO DATETIME NOT NULL, EMAIL VARCHAR(150) NULL, CONSTRAINT PK_CLIENTES PRIMARY KEY (ID) ) GO [/code] Vamos incluir também em nossa alguns registros iniciais. [code=’sql’] INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Ferris Q. Finley’,’1997/06/08’,’interdum.ligula.eu@egestas.edu’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Taylor H. Stone’,’1986/06/02’,’amet.dapibus@sedleoCras.edu’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Meredith U. Cote’,’1992/12/20’,’purus@nullavulputate.org’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Orla Y. Stout’,’1981/04/27’,’ante@dignissim.edu’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Susan F. Sanford’,’1995/04/08’,’ut.aliquam@arcuvelquam.edu’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Kennedy Y. Carr’,’1986/12/22’,’dolor@arcuCurabiturut.co.uk’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Baker X. Mckee’,’1983/08/09’,’nascetur@Donecatarcu.org’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Sade R. Pitts’,’1994/06/14’,’commodo.tincidunt.nibh@non.co.uk’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Judah M. Farrell’,’1993/08/17’,’Maecenas@massa.co.uk’); INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES (‘Maya N. Singleton’,’1986/11/03’,’erat.eget@arcuAliquamultrices.org’); [/code] Com o banco de dados pronto, já podemos iniciar o desenvolvimento. ![aprender_programar_csharp_parte4<em>001](/wp-content/uploads/2015/06/aprender_programar_csharp_parte4_001.png) Sugiro para o desenvolvimento desse projeto o <a href="https://www.visualstudio.com/downloads/">Visual Studio Community 2015</a> porque alem de gratuito, ele é completo e atende bem as nossas necessidades. Para efetuar o download, basta ir diretamente no site do Visual Studio acessando o link <a href="https://www.visualstudio.com/downloads/">www.visualstudio.com</a>. <img src="/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_002-1.png" alt="aprender_programar_csharp_parte4_002" /> Dando continuidade, abra o Visual Studio e clique no menu _File &gt; New &gt; Project</em> e escolha o template <em>Windows Desktop &gt; Windows Forms Application</em>. Para nosso projeto também utilizaremos o <em>.NET Framework 4.5</em>. Defina o nome do projeto como <strong>ProgramarCSharpComBancoDados</strong>. ![aprender_programar_csharp_parte4<em>003](/wp-content/uploads/2015/06/aprender_programar_csharp_parte4_003.png) No template escolhido, já teremos um Form criado na qual iremos adicionar 1 DataGridView e 4 Button. Precisaremos alterar o nome dos nossos objetos. Para fazer isso, clique com o botão direito em cima do objeto que deseja e altere a propriedade “(Name)” de cada objeto. <img src="/wp-content/uploads/2015/07/aprender_programar_csharp_parte4_005.png" alt="aprender_programar_csharp_parte4_005" /> Para o DataGridView defina o nome como gridClientes,para o primeiro botão que usado para para listar os clientes no grid defina o nome como btnListar, o segundo será para excluir e terá o nome de btnExcluir, o terceiro será para editar e terá o nome de btnEditar e o quarto botão será para incluir um novo cliente e terá o nome de btnNovo. A posição dos componentes em tela não fará diferença. Distribua os objetos da forma que achar conveniente. <img src="/wp-content/uploads/2015/06/aprender_programar_csharp_parte4_004.png" alt="aprender_programar_csharp_parte4_004" /> Agora adicione vamos adicionar a Connection String no App.config da aplicação. Acesse o Solution Explorer, localize o App.Config e dê um duplo clique sobre ele para que possamos incluir a linha abaixo: [code=’xml’]  [/code] Adicionaremos a biblioteca _System.Configuration.dll</em> clicando com botão direito sobre a pasta <em>References</em> e <em>Add References</em>. ![aprender_programar_csharp_parte4<em>006](/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_006-1.png) Vamos começar a codificar atribuindo as operações de consulta, exclusão, edição e inclusão para os respectivos botões. Para inicio, dê um duplo clique no botão Listar e realize a codificação conforme abaixo: [code=’csharp’] private void btnListar_Click(object sender, EventArgs e) { var dataTable = new DataTable(); // Retorna para a variavel a ConnectionString configurada no App.Config var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[“DbConnection”].ConnectionString; // Cria uma instancia de conexão com o banco de dados using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString)) { // Abre a conexão connection.Open(); // Cria uma instancia do command using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand()) { // Comando SQL que será executado var _sqlQuery = “SELECT * FROM CLIENTES”; command.Connection = connection; command.CommandText = _sqlQuery; // Adiciona o resultado em um DataTable using (System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter(command)) { adapter.Fill(dataTable); } } // Fecha conexão connection.Close(); } // Atribui o resultado ao grid gridClientes.DataSource = dataTable; // Gera automaticamente as colunas gridClientes.AutoGenerateColumns = true; // Muda o modo de seleção da grid para linha inteira gridClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect; } [/code] Para realizar o teste, basta apertar F5 ou clicar no menu _Debug &gt; Start Debugging</em>. ![aprender_programar_csharp_parte4<em>007](/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_007-1.png) Agora vamos codificar o botão Excluir clicando duas vezes sobre ele e atribuindo o código baixo: [code=’csharp’] private void btnExcluir_Click(object sender, EventArgs e) { if (gridClientes.SelectedRows.Count &gt; 0) { // Pega o ID da primeira coluna da linha selecionada e converte para Integer int id; int.TryParse(gridClientes.SelectedRows[0].Cells[0].Value.ToString(), out id); // Retorna para a variavel a ConnectionString configurada no App.Config var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[“DbConnection”].ConnectionString; // Cria uma instancia de conexão com o banco de dados using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString)) { // Abre a conexão connection.Open(); // Cria uma instancia do command using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand()) { // Comando SQL que será executado var _sqlQuery = “DELETE FROM CLIENTES WHERE ID = @ID”; command.Connection = connection; command.CommandText = _sqlQuery; command.Parameters.AddWithValue(“id”, id); // Executa a query command.ExecuteNonQuery(); } // Fecha conexão connection.Close(); } // Invoca o botão listar btnListar_Click(sender, e); } } [/code] Para os botões de Editar e Novo vamos criar um segundo formulário que terá os campos que deverão ser preenchidos. Clique com o botão direto sobre o projeto e depois selecione _Add &gt; Windows Form</em>. <img src="/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_008-1.png" alt="aprender_programar_csharp_parte4_008" /> <img src="/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_009-1.png" alt="aprender_programar_csharp_parte4_009" /> Criado o formulário, precisaremos alterar o seu construtor para que ele possa receber valores do tipo Integer. Esses valores será o ID para utilizarmos o mesmo formulário para Edição e Inclusão. O código deverá ficar conforme abaixo: [code=’csharp’] private int Id; public Form2(int id = 0) { this.Id = id; InitializeComponent(); } [/code] Agora vamos adicionar os campos necessários e atribuir nome para eles. <img src="/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_010-1.png" alt="aprender_programar_csharp_parte4_010" /> Adicione 1 Botão, 3 labels, 2 Textbox e 1 DateTimePicker. Renomeie para btnSalvar, txtNome, txtDataNascimento e txtEmail respectivamente. Feito isso, vamos atribuir o código para o botão Salvar. Dê um duplo clique sobre o botão Salvar. [code=’csharp’] private void btnSalvar_Click(object sender, EventArgs e) { var nome = txtNome.Text; var dataNascimento = txtDataNascimento.Value; var email = txtEmail.Text; // Retorna para a variavel a ConnectionString configurada no App.Config var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[“DbConnection”].ConnectionString; // Cria uma instancia de conexão com o banco de dados using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString)) { // Abre a conexão connection.Open(); // Cria uma instancia do command using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand()) { command.Connection = connection; #region Comando SQL que será executado var _sqlQuery = string.Empty; // Se foi passado o Id, é para editar if (this.Id &gt; 0) { _sqlQuery = “UPDATE CLIENTES SET NOME = @NOME, EMAIL = @EMAIL, DATA_NASCIMENTO = @DATA_NASCIMENTO WHERE ID = @ID”; command.Parameters.AddWithValue(“id”, this.Id); } else { _sqlQuery = “INSERT INTO CLIENTES(NOME, DATA_NASCIMENTO, EMAIL) VALUES(@NOME, @DATA_NASCIMENTO, @EMAIL)”; } command.Parameters.AddWithValue(“NOME”, nome); command.Parameters.AddWithValue(“DATA_NASCIMENTO”, dataNascimento); command.Parameters.AddWithValue(“EMAIL”, email); command.CommandText = _sqlQuery; #endregion // Executa a query command.ExecuteNonQuery(); } // Fecha conexão connection.Close(); } // Fecha o formulario this.Close(); } [/code] Agora vamos atribuir o código que será responsável por carregar os dados caso seja passado o Id do registro que desejamos editar. Voltando ao modo Designer, dê duplo clique no Form e atribua o código abaixo. [code=’csharp’] private void Form2_Load(object sender, EventArgs e) { var dataTable = new DataTable(); // Retorna para a variavel a ConnectionString configurada no App.Config var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[“DbConnection”].ConnectionString; // Cria uma instancia de conexão com o banco de dados using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString)) { // Abre a conexão connection.Open(); // Cria uma instancia do command using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand()) { // Comando SQL que será executado var _sqlQuery = “SELECT * FROM CLIENTES WHERE ID = @ID”; command.Connection = connection; command.CommandText = _sqlQuery; command.Parameters.AddWithValue(“ID”, this.Id); // Adiciona o resultado em um DataTable using (System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter(command)) { adapter.Fill(dataTable); } } // Fecha conexão connection.Close(); } if (dataTable != null &amp;&amp; dataTable.Rows.Count &gt; 0) { var row = dataTable.Rows[0]; txtNome.Text = row[“NOME”].ToString(); txtDataNascimento.Value = Convert.ToDateTime(row[“DATA_NASCIMENTO”].ToString()); txtEmail.Text = row[“EMAIL”].ToString(); } } [/code] E agora para finalizar o formulário principal, vamos atribuir a codificação para chamar o formulário de edição/inclusão. Para codificar, primeiro execute um duplo clique sobre os botões. [code=’csharp’] private void btnNovo_Click(object sender, EventArgs e) { // Executa o formulario var form2 = new Form2(); // Defini o titulo do formulário form2.Text = “Novo”; // Centraliza o form em relação ao form principal form2.StartPosition = FormStartPosition.CenterParent; // Abre o form em modo Dialog form2.ShowDialog(); // Invoca o botão de listar após o dialog ser fechado btnListar_Click(sender, e); } [/code] [code=’csharp’] private void btnEditar_Click(object sender, EventArgs e) { if (gridClientes.SelectedRows.Count &gt; 0) { int id; // Pega o ID da primeira coluna da linha selecionada e realiza a conversão para Integer int.TryParse(gridClientes.SelectedRows[0].Cells[0].Value.ToString(), out id); // Executa o formulario passando o Id do registro que será editado var form2 = new Form2(id); // Defini o titulo do formulário form2.Text = “Editar”; // Centraliza o form em relação ao form principal form2.StartPosition = FormStartPosition.CenterParent; // Abre o form em modo Dialog form2.ShowDialog(); // Invoca o botão de listar após o dialog ser fechado btnListar_Click(sender, e); } } [/code] Ao executar nossa aplicação, já podemos listar, excluir, incluir e editar os registros. <img src="/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_011-1.png" alt="aprender_programar_csharp_parte4_011" /> Até aqui você aprendeu como criar formulários, efetuar a chamada de um formulário através de outros, efetuar a conexão com banco de dados SQL Server e efetuar transações efetuando as quarto operações Consulta, Inclusão, Exclusão e Edição. Procure exercitar atribuindo mais campos de dados ou até mesmo faça um novo projeto de cadastro mais completo.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/aprender_programar_csharp_parte4">Github</a>.</p>
+
+<p>Até o próximo artigo e bom estudo!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term="Aprender a programar em C#" /><category term="C Sharp" /><category term="C#" /><category term="C#" /><category term="Conceitos básicos" /><category term="Iniciante" /><category term="Visual Studio" /><summary type="html"><![CDATA[No parte anterior dessa série de artigos que abordamos como Aprender a Programar em C#, você viu um pouco sobre a linguagem C# (C-Sharp) de como ela surgiu, tipos de dados, sintaxes, variáveis, operadores, controle de fluxo e laços de repetição, também pode ver um pouco sobre o desenvolvimento de uma aplicação e a compilação por linha de comando e também viu o desenvolvimento utilizando o Visual Studio.]]></summary></entry><entry><title type="html">Criando e consumindo Web API – Parte 2</title><link href="http://localhost:4000/criando-e-consumindo-web-api-parte-2" rel="alternate" type="text/html" title="Criando e consumindo Web API – Parte 2" /><published>2015-06-29T07:30:38-03:00</published><updated>2015-06-29T07:30:38-03:00</updated><id>http://localhost:4000/criando-e-consumindo-web-api-parte-2</id><content type="html" xml:base="http://localhost:4000/criando-e-consumindo-web-api-parte-2"><![CDATA[<p>Dando continuidade a série de artigo <a href="https://raphaelcardoso.com.br/tags/desenvolvimento-web-api/">Criando e consumindo Web API</a>, onde na <a href="https://raphaelcardoso.com.br/criando-e-consumindo-web-api-parte-1/">primeira parte</a> fiz uma abordagem superficial do que é uma Web API e como cria-la. Nessa segunda parte, abordaremos o uso de conexão com banco de dados para efetuar o CRUD (Create, Read, Update, Delete). Para isso, não irei utilizar o Entity Framework de inicio. Isso ficará para uma nova parte dessa série. A principio a ideia é mostrar o funcionamento de uma Web API.</p>
+
+<p>Então para dar inicio, faça o download do fonte do artigo disponivel no <a href="https://github.com/csharpbrasil/AspNetWebApi">Github</a> se já não fez pois iremos utiliza-lo como base para o desenvolvimento dessa segunda parte. Somente para rever o que foi feito na primeira parte, nós criamos no projeto anterior 3 métodos, sendo um para retornar a data e hora do servidor, outro para realizar o filtro de clientes pelo código e outro para realizar o envio de dados de um cliente.</p>
+
+<p>Vamos descartar esses métodos que criamos e vamos criar alguns outros métodos novos e definir as suas rotas. Para esse exemplo utilizaremos SQL Server. Não irei me aprofundar em como criar o banco, simplesmente vou deixar aqui meu script para criar a tabela de clientes.</p>
+
+<p>Abra seu <em>SQL Manager</em> e crie a tabela utilizando o script sql abaixo.</p>
+
+<p>[code=’sql’] CREATE TABLE CLIENTES ( ID INT IDENTITY(1, 1) NOT NULL, NOME VARCHAR(60) NOT NULL, DATA_NASCIMENTO DATETIME NOT NULL, EMAIL VARCHAR(150) NULL, CONSTRAINT PK_CLIENTES PRIMARY KEY (ID) ) GO [/code]</p>
+
+<p>Agora vamos incluir alguns registros iniciais para nossos testes.</p>
+
+<p>[code=’sql’] INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Elliott V. Sears’,’1971/09/12’,’ut.ipsum.ac@Aliquam.net’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Jayme A. Woods’,’1964/02/14’,’nascetur.ridiculus@Curae.net’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Leo K. Small’,’1988/05/12’,’a.sollicitudin.orci@atpede.net’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Winter Z. Collier’,’1991/10/15’,’consectetuer.adipiscing@Phasellusfermentum.net’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Andrew P. Rivera’,’1966/11/03’,’dictum@pretium.net’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Brenda B. Acevedo’,’1972/05/17’,’natoque.penatibus@Integervulputate.com’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Carlos Z. Velez’,’1971/03/19’,’Suspendisse.tristique.neque@turpis.ca’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Herrod Z. Flores’,’1951/12/24’,’imperdiet.non.vestibulum@Nunc.net’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Willow U. Simon’,’1967/11/23’,’urna.suscipit@felisullamcorper.co.uk’) INSERT INTO clientes([nome],[data_nascimento],[email]) VALUES(‘Oliver F. Pickett’,’1948/02/19’,’mollis.dui.in@id.com’) [/code]</p>
+
+<p>A primeira coisa a fazer é criar uma nova pasta chamada <em>Models</em> na raiz do nosso projeto. Essa pasta irá conter a classe <em>Cliente</em> que criaremos agora.</p>
+
+<p>Clique sobre a pasta com o botão direito e escolha <em>Add &gt; Class</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0011.png" alt="criando_e_consumindo_webapi_001" /></p>
+
+<p>E defina o nome para a classe como <em>Cliente.cs</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0021.png" alt="criando_e_consumindo_webapi_002" /></p>
+
+<p>Com a classe <em>Cliente</em> criada, vamos incluir algumas propriedades.</p>
+
+<p>[code=’csharp’] public class Cliente { public int Id { get; set; } public string Nome { get; set; } public DateTime DataNascimento { get; set; } public string Email { get; set; } } [/code]</p>
+
+<p>Agora com a nossa classe Cliente criada, vamos alterar o nosso controller. Na primeira parte havíamos criado o controller chamado <em>DefaultController</em> e é nele que vamos criar os nossos métodos.</p>
+
+<p>Primeiramente, criamos a variável para a <em>ConnectionString</em> que vamos utilizar.</p>
+
+<p>[code=’csharp’] private string ConnectionString = “Data Source=;User Id=;Password=;Initial Catalog=”; [/code]</p>
+
+<p>Criado a ConnectionString, podemos já incluir o nosso primeiro método que será responsável por trazer todos os clientes cadastrados.</p>
+
+<p>[code=’csharp’] [HttpGet] [Route(“clientes/todos”)] public HttpResponseMessage GetAll() { try { List lstClientes = new List(); using (SqlConnection connection = new SqlConnection(this.ConnectionString)) { connection.Open(); using (SqlCommand command = new SqlCommand()) { command.Connection = connection; command.CommandText = “select id, nome, data_nascimento, email from clientes”; SqlDataReader reader = command.ExecuteReader(); while (reader.Read()) { Cliente cliente = new Cliente() { Id = reader[“id”] == DBNull.Value ? 0 : Convert.ToInt32(reader[“id”]), Nome = reader[“nome”] == DBNull.Value ? string.Empty : reader[“nome”].ToString(), DataNascimento = reader[“data_nascimento”] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader[“data_nascimento”]), Email = reader[“email”] == DBNull.Value ? string.Empty : reader[“email”].ToString() }; lstClientes.Add(cliente); } } connection.Close(); } return Request.CreateResponse(HttpStatusCode.OK, lstClientes.ToArray()); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>Explicando o código acima, na linha 07 temos declarado a lista onde incluiremos os clientes retornados do banco e que será retornado pela API quando foi feito o <em>HttpGet</em>. Da linha 09 até a linha 35 é a parte onde realizamos a consulta no banco, incluímos o resultado na lista para depois retornar o Array dessa lista na resposta da API na linha 37.</p>
+
+<p>Utilizando o <a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop">Postman</a> que citei no <a href="https://raphaelcardoso.com.br/criando-e-consumindo-web-api-parte-1">artigo anterior</a>, poderemos fazer o teste de nossa API.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0031.png" alt="criando_e_consumindo_webapi_003" /></p>
+
+<p>No caso do HttpGet, podemos fazer o mesmo teste diretamente no browser.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0041.png" alt="criando_e_consumindo_webapi_004" /></p>
+
+<p>Para realizar a consulta de um cliente especifico, criaremos um método também de <em>HttpGet</em>, porem esse passaremos o <em>id</em>. Basicamente ele faz quase as mesmas coisa que o anterior, porem ele irá retornar um simples objeto ao invés de uma lista.</p>
+
+<p>[code=’csharp’] [HttpGet] [Route(“cliente/{id:int}”)] public HttpResponseMessage GetById(int id) { try { Cliente cliente = null; using (SqlConnection connection = new SqlConnection(this.ConnectionString)) { connection.Open(); using (SqlCommand command = new SqlCommand()) { command.Connection = connection; command.CommandText = “select id, nome, data_nascimento, email from clientes where id = @id”; command.Parameters.AddWithValue(“id”, id); SqlDataReader reader = command.ExecuteReader(); while (reader.Read()) { cliente = new Cliente() { Id = reader[“id”] == DBNull.Value ? 0 : Convert.ToInt32(reader[“id”]), Nome = reader[“nome”] == DBNull.Value ? string.Empty : reader[“nome”].ToString(), DataNascimento = reader[“data_nascimento”] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader[“data_nascimento”]), Email = reader[“email”] == DBNull.Value ? string.Empty : reader[“email”].ToString() }; } } connection.Close(); } return Request.CreateResponse(HttpStatusCode.OK, cliente); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>Executando, teremos os seguintes resultados.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0051.png" alt="criando_e_consumindo_webapi_005" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0061.png" alt="criando_e_consumindo_webapi_006" /></p>
+
+<p>Agora vem a parte interessante do Web API. Criaremos um novo método para excluir o cliente utilizando o <em>HttpDelete</em> informando o <em>id</em>.</p>
+
+<p>Você vai reparar que a rota para consultar o cliente é a mesma de excluir, ou seja, ambas são <em>http://{servidor}/api/meuprojeto/cliente/{id}</em>. Isso pelo de os métodos possuírem as operações diferentes, ou seja, um é <em>HttpGet</em> e o outro é <em>HttpDelete</em>.</p>
+
+<p>[code=’csharp’] [HttpDelete] [Route(“cliente/{id:int}”)] public HttpResponseMessage DeleteById(int id) { try { bool resultado = false; using (SqlConnection connection = new SqlConnection(this.ConnectionString)) { connection.Open(); using (SqlCommand command = new SqlCommand()) { command.Connection = connection; command.CommandText = “delete from clientes where id = @id”; command.Parameters.AddWithValue(“id”, id); int i = command.ExecuteNonQuery(); resultado = i &gt; 0; } connection.Close(); } return Request.CreateResponse(HttpStatusCode.OK, resultado); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>Na linha 26, repare que estou passando o resultado do tipo <em>boolean</em>. Assim saberei se o meu registro foi excluído ou não. Caso exista o registro e consiga excluir retorna <em>true</em>, senão retornará <em>false</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0071.png" alt="criando_e_consumindo_webapi_007" /></p>
+
+<p>Outra situação que merece atenção é com a criação de duas ou mais rotar iguais com o mesmo tipo de operação. Isso levará a ocorrer um <em>InvalidOperationException</em>. Então já sabe, ocorrer esse Exception, confira as rotas e operações.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0081.png" alt="criando_e_consumindo_webapi_008" /></p>
+
+<p>Já temos em nossa Web API a possibilidade de consultar com <em>HttpGet</em> e excluir <em>HttpDelete</em>. Agora vamos criar a opção de cadastrar usando o <em>HttpPost</em>. Nessa caso iremos submeter os dados para que sejam gravados, ou seja, os dados serão enviados no corpo do Http no formato jSON. Esse jSON deverá estar no formato de nosso objeto do parâmetro do método da Web API.</p>
+
+<p>[code=’csharp’] [HttpPost] [Route(“cliente”)] public HttpResponseMessage Post(Cliente cliente) { try { bool resultado = false; if (cliente == null) throw new ArgumentNullException(“cliente”); using (SqlConnection connection = new SqlConnection(this.ConnectionString)) { connection.Open(); using (SqlCommand command = new SqlCommand()) { command.Connection = connection; command.CommandText = “insert into clientes(nome, data_nascimento, email) values(@nome, @data_nascimento, @email)”; command.Parameters.AddWithValue(“nome”, cliente.Nome); command.Parameters.AddWithValue(“data_nascimento”, cliente.DataNascimento); command.Parameters.AddWithValue(“email”, cliente.Email); int i = command.ExecuteNonQuery(); resultado = i &gt; 0; } connection.Close(); } return Request.CreateResponse(HttpStatusCode.OK, resultado); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>Analisando o método de Post, veja que logo na linha 09 estamos verificando se os dados passados são nulos. Caso seja nulo, um Exception será acionado o que irá retornar um <em>BadRequest</em> pela linha 35. Em caso de sucesso, um resultado do tipo boolean será retornado na linha 31.</p>
+
+<p>Para executar o Post pelo <em>Postman</em>, passaremos o tipo de operação que no caso será POST, a url e o tipo de dados JSON. É importante destacar que o JSON deve respeitar o formato do objeto do parâmetro do método. No caso o parâmetro é o objeto Cliente e deverá estar no formato abaixo.</p>
+
+<p>[code=’javascript’] { “Nome”:”Seu nome aqui”, “DataNascimento”:”1980-01-01T00:00:00”, “Email”:”seuemail@servidor.com” } [/code]</p>
+
+<p>Caso você não informe esse JSON, será retornado o erro de parâmetro nulo conforme foi citado anteriormente.</p>
+
+<p>Informando os dados corretamente, será retornado true em caso de sucesso na inclusão.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0091.png" alt="criando_e_consumindo_webapi_009" /></p>
+
+<p>Se consultarmos todos os clientes, veremos nosso registro incluso.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0101.png" alt="criando_e_consumindo_webapi_010" /></p>
+
+<p>Poderemos também realizar a consulta passando o Id do cliente e também retornará o registro incluso.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_011.png" alt="criando_e_consumindo_webapi_011" /></p>
+
+<p>Já podemos consultar, incluir e excluir os registro, agora faremos o que irá atualizar os dados. Nesse caso usaremos a operação <em>HttpPut</em>. O método irá receber o id do cliente e o objeto cliente com os dados da mesma forma que submetemos no Post para inclusão.</p>
+
+<p>[code=’csharp’] [HttpPut] [Route(“cliente/{id:int}”)] public HttpResponseMessage Put(int id, Cliente cliente) { try { bool resultado = false; if (cliente == null) throw new ArgumentNullException(“cliente”); if (id == 0) throw new ArgumentNullException(“id”); using (SqlConnection connection = new SqlConnection(this.ConnectionString)) { connection.Open(); using (SqlCommand command = new SqlCommand()) { command.Connection = connection; command.CommandText = “update clientes set nome = @nome, data_nascimento = @data_nascimento, email = @email where id = @id”; command.Parameters.AddWithValue(“id”, id); command.Parameters.AddWithValue(“nome”, cliente.Nome); command.Parameters.AddWithValue(“data_nascimento”, cliente.DataNascimento); command.Parameters.AddWithValue(“email”, cliente.Email); int i = command.ExecuteNonQuery(); resultado = i &gt; 0; } connection.Close(); } return Request.CreateResponse(HttpStatusCode.OK, resultado); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>A diferença desse método para o de <em>Post</em> é que esse está realizando o <em>UPDATE</em> do registro e verificando se o <em>Id</em> informado é maior que zero.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0121.png" alt="criando_e_consumindo_webapi_012" /></p>
+
+<p>Nesse artigo você pode ver como criar um simples CRUD no Web API. Com o que viu até aqui é possível ampliar mais a funcionalidade utilizando até mesmo ORM como o <em>Entity Framework</em> e <em>NHibernate</em>.</p>
+
+<p>Em caso de dúvida, utilize os comentários ou publique sua dúvida no fórum.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/AspNetWebApi">Github</a>.</p>
+
+<p>Abraço e até a próxima!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term="ASP.NET" /><category term="ASP.NET Web API" /><category term="C#" /><category term="Controller" /><category term="Desenvolvimento web" /><category term="Desenvolvimento Web API" /><category term="Dicas" /><category term="HttpGet" /><category term="HttpPost" /><category term="JSON" /><category term="Postman" /><category term="Web API" /><category term="Web API" /><summary type="html"><![CDATA[Dando continuidade a série de artigo Criando e consumindo Web API, onde na primeira parte fiz uma abordagem superficial do que é uma Web API e como cria-la. Nessa segunda parte, abordaremos o uso de conexão com banco de dados para efetuar o CRUD (Create, Read, Update, Delete). Para isso, não irei utilizar o Entity Framework de inicio. Isso ficará para uma nova parte dessa série. A principio a ideia é mostrar o funcionamento de uma Web API.]]></summary></entry><entry><title type="html">Criando e consumindo Web API - Parte 1</title><link href="http://localhost:4000/criando-e-consumindo-web-api-parte-1" rel="alternate" type="text/html" title="Criando e consumindo Web API - Parte 1" /><published>2015-06-22T07:30:05-03:00</published><updated>2015-06-22T07:30:05-03:00</updated><id>http://localhost:4000/criando-e-consumindo-web-api-parte-1</id><content type="html" xml:base="http://localhost:4000/criando-e-consumindo-web-api-parte-1"><![CDATA[<p>Antes de iniciar o desenvolvimento de uma Web API é importante entender o que é, qual a sua finalidade e a forma como ela funciona.</p>
+
+<p>Para quem não conhece, uma Web API é um conjunto definido de mensagens de requisição e resposta HTTP, geralmente expressado nos formatos XML ou JSON.</p>
+
+<p>Todos nós já tivemos contato de alguma forma com um serviço desse tipo, seja algum site que utilize no dia-a-dia, ou em um dos nossos aplicativos favoritos instalados no smartphone ou tablet. Um exemplo desses aplicativos são o Facebook, Twitter, Linkedin e até jogos utilizam-se de Web API. Então, se está planejando criar algum projeto novo, talvez esse seja um caminho a se analisar.</p>
+
+<p>Para que você entenda melhor o funcionamento de uma Web API, vamos descrever de forma simples um cenário de funcionamento de Web API, como por exemplo a utilizada pelo seu aplicativo do Facebook. Considerando que ele está instalado em seu smartphone:</p>
+
+<ul>
+  <li>
+    <p>Você informa seus dados de login</p>
+  </li>
+  <li>O aplicativo grava localmente os dados e envia-os a um servidor de autenticação para geração do Token</li>
+  <li>Caso os dados sejam validos, é retornado o token para o aplicativo</li>
+  <li>Para realizar a consulta dos post de sua linha, o aplicativo requisita as informações ao servidor utilizando o token para validação</li>
+</ul>
+
+<p>Veja abaixo de forma ilustrada como funciona basicamente a requisição, a autenticação e retorno dos dados para o usuário.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/autenticacao_web_api.png" alt="Autenticaçãoo Web API" /></p>
+
+<p>Para conhecer mais sobre o detalhes do funcionamento do Web API, indico o <a href="http://israelaece.com/post/e-Book-Introducao-ao-ASPNET-Web-API.aspx">e-Book do Israel Aece</a> que alem de gratuito possui um excelente conteúdo para aprendizado.</p>
+
+<p>Iniciaremos então a criação de um novo projeto, para isso, indico o uso do <a href="https://www.visualstudio.com/">Visual Studio Community 2013</a> que alem de completo também é gratuito.</p>
+
+<p>Primeiramente, abra o Visual Studio e clique nome menu <em>File &gt; New &gt; Project</em> e crie um novo projeto web utilizando o template <strong>ASP.NET Web Application</strong> e utilizando o <strong>.NET Framework 4.5</strong>. Defina um nome e caminho para ele. No meu caso, simplesmente se chamara <strong>ProjetoAspNetWebApi</strong>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_001.png" alt="criando_e_consumindo_webapi_001" /></p>
+
+<p>Após clicar em OK para confirmar, uma nova janela é exibida para selecionar detalhes de nosso ASP.NET Web Application. Nele é possível definirmos templates do tipo WebForms, MVC, Web API, Single Page Application, Azure Mobile Service e Empty. No nosso caso selecionaremos o template Empty para que possamos adicionar somente as bibliotecas e estrutura que são realmente necessários para nosso projeto.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_002.png" alt="criando_e_consumindo_webapi_002" /></p>
+
+<p>Feito isso, agora vamos a lista de bibliotecas necessárias:</p>
+
+<ul>
+  <li><strong><a href="https://www.nuget.org/packages/DotNetZip/">DotNetZip</a>:</strong> Biblioteca de compressão;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.AspNet.Cors/">Microsoft.AspNet.Cors</a>:</strong> Biblioteca que permitir Cross-Origin Resource Sharing (CORS) em ASP.NET;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/">Microsoft.AspNet.WebApi.Client</a>:</strong> Biblioteca que adiciona suporte para formatação de conteúdo para System.Net.Http incluindo suporte para JSON e XML;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Core/">Microsoft.AspNet.WebApi.Core</a>:</strong> Biblioteca que contém o core para ASP.NET API Web;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Owin/">Microsoft.AspNet.WebApi.Owin</a>:</strong> Biblioteca que permite a hospedagem de ASP.NET Web API dentro de um servidor Owin e fornece acesso a recursos adicionais.</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Bcl/">Microsoft.Bcl</a>:</strong> Biblioteca com componentes adicionais;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Bcl.Build/">Microsoft.Bcl.Build</a>:</strong> Biblioteca com componentes adicionais;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Bcl.Compression/">Microsoft.Bcl.Compression</a>:</strong> Biblioteca que permite a projetos voltados diretamente para Windows Phone Silverligth 8 ou usando bibliotecas portaveis usem as classes ZipArchive, GZipStream e DeflateStream;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Net.Http">Microsoft.Net.Http</a>:</strong> Biblioteca que inclui HttpClient para envio de pedidos através de HTTP, bem como HttpRequestMessage e HttpResponseMessage para o processamento de mensagens HTTP;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Owin/">Microsoft.Owin</a>:</strong> Biblioteca que fornece um conjunto de componentes para auxiliar e simplificar a criação de componentes Owin;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Owin.Cors/">Microsoft.Owin.Cors</a>:</strong> Biblioteca que contém os componentes para habilitar o Cross-Origin Resource Sharing (CORS);</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Owin.Host.SystemWeb/">Microsoft.Owin.Host.SystemWeb</a>:</strong> Biblioteca do servidor Owin que permite que aplicativos baseados em Owin sejam executados no IIS usando o pipeline de solicitação do ASP.NET;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Owin.Security/">Microsoft.Owin.Security</a>:</strong> Biblioteca que contem tipos comuns relacionados a autenticação;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Microsoft.Owin.Security.OAuth">Microsoft.Owin.Security.OAuth</a>:</strong> Biblioteca que contem tipos comuns relacionados a autenticação OAuth;</li>
+  <li><strong><a href="https://www.nuget.org/packages/newtonsoft.json/">Newtonsoft.Json</a>:</strong> Biblioteca JSON de alta performance;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Owin/">Owin</a>:</strong> Biblioteca de interface de inicialização;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Strathweb.CacheOutput.WebApi2/">Strathweb.CacheOutput.WebApi2</a>:</strong> Biblioteca que cuida do cache do lado do servidor semelhante ao OutputCache do MVC;</li>
+  <li><strong><a href="https://www.nuget.org/packages/Unity/">Unity</a>:</strong> Biblioteca de injeção de dependências.</li>
+</ul>
+
+<p>Agora que você conheceu um pouco de cada uma das biliotecas, vamos iniciar a instalação em nosso projeto. Será necessário utilizar o Nuget no Visual Studio para inclusão das bibliotecas.</p>
+
+<p>Existem 2 formar de incluir as bibliotecas pelo Nuget. Uma é usando o <strong>Package Manager Console</strong> e a outra é o <strong>Manage Nuget Package for Solution</strong>. Eu prefiro o segundo, porem como forma de aprendizado e para agilizar, vou fazer da primeira forma pois assim passo as linhas de comando para incluir as biblioteca.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_003.png" alt="criando_e_consumindo_webapi_003" /></p>
+
+<p>Abra o <strong>Package Manager Console</strong> e digite as linhas abaixo ou simplesmente copie e cole.</p>
+
+<p>[code=’powershell’] Install-Package DotNetZip Install-Package Microsoft.AspNet.Cors Install-Package Microsoft.AspNet.WebApi.Client Install-Package Microsoft.AspNet.WebApi.Core Install-Package Microsoft.AspNet.WebApi.Owin Install-Package Microsoft.Bcl Install-Package Microsoft.Bcl.Build Install-Package Microsoft.Bcl.Compression Install-Package Microsoft.Net.Http Install-Package Microsoft.Owin Install-Package Microsoft.Owin.Cors Install-Package Microsoft.Owin.Host.SystemWeb Install-Package Microsoft.Owin.Security Install-Package Microsoft.Owin.Security.OAuth Install-Package Newtonsoft.Json Install-Package Owin Install-Package Strathweb.CacheOutput.WebApi2 Install-Package Unity [/code]</p>
+
+<p>Após copiar as linhas acima e colocar teremos todas as bibliotecas e suas dependências adicionas.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_004.png" alt="criando_e_consumindo_webapi_004" /></p>
+
+<p>Para que possamos começar a utilizar nosso ASP.NEt Web API e começar implementar as rotas, é preciso criar a classe de Startup que será responsável por inicializar as configurações da API. Na raiz do nosso projeto, crie uma nova classe chamada <strong>Startup.cs</strong>. Para isso clique com o botão direto em cima do Projeto e clique em <em>Add &gt; Class</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_005.png" alt="criando_e_consumindo_webapi_005" /></p>
+
+<p>A classe criada terá o código abaixo:</p>
+
+<p>[code=’csharp’] using Newtonsoft.Json; using Newtonsoft.Json.Serialization; using Owin; using System.Web.Http; [/code] [code=’csharp’] public class Startup { public void Configuration(IAppBuilder app) { HttpConfiguration config = new HttpConfiguration(); var formatters = config.Formatters; formatters.Remove(formatters.XmlFormatter); var jsonSettings = formatters.JsonFormatter.SerializerSettings; jsonSettings.Formatting = Formatting.Indented; jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects; config.MapHttpAttributeRoutes(); config.Routes.MapHttpRoute( name: “DefaultRoute”, routeTemplate: “api/{controller}/{id}”, defaults: new { id = RouteParameter.Optional } ); app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll); app.UseWebApi(config); } } [/code]</p>
+
+<p>O que esse código faz é, remover o formato XML e adicionar o formato JSON alem de definir nossa mapa da rota.</p>
+
+<p>Crie uma nova pasta na raiz do projeto com o nome de <strong>Controllers</strong>. É nessa pasta que adicionaremos nossos controllers.</p>
+
+<p>Clique com o botão direito em cima da pasta criada e clique em <em>Add &gt; Controller</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_006.png" alt="criando_e_consumindo_webapi_006" /></p>
+
+<p>Na nova janela, escolha o Scaffold <strong>Web API 2 Controller - Empty</strong>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_007.png" alt="criando_e_consumindo_webapi_007" /></p>
+
+<p>Defina um nome para o seu controller. Sugiro colocar o nome como <em>DefaultController</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_008.png" alt="criando_e_consumindo_webapi_008" /></p>
+
+<p>Com o controller criado, criaremos então alguns métodos para nosso controller e definiremos as rotas.</p>
+
+<p>Defina o RoutePrefix para o Controller, ficando conforme código abaixo.</p>
+
+<p>[code=’csharp’] [RoutePrefix(“api/meuprojeto”)] public class DefaultController : ApiController { } [/code]</p>
+
+<p>O exemplo acima estabelecemos que quando for chamado a url com o prefixo <strong>api/meuprojeto</strong>, será direcionado para esse controller que acabamos de criar.</p>
+
+<p>Agora crie o método abaixo dentro do controller.</p>
+
+<p>[code=’csharp’] [RoutePrefix(“api/meuprojeto”)] public class DefaultController : ApiController { [HttpGet] [Route(“datahora/consulta”)] public HttpResponseMessage GetDataHoraServidor() { try { var dataHora = DateTime.Now.ToString(“dd/MM/yyyy HH:mm:ss”); return Request.CreateResponse(HttpStatusCode.OK, dataHora); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } } [/code]</p>
+
+<p>Como pode ver no exemplo, criamos um método do tipo <em>HttpGet</em> com a rota <em>datahora/consulta</em> que no final, quando formos chamar-la no browser, chamaremos pela url <em>http://{servidor}/api/meuprojeto/datahora/consulta</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_009.png" alt="criando_e_consumindo_webapi_009" /></p>
+
+<p>Podemos também criar um método utilizando-se do uso de parâmetros para consulta.</p>
+
+<p>[code=’csharp’] [HttpGet] [Route(“consulta/cliente/{id:int}”)] public HttpResponseMessage GetClientePorId(int id) { try { var clientes = new[] { new { Id = 1, Nome = “Pedro”, DataNascimento = new DateTime(1954, 2, 1) }, new { Id = 2, Nome = “Paulo”, DataNascimento = new DateTime(1944, 4, 12) }, new { Id = 3, Nome = “Fernando”, DataNascimento = new DateTime(1963, 5, 9) }, new { Id = 4, Nome = “Maria”, DataNascimento = new DateTime(1984, 4, 30) }, new { Id = 5, Nome = “João”, DataNascimento = new DateTime(1990, 3, 14) }, new { Id = 6, Nome = “Joana”, DataNascimento = new DateTime(1974, 6, 19) } }; var cliente = clientes.Where(x =&gt; x.Id == id).FirstOrDefault(); if (cliente == null) throw new Exception(“Cliente não encontrado”); return Request.CreateResponse(HttpStatusCode.OK, cliente); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>No exemplo criamos um novo método que recebe um parâmetro do tipo <em>int</em>, que é do tipo <em>HttpGet</em> que possui a rota <em>consulta/cliente/{id:int}</em>. Quando for chamar no browser essa url, chamaremos pela url <em>http://{servidor}/api/meuprojeto/consulta/cliente/{id}</em>, onde {id} é o id que queremos consultar.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_010.png" alt="criando_e_consumindo_webapi_010" /></p>
+
+<p>Ainda no exemplo, caso passemos um id que não existe, iremos acionar um Exception que por sua vez cairá na tratativa do <em>try catch</em> e retornará um <em>BadRequest</em>.</p>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_0111.png" alt="criando_e_consumindo_webapi_011" /></p>
+
+<p>Até aqui fizemos alguns exemplos de <em>HttpGet</em>, agora vou exemplificar como fazer uso do <em>HttpPost</em> para submeter objetivos mais complexos.</p>
+
+<p>Primeiro criaremos a classe <em>Cliente</em>.</p>
+
+<p>[code=’csharp’] public class Cliente { public string Nome { get; set; } } [/code]</p>
+
+<p>E agora criaremos o nosso método de <em>HttpPost</em>.</p>
+
+<p>[code=’csharp’] [HttpPost] [Route(“cadastrar”)] public HttpResponseMessage PostCadastro(Cliente cliente) { try { return Request.CreateResponse(HttpStatusCode.OK, “Cadastro do usuário “ + cliente.Nome + “ realizado.”); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } [/code]</p>
+
+<p>No exemplo criamos um novo método que não recebe nenhum parâmetro pela url como ocorre com os HttpGet. Nesse caso, os dados precisam ser submetidos para a url e nesse caso vou testar usando o aplicativo <a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop">Postman</a> para o Google Chrome.</p>
+
+<p>Para testar, abra o Postman e selecione o tipo de requisição. No caso usaremos o <em>Post</em>. Informe a url, selecione o formato <em>raw</em> e o tipo de dados a ser submetido como <em>JSON (application/json)</em> e informe o JSON.</p>
+
+<p>[code=’javascript’] { “Nome”:”Raphael Cardoso” } [/code] <img src="https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_012.png" alt="criando_e_consumindo_webapi_012" /></p>
+
+<p>Você aprendeu de forma simples a criação de uma Web API. Poderá tranquilamente explorar o que foi passado criando novos métodos que recebam parametros diferentes ou até mesmo que utilize de objetos mais complexos ao realizar um HttpPost.</p>
+
+<p>Na próxima parte, veremos como utilizar de conexão com banco de dados em nossa Web API e possibilitar realização de CRUD (Create, Read, Update, Delete).</p>
+
+<p>Em caso de dúvida, utilize os comentários ou publique sua dúvida no fórum.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/AspNetWebApi">Github</a>.</p>
+
+<p>Abraço e até a próxima!</p>]]></content><author><name>Raphael Cardoso</name><email>csharpbrasil@outlook.com</email></author><category term="ASP.NET" /><category term="ASP.NET Web API" /><category term="C#" /><category term="Controller" /><category term="Cors" /><category term="Desenvolvimento web" /><category term="Desenvolvimento Web API" /><category term="Dicas" /><category term="HttpGet" /><category term="HttpPost" /><category term="JSON" /><category term="Microsoft.AspNet.Cors" /><category term="Microsoft.Owin" /><category term="Postman" /><category term="Unity" /><category term="Web API" /><category term="Web API" /><summary type="html"><![CDATA[Antes de iniciar o desenvolvimento de uma Web API é importante entender o que é, qual a sua finalidade e a forma como ela funciona.]]></summary></entry></feed>

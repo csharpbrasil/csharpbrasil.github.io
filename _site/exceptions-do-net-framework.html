@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Exceptions (Exceções) do .NET Framework</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Exceptions (Exceções) do .NET Framework</h2>		
+	<time datetime="2012-10-06T16:36:32-03:00" class="by-line">
+		
+		6
+		Outubro
+		  
+		2012
+	</time>
+	<div class="content">
+
+		<p>Qual programador não se deparou com um erro que não estava previsto ocorrer em sua aplicação? Como por exemplo, quando atualizamos nossa aplicação e em um determinando clique ocorrer um <em><a href="https://raphaelcardoso.com.br/csharp/exceptions-do-net-framework/#ArgumentException">ArgumentException</a></em> ou então em um determinado calculo ocorrer um <em><a href="https://raphaelcardoso.com.br/csharp/exceptions-do-net-framework/#DivideByZeroException">DivideByZeroException</a></em>.</p>
+
+<p>Com o objetivo de facilitar a vida dos iniciantes que esse artigo irá listar alguns dos Exceptions existente no .NET Framework. Lembrando que poderão existir outros caso você esteja utilizando alguma biblioteca de terceiro como, por exemplo, um provider do <em>Sqlite</em> ou <em>Firebird</em>.</p>
+
+<p>Nessa lista você terá o Exception, a qual assembly ele pertence e a descrição na qual traduzi para facilitar. Clicando em cima do Exception, você será direcionado para o portal da <em><a href="http://msdn.microsoft.com/pt-br/library/">MSDN</a></em>, mais especificamente para documentação do Exception clicado onde você terá acesso a hierarquia, sintaxe, construtores, propriedades métodos e eventos além de um breve comentário, exemplos e mais informações sobre a versão do Exception.</p>
+
+<p>Caso encontre algum link quebrado, me informe para que possa corrigir.</p>
+
+<p>Se algum Exception não foi incluído na lista, me informe nos comentários qual é para que possamos manter a lista atualizada.</p>
+
+<h3 id="net-framework-exceptions">.NET Framework Exceptions</h3>
+
+<p>Exception</p>
+
+<p>Assembly</p>
+
+<p>Descrição</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.abandonedmutexexception.aspx">AbandonedMutexException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando uma thread adquire um objeto System.Threading.Mutex que outro segmento abandonou por sair sem liberá-lo.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.accessviolationexception.aspx">AccessViolationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há uma tentativa de leitura ou gravação em memória protegida.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.ambiguousmatchexception.aspx">AmbiguousMatchException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando a ligação a um membro resulta em mais de um membro correspondente aos critérios de ligação. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.appdomainunloadedexception.aspx">AppDomainUnloadedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando é feita uma tentativa para acessar um domínio de aplicativo descarregado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.applicationexception.aspx">ApplicationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando um erro de aplicação não-fatal.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.argumentexception.aspx">ArgumentException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um dos argumentos apresentados a um método não é válido.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.argumentnullexception.aspx">ArgumentNullException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma referência nula é passada para um método que não aceitá-la como um argumento válido.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.argumentoutofrangeexception.aspx">ArgumentOutOfRangeException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando o valor de um argumento está fora do intervalo de valores definidos pelo método invocado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.arithmeticexception.aspx">ArithmeticException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada para erros em uma operação aritmética, fundição, ou operação de conversão.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.arraytypemismatchexception.aspx">ArrayTypeMismatchException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando é feita uma tentativa de armazenar um elemento do tipo errado dentro de uma matriz.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.badimageformatexception.aspx">BadImageFormatException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando a imagem do arquivo de uma biblioteca de vínculo dinâmico (DLL) ou um programa executável é inválido.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.cannotunloadappdomainexception.aspx">CannotUnloadAppDomainException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma tentativa de descarregar um domínio de aplicativo falha.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.comexception.aspx">COMException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um HRESULT não reconhecido é retornado de uma chamada de método COM.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.constraintexception.aspx">ConstraintException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando tentando uma ação que viola uma restrição.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.contextmarshalexception.aspx">ContextMarshalException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma tentativa de empacotar um objeto em um limite de contexto falha.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.cryptography.cryptographicexception.aspx">CryptographicException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando ocorre um erro durante uma operação de criptografia.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.cryptography.cryptographicunexpectedoperationexception.aspx">CryptographicUnexpectedOperationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma operação inesperada ocorre durante uma operação de criptografia.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.customattributeformatexception.aspx">CustomAttributeFormatException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando o formato binário de um atributo personalizado é inválido.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.dataexception.aspx">DataException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando os erros são gerados usando componentes ADO.NET.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.datamisalignedexception.aspx">DataMisalignedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando uma unidade de dados é lido ou gravado para um endereço que não é um múltiplo do tamanho de dados. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.dbconcurrencyexception.aspx">DBConcurrencyException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é acionada pelo System.Data.Common.DataAdapter durante uma inserção, atualização ou exclusão se o número de linhas afetadas é igual a zero.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.common.dbexception.aspx">DbException</a></p>
+
+<p>System.Data</p>
+
+<p>A classe base para todas as exceções lançadas em nome da fonte de dados.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.text.decoderfallbackexception.aspx">DecoderFallbackException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma operação de retorno do decodificador falha. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.deletedrowinaccessibleexception.aspx">DeletedRowInaccessibleException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando uma ação é tentada em um System.Data.DataRow que foi excluído.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.directorynotfoundexception.aspx">DirectoryNotFoundException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando parte de um arquivo ou diretório não pode ser encontrado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.dividebyzeroexception.aspx">DivideByZeroException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há uma tentativa de dividir um valor inteiro ou decimal por zero.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.dllnotfoundexception.aspx">DllNotFoundException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando uma DLL especificada em uma importação de DLL não pode ser encontrado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.drivenotfoundexception.aspx">DriveNotFoundException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada ao tentar acessar uma unidade ou partes que não está disponível.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.duplicatenameexception.aspx">DuplicateNameException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando um nome de banco de dados objeto duplicado for encontrado durante uma operação de adição em um objeto System.Data.DataSet-relacionados.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.duplicatewaitobjectexception.aspx">DuplicateWaitObjectException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando um objeto aparece mais de uma vez em uma matriz de objetos de sincronização.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.text.encoderfallbackexception.aspx">EncoderFallbackException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma operação de retorno do codificador falha. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.endofstreamexception.aspx">EndOfStreamException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando a leitura é tentada após o final de um fluxo.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.entrypointnotfoundexception.aspx">EntryPointNotFoundException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma tentativa de carregar uma classe falhar devido à ausência de um método de entrada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.evaluateexception.aspx">EvaluateException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando a propriedade de um System.Data.DataColumn.Expression System.Data.DataColumn não pode ser avaliada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.executionengineexception.aspx">ExecutionEngineException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há um erro interno no mecanismo de execução do tempo de execução de linguagem comum. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.externalexception.aspx">ExternalException</a></p>
+
+<p>mscorlib</p>
+
+<p>O tipo de exceção de base para todas as exceções de interoperabilidade COM e manipulação de exceção estruturada (SEH) exceções.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.fieldaccessexception.aspx">FieldAccessException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando há uma tentativa inválida de acessar um campo particular ou protegido dentro de uma classe.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.fileloadexception.aspx">FileLoadException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um assembly gerenciado for encontrado, mas não pode ser carregado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.filenotfoundexception.aspx">FileNotFoundException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma tentativa de acessar um arquivo que não existe no disco falha.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.formatexception.aspx">FormatException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando o formato de um argumento não atende as especificações de parâmetro do método invocado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.hostprotectionexception.aspx">HostProtectionException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um recurso de host negado é detectado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.principal.identitynotmappedexception.aspx">IdentityNotMappedException</a></p>
+
+<p>mscorlib</p>
+
+<p>Representa uma exceção para um diretor cuja identidade não pôde ser mapeada para uma identidade conhecida.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.indexoutofrangeexception.aspx">IndexOutOfRangeException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando é feita uma tentativa para acessar um elemento de uma matriz com um índice que está fora dos limites da matriz. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.inrowchangingeventexception.aspx">InRowChangingEventException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando você chama o método System.Data.DataRow.EndEdit dentro do evento System.Data.DataTable.RowChanging.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.insufficientmemoryexception.aspx">InsufficientMemoryException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um cheque de memória disponível suficiente falha. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.invalidcastexception.aspx">InvalidCastException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada para operação de cast ou de conversão explícita inválida.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.invalidcomobjectexception.aspx">InvalidComObjectException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção lançada quando um objeto COM inválido é usado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.invalidconstraintexception.aspx">InvalidConstraintException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando incorretamente tentando criar ou acessar uma relação.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.invalidexpressionexception.aspx">InvalidExpressionException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é lançada quando você tenta adicionar um System.Data.DataColumn que contém um System.Data.DataColumn.Expression inválido para um System.Data.DataColumnCollection.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.invalidfiltercriteriaexception.aspx">InvalidFilterCriteriaException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção é acionada em FindMembers quando os critérios de filtro não é válido para o tipo de filtro que você está usando.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.invalidolevarianttypeexception.aspx">InvalidOleVariantTypeException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção lançada pelo empacotador quando encontra um argumento de um tipo variante que não pode ser empacotado para código gerenciado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.invalidoperationexception.aspx">InvalidOperationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando uma chamada de método não é válido para o estado atual do objeto.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.invalidprogramexception.aspx">InvalidProgramException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um programa contém inválido Microsoft Intermediate Language (MSIL) ou metadados. Geralmente isso indica um erro no compilador que gerou o programa.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/microsoft.sqlserver.server.invalidudtexception.aspx">InvalidUdtException</a></p>
+
+<p>System.Data</p>
+
+<p>Lançada quando o SQL Server ou o provedor System.Data.SqlClient ADO.NET detecta um tipo inválido definido pelo usuário (UDT).</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.ioexception.aspx">IOException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando um erro de I/O ocorre.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.isolatedstorage.isolatedstorageexception.aspx">IsolatedStorageException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma operação no armazenamento isolado falha.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.collections.generic.keynotfoundexception.aspx">KeyNotFoundException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando a chave especificada para acessar um elemento em uma coleção não corresponde a qualquer chave na coleção.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.marshaldirectiveexception.aspx">MarshalDirectiveException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada pelo empacotador quando encontra um System.Runtime.InteropServices.MarshalAsAttribute ele não suporta.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.memberaccessexception.aspx">MemberAccessException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma tentativa de acessar um membro de classe falhar.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.methodaccessexception.aspx">MethodAccessException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há uma tentativa inválida de acessar um método, como acessar um método particular de código parcialmente confiáveis.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.missingfieldexception.aspx">MissingFieldException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando há uma tentativa de acessar dinamicamente um campo que não existe.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.resources.missingmanifestresourceexception.aspx">MissingManifestResourceException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção lançada se o conjunto principal não contém os recursos para a cultura neutra, e eles são necessários por causa de um assembly satélite apropriado ausente.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.missingmemberexception.aspx">MissingMemberException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando há uma tentativa de acessar dinamicamente um membro da classe que não existe.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.missingmethodexception.aspx">MissingMethodException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando há uma tentativa de acessar dinamicamente um método que não existe.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.missingprimarykeyexception.aspx">MissingPrimaryKeyException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é lançada quando você tenta acessar uma linha em uma tabela que não tem chave primária.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.resources.missingsatelliteassemblyexception.aspx">MissingSatelliteAssemblyException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando o conjunto de satélite para os recursos da cultura neutra está faltando.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.multicastnotsupportedexception.aspx">MulticastNotSupportedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há uma tentativa de combinar dois delegados com base no tipo System.Delegate em vez do tipo System.MulticastDelegate. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.nonullallowedexception.aspx">NoNullAllowedException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é lançada quando você tenta inserir um valor nulo em uma coluna onde System.Data.DataColumn.AllowDBNull é definido como falso.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.notfinitenumberexception.aspx">NotFiniteNumberException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando um valor de ponto flutuante é infinito positivo, negativo infinito, ou não é um número (NaN).</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.notimplementedexception.aspx">NotImplementedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um método ou operação solicitada não está implementada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.notsupportedexception.aspx">NotSupportedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um método chamado não é suportado, ou quando há uma tentativa de ler, procurar, ou escrever para um fluxo que não suporta a funcionalidade invocada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.nullreferenceexception.aspx">NullReferenceException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há uma tentativa de dereference uma referência de objeto nula.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.objectdisposedexception.aspx">ObjectDisposedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma operação é executada em um objeto descartado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.odbc.odbcexception.aspx">OdbcException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é gerada quando um aviso ou erro é retornada por uma fonte de dados ODBC. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.oledb.oledbexception.aspx">OleDbException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é lançada quando o provedor subjacente retorna um aviso ou erro de uma fonte de dados OLE DB. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.operationabortedexception.aspx">OperationAbortedException</a></p>
+
+<p>System.Data</p>
+
+<p>Essa exceção é lançada quando uma operação em andamento é abortada pelo usuário.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.operationcanceledexception.aspx">OperationCanceledException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada em um segmento com o cancelamento de uma operação que o fio estava sendo executado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.oracleclient.oracleexception.aspx">OracleException</a></p>
+
+<p>System.Data.OracleClient</p>
+
+<p>A exceção que é gerada quando um aviso ou erro é retornado por um banco de dados Oracle ou o. NET Framework Data Provider para Oracle. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.outofmemoryexception.aspx">OutOfMemoryException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando não há memória suficiente para continuar a execução de um programa.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.overflowexception.aspx">OverflowException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando uma operação aritmética, casting, ou a conversão em um contexto de resultados verificados em um estouro.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.io.pathtoolongexception.aspx">PathTooLongException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um caminho ou nome do arquivo é maior do que o sistema de comprimento máximo definido.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.platformnotsupportedexception.aspx">PlatformNotSupportedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um recurso não é executado em uma plataforma específica.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.policy.policyexception.aspx">PolicyException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando a política proíbe a execução de código.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.accesscontrol.privilegenotheldexception.aspx">PrivilegeNotHeldException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um método no namespace System.Security.AccessControl tenta ativar um privilégio que ele não tem.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.rankexception.aspx">RankException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando uma matriz com o número errado de dimensões é passada para um método.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.readonlyexception.aspx">ReadOnlyException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando você tentar alterar o valor de uma coluna somente leitura.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.reflectiontypeloadexception.aspx">ReflectionTypeLoadException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada pelo método System.Reflection.Module.GetTypes se qualquer uma das classes em um módulo não pode ser carregado. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.remoting.remotingexception.aspx">RemotingException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando algo deu errado durante a comunicação remota.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.remoting.remotingtimeoutexception.aspx">RemotingTimeoutException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando o servidor ou o cliente não pode ser alcançado por um período previamente especificado de tempo.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.rownotintableexception.aspx">RowNotInTableException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é lançada quando você tenta executar uma operação em um System.Data.DataRow que não está em um System.Data.DataTable.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.compilerservices.runtimewrappedexception.aspx">RuntimeWrappedException</a></p>
+
+<p>mscorlib</p>
+
+<p>Envolve uma exceção que não derivam da classe System.Exception. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.safearrayrankmismatchexception.aspx">SafeArrayRankMismatchException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção lançada quando o nível de um SEGURA de entrada não corresponde a classificação especificada na assinatura gerenciado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.safearraytypemismatchexception.aspx">SafeArrayTypeMismatchException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção lançada quando o tipo de SAFEARRAY entrada não coincide com o tipo especificado na assinatura gerenciado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.securityexception.aspx">SecurityException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando um erro de segurança é detectado.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.interopservices.sehexception.aspx">SEHException</a></p>
+
+<p>mscorlib</p>
+
+<p>Representa exceção estruturada Handler (SEH) erros.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.serialization.serializationexception.aspx">SerializationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção lançada quando ocorre um erro durante a serialização ou desserialização.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.runtime.remoting.serverexception.aspx">ServerException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada para se comunicar erros para o cliente quando o cliente liga para aplicações não-.NET Framework que não podem lançar exceções.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.sqltypes.sqlalreadyfilledexception.aspx">SqlAlreadyFilledException</a></p>
+
+<p>System.Data</p>
+
+<p>A classe System.Data.SqlTypes.SqlAlreadyFilledException não se destina a utilização como um componente independente, mas como uma classe da qual outras classes derivem funcionalidade padrão.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.sqlclient.sqlexception.aspx">SqlException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é acionada quando o SQL Server retorna um aviso ou erro. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.sqltypes.sqlnotfilledexception.aspx">SqlNotFilledException</a></p>
+
+<p>System.Data</p>
+
+<p>A classe System.Data.SqlTypes.SqlNotFilledException não se destina a utilização como um componente independente, mas como uma classe da qual outras classes derivem funcionalidade padrão.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.sqltypes.sqlnullvalueexception.aspx">SqlNullValueException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é acionada quando a propriedade de valor de uma estrutura System.Data.SqlTypes é definido como nulo.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.sqltypes.sqltruncateexception.aspx">SqlTruncateException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é acionada quando você definir um valor em uma estrutura System.Data.SqlTypes seria truncar esse valor.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.sqltypes.sqltypeexception.aspx">SqlTypeException</a></p>
+
+<p>System.Data</p>
+
+<p>A classe de exceção base para os System.Data.SqlTypes.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.stackoverflowexception.aspx">StackOverflowException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando os estouros de pilha de execução, pois contém muitas chamadas de método aninhadas. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.strongtypingexception.aspx">StrongTypingException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é lançada por um System.Data.DataSet rigidez quando o usuário acessa um valor DBNull.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.synchronizationlockexception.aspx">SynchronizationLockException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um método requer que o chamador possui o bloqueio em um determinado Monitor, eo método é chamado por um chamador que não possui esse bloqueio.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.syntaxerrorexception.aspx">SyntaxErrorException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando a propriedade de um System.Data.DataColumn.Expression System.Data.DataColumn contém um erro de sintaxe.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.systemexception.aspx">SystemException</a></p>
+
+<p>mscorlib</p>
+
+<p>Define a classe base para exceções predefinidas no namespace System.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.targetexception.aspx">TargetException</a></p>
+
+<p>mscorlib</p>
+
+<p>Representa a exceção que é acionada quando é feita uma tentativa para chamar um destino inválido.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.targetinvocationexception.aspx">TargetInvocationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada por métodos chamados por reflexão. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.reflection.targetparametercountexception.aspx">TargetParameterCountException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando o número de parâmetros para uma invocação não corresponde ao número esperado. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.threadabortexception.aspx">ThreadAbortException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando é feita uma chamada ao método System.Threading.Thread.Abort(System.Object). Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.threadinterruptedexception.aspx">ThreadInterruptedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um System.Threading.Thread é interrompido enquanto ele está em um estado de espera.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.threadstartexception.aspx">ThreadStartException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando ocorre uma falha em um segmento gerenciado após o segmento do sistema operacional subjacente foi iniciado, mas antes que o segmento está pronto para executar o código do usuário.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.threadstateexception.aspx">ThreadStateException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando um System.Threading.Thread está em um System.Threading.Thread.ThreadState inválido para chamar o método.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.timeoutexception.aspx">TimeoutException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando o tempo alocado para um processo ou operação expirou.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.typeddatasetgeneratorexception.aspx">TypedDataSetGeneratorException</a></p>
+
+<p>System.Data</p>
+
+<p>A exceção que é lançada quando ocorre um conflito de nome ao gerar um System.Data.DataSet rigidez.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.typeinitializationexception.aspx">TypeInitializationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada como um invólucro em torno a exceção lançada pelo inicializador de classe. Esta classe não pode ser herdada.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.typeloadexception.aspx">TypeLoadException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando o tipo de carregamento de ocorrência de falhas.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.typeunloadedexception.aspx">TypeUnloadedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há uma tentativa de acessar uma classe de carga.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.unauthorizedaccessexception.aspx">UnauthorizedAccessException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando o sistema operacional nega acesso devido a um erro de I/O ou um tipo específico de erro de segurança.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.verificationexception.aspx">VerificationException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é lançada quando a política de segurança requer um código para ser seguro tipo e do processo de verificação é possível verificar que o código é o tipo de seguro.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.data.versionnotfoundexception.aspx">VersionNotFoundException</a></p>
+
+<p>System.Data</p>
+
+<p>Representa a exceção que é acionada quando você tentar retornar uma versão de um System.Data.DataRow que foi excluído.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.threading.waithandlecannotbeopenedexception.aspx">WaitHandleCannotBeOpenedException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando é feita uma tentativa de abrir um mutex sistema ou semáforo que não existe.</p>
+
+<p><a href="http://msdn.microsoft.com/pt-br/library/system.security.xmlsyntaxexception.aspx">XmlSyntaxException</a></p>
+
+<p>mscorlib</p>
+
+<p>A exceção que é acionada quando há um erro de sintaxe na análise XML. Esta classe não pode ser herdada.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

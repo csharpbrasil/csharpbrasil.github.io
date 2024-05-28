@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Criando e consumindo Web Service em C-Sharp - Parte 2</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando e consumindo Web Service em C-Sharp - Parte 2</h2>		
+	<time datetime="2008-09-12T14:43:40-03:00" class="by-line">
+		
+		12
+		Setembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá pessoa, dando continuidade ao artigo anterior onde criamos um web service, nesse artigo irei mostrar como é simples utilizado em uma aplicação WinForm.</p>
+
+<p>Para quem não leu o artigo anterior:<br />
+<a href="https://raphaelcardoso.com.br/criando-e-consumindo-web-service-em-c-sharp-parte-1/">Criando e consumindo Web Service em C-Sharp - Parte 1</a></p>
+
+<p>Vamos ao que interessa.<br />
+1- Abra o projeto anterior, quem não tiver poderá fazer o download do projeto do <a href="https://github.com/csharpbrasil/Criando-Consumindo-WebService">Github</a>.<br />
+2- Clique com o botão direito em cima do Solution no Solution Explorer do Visual Studio &gt; <em>Add</em> &gt; <em>New Project…</em><br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice05-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice05-1-275x300.jpg" alt="" title="criandowebservice05" /></a><br />
+3- Na janela que ira abrir, escolha Windows Application, defina um nome <strong><em>TesteMeuWebService</em></strong><br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice04-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice04-1-300x228.jpg" alt="" title="criandowebservice04" /></a><br />
+4- Agora adicionaremos referencia ao nosso WebService já criado. Clique com o botão direito em cima do Project no Solution Explorer do Visual Studio &gt; <em>Add Web Reference…</em><br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice06-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice06-1.jpg" alt="" title="criandowebservice06" /></a><br />
+5- Vamos listar os Web Services inclusos em nosso Solution.<br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice07-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice07-1.jpg" alt="" title="criandowebservice07" /></a><br />
+6- Selecionamos o nosso Web Service<br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice08-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice08-1.jpg" alt="" title="criandowebservice08" /></a><br />
+7- Adicionamos como referencia ao projeto.<br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice09-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice09-1.jpg" alt="" title="criandowebservice09" /></a><br />
+8- Agora vamos ao WinForm. Adicione 3 Labels, 3 TextBox, 1 ComboBox e 1 Button<br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice10-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice10-1.jpg" alt="" title="criandowebservice10" /></a><br />
+9- Adicione a lista de operações no ComboBox conforme imagem abaixo.</p>
+
+<ul>
+  <li>Adição</li>
+  <li>Divisão</li>
+  <li>Multiplicação</li>
+  <li>Subtração</li>
+</ul>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice11-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice11-1.jpg" alt="" title="criandowebservice11" /></a><br />
+10- Agora de um duplo clique no Button para adicionarmos o evento Click e o código abaixo.</p>
+
+<p>[sourcecode language=’csharp’] private void button1_Click(object sender, EventArgs e) { decimal ValorA; decimal ValorB; localhost.OperacoesBasicas operacao = localhost.OperacoesBasicas.Adicao; decimal Resultado; decimal.TryParse(textBox1.Text, out ValorA); decimal.TryParse(textBox2.Text, out ValorB); switch (comboBox1.SelectedIndex) { case 0: operacao = localhost.OperacoesBasicas.Adicao; break; case 1: operacao = localhost.OperacoesBasicas.Divisao; break; case 2: operacao = localhost.OperacoesBasicas.Multiplicacao; break; case 3: operacao = localhost.OperacoesBasicas.Subtracao; break; default: operacao = localhost.OperacoesBasicas.Adicao; break; } localhost.Service MeuWebService = new localhost.Service(); Resultado = MeuWebService.Calculadora(ValorA, ValorB, operacao); textBox3.Text = Resultado.ToString(); } [/sourcecode]</p>
+
+<p>Pronto, mais se formos executar o nosso projeto, ele não será executado, pois o projeto que esta definido como principal é o WebService, então clique com o botão direito em cima do Project do WinForm &gt; <em>Set as StartUp Project</em><br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice12-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice12-1.jpg" alt="" title="criandowebservice12" /></a><br />
+Agora sim, é só executar nosso projeto.<br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice13-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice13-1.jpg" alt="" title="criandowebservice13" /></a></p>
+
+<p>Espero que tenham entendido e qualquer dúvida é só mandar os comentários que responderei.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/Criando-Consumindo-WebService">Github</a>.</p>
+
+<p>Abraço e até lá.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

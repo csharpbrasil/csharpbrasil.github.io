@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Criando um Web Service seguro com SoapHeader</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando um Web Service seguro com SoapHeader</h2>		
+	<time datetime="2008-08-15T21:00:05-03:00" class="by-line">
+		
+		15
+		Agosto
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá pessoa, como meu primeiro artigo vou iniciar uma breve explicação de como criar um WebService seguro utilizando o SoapHeader e como acessar os seus métodos utilizando o ObjectDataSource com GridView. Apesar de o artigo estar com exemplos em C-Sharp, você poderá tranquilamente aplicá-lo em VB.NET, basta um pouco de vontade.</p>
+
+<p>Não irei entrar em detalhes de como criar uma conexão passo a passo, vou levar em consideração que você já sabe como fazer e esta a procura de como adicionar mais segurança a seu Web Service, mais prometo criar um artigo especialmente com esse assunto.</p>
+
+<p><strong>1- Criando o WebService</strong><br />
+Crie um novo Web Service, onde inicialmente seu código será como esse:</p>
+
+<p>[sourcecode language=’csharp’] /// /// Summary description for MeuWebService /// [WebService(Namespace = “http://tempuri.org/”)] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class MeuWebService : System.Web.Services.WebService { public MeuWebService() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return “Hello World”; } } [/sourcecode]</p>
+
+<p><strong>2- Adicionando um novo método</strong><br />
+Crie um método onde esse retorne um DataSet para mais tarde ser consumido por uma aplicação, que no nosso caso será um WebForm:</p>
+
+<p>[sourcecode language=’csharp’] [WebMethod(Description = “Retorna todos os clientes cadastrados”)] public DataSet getClientes() { DataSet dsClientes = null; string connectionString = “Data Source=seu_servidor_sql;User Id=seu_usuario;Password=sua_senha;Initial Catalog=seu_bd;”; StringBuilder sqlString = new StringBuilder(); sqlString.Append(“ SELECT * FROM CLIENTES “); using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString)) { connection.Open(); using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand()) { command.Connection = connection; command.CommandText = sqlString.ToString(); using (System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter(command)) { adapter.Fill(dsClientes); } } } return dsClientes; } [/sourcecode]</p>
+
+<p>Pronto, já possuímos um Web Service capaz de retornar um DataSet contendo as informações que desejamos, porem esse poderá ser consumido por qualquer aplicação uma vez que for publicada na internet. Então imagine o seguinte cenário, seu Web Service possui tambem um método capaz de excluir todos os seu cliente cadastrado. Isso seria catastrófico. Com essa dica abaixo será possível proteger facilmente o Web Service impedindo que outras aplicações, por mais que estejam acessando o Web Service, não sejam capaz de executar os métodos sem autenticação.</p>
+
+<p><strong>3- Criando a classe de segurança</strong><br />
+Crie uma nova classe herdando a classe SoapHeader como no exemplo abaixo:</p>
+
+<p>[sourcecode language=’csharp’] public class SegurancaClientes : SoapHeader { public string Usuario; public string Senha; } [/sourcecode]</p>
+
+<p>Você poderá adiciona-lo logo abaixo da declaração dos Namespaces ou criar um novo arquivo de Classe.<br />
+Agora dentro do Web Service você deverá estanciar essa nova classe:</p>
+
+<p>[sourcecode language=’csharp’] public SegurancaClientes Credencial = new SegurancaClientes(); [/sourcecode]</p>
+
+<p>Agora atribua o seguinte código antes da declaração do WebMethod.</p>
+
+<p>[sourcecode language=’csharp’] [SoapHeader(“Credencial”)] [WebMethod(… [/sourcecode]</p>
+
+<p>Apesar de termos criado o Cabeçalho de autenticação do nosso Web Service utilizando o SoapHeader, não quer dizer que ele está protegido.</p>
+
+<p><strong>4- Como autenticar o WebService</strong><br />
+Será necessário criar um novo método, só que esse não irá conter a declaração de [WebMethod], será do tipo private e não precisaremos passar nenhum argumento. Crie um método simples que retorne o Tipo Boolean ou bool e dentro dele crie seu esquema de autenticação utilizando os parâmetros do SoapHeader como no exemplo abaixo.</p>
+
+<p>[sourcecode language=’csharp’] private Boolean Autenticou() { Boolean Autenticou = false; string Usuario = “admin”; string Senha = “123456”; if (Credencial.Usuario == Usuario &amp;&amp; Credencial.Senha == Senha) { Autenticou = true; } return Autenticou; } [/sourcecode]</p>
+
+<p>A Credencial.Usuario e Credencial.Senha são as informação que virão de fora do Web Service pela classe de segurança.</p>
+
+<p>Feito tudo isso nosso método de retorno de clientes ficara assim:</p>
+
+<p>[sourcecode language=’csharp’] [SoapHeader(“Credencial”)] [WebMethod(Description = “Retorna todos os clientes cadastrados”)] public DataSet getClientes() { if (!Autenticou()) { throw new Exception(“Erro: Usuário não autenticado.”); } DataSet dsClientes = null; string connectionString = “sua_connection_string”; StringBuilder sqlString = new StringBuilder(); sqlString.Append(“ SELECT * FROM CLIENTES “); using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString)) { connection.Open(); using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand()) { command.Connection = connection; command.CommandText = sqlString.ToString(); using (System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter(command)) { adapter.Fill(dsClientes); } } } return dsClientes; } [/sourcecode]</p>
+
+<p>Quando nosso método for invocado de uma aplicação e ele não tiver passado antes a autenticação, ou seja se retornar false, será gerando um Exception para a aplicação e a chamada será interrompida. Abaixo o retorno do erro:</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/soapheader01-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/soapheader01-1.jpg" alt="" title="soapheader01" /></a></p>
+
+<p><strong>5- Consumindo o Web Service e Autenticando um ObjectDataSource</strong></p>
+
+<p>Adicione em seu WebForm um GridView, um ObjectDataSource e faça as devidas configurações para que ele acesse o WebService e o método desejado.<br />
+Feito isso, atribua o evento ObjectCreating ao ObjectDataSource que será onde passaremos nossa autenticação da aplicação como no exemplo abaixo:</p>
+
+<p>[sourcecode language=’csharp’] protected void objClientes_ObjectCreating(object sender, ObjectDataSourceEventArgs e) { SegurancaClientes Credencial = new SegurancaClientes(); Credencial.Usuario = “admin”; Credencial.Senha = “123456”; Clientes clientes = new Clientes(); clientes.SegurancaClientesValue = Credencial; e.ObjectInstance = clientes; } [/sourcecode]</p>
+
+<p>O que ocorrerá acima? Quando o ObjectDataSource for criado no momento que a pagina for carregada (no caso dos WebForms) será realizado a criação do Cabeçalho com a autenticação e enviado para o ObjectDataSource para que ele possa utilizá-lo para autenticar quando os nossos outros métodos forem invocados. Se falhar a autenticação, será gerado um Exception com a mensagem de erro.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/soapheader01-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/soapheader01-1.jpg" alt="" title="soapheader01" /></a></p>
+
+<p>Basicamente é isso. Mesmo que você não utilize o ObjectDataSource para consumir seus métodos do Web Service, você poderá chamar seu método informando qual a classe de segurança.<br />
+Espero que esse artigo tenha sido de grande utilidade e caso tenham duvida deixem seus comentários.</p>
+
+<p>Abraço e sucesso!!!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

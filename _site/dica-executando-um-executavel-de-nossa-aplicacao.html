@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Dica - Executando um executavel de nossa aplicação</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Executando um executavel de nossa aplicação</h2>		
+	<time datetime="2009-03-27T18:01:17-03:00" class="by-line">
+		
+		27
+		Março
+		  
+		2009
+	</time>
+	<div class="content">
+
+		<p>Para que possamos de nossa aplicação chamar um executável basta utilizar a Namespace System.Diagnostics. Suponhamos que queremos adicionar uma Label com o endereço de nosso site para ser chamada quando clicado, basta fazer como o exemplo abaixo. [sourcecode language=’csharp’] public void ChamaLink() { string app = @”C:\Program Files\Internet Explorer\iexplore.exe”; string param = “http://raphaelcardoso.com.br”; System.Diagnostics.Process process = System.Diagnostics.Process.Start(app, param); } [/sourcecode] Essa classe ira chamar qualquer aplicação que desejar. Abraço e sucesso!!!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

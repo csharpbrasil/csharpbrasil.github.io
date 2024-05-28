@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Gerar arquivo PDF a partir de código HTML</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Gerar arquivo PDF a partir de código HTML</h2>		
+	<time datetime="2012-07-28T00:04:39-03:00" class="by-line">
+		
+		28
+		Julho
+		  
+		2012
+	</time>
+	<div class="content">
+
+		<p>Existem inúmeras ferramentas para gerar arquivos PDF como .Net, mas poucas delas são confiáveis, e quando são, o valor para utiliza-las é um tanto elevado. A ferramenta mais utilizada para gerar arquivos PDF é o <a href="http://sourceforge.net/projects/itextsharp/" title="iTextSharp">iTextSharp</a>, que é fácil de implementar, traz inúmeras opções ao desenvolvedor e é totalmente gratuita. Mas para gerar arquivo PDF a partir de um arquivo ou código HTML não é muito simples, tornando o processo muito “braçal”. Encontrei uma solução muito simples e gratuita para essa função, que foi a utilização do <a href="http://sourceforge.net/projects/pdfizer/" title="PDFFizer">PDFFizer</a>. Veja o código de exemplo: [sourcecode language=”csharp”] public void HtmlToPdf() { System.Text.StringBuilder sbHtml = new System.Text.StringBuilder(); sbHtml.Append(“”); sbHtml.Append(“”); sbHtml.Append(“ C#.Net =D “); sbHtml.Append(“<br />
+“); sbHtml.Append(“<img src="http://2.bp.blogspot.com/-qW60lVRk0gI/T3dX_aznzXI/AAAAAAAACD8/TMN8VDG3Xm4/s1600/C_Sharp.png" alt="C#" />”); sbHtml.Append(“Testando o PDFizer”); sbHtml.Append(“”); sbHtml.Append(“”); using (System.IO.Stream fluxo = new System.IO.FileStream(@”C:\PDF.pdf”, System.IO.FileMode.OpenOrCreate)) { Pdfizer.HtmlToPdfConverter htmlToPdf = new Pdfizer.HtmlToPdfConverter(); htmlToPdf.Open(fluxo); htmlToPdf.Run(sbHtml.ToString()); htmlToPdf.Close(); } } [/sourcecode] O PDFizer se mostrou bastante eficiente, só apresento problemas em paginas HTML complexas, quando o código fonte continha tabelas sem um padrão. Também encontrei uma solução que funcionou 100% mas utiliza um programa para gerar o PDF, o <a href="http://code.google.com/p/wkhtmltopdf/" title="wkhtmltopdf">wkhtmltopdf</a>. Ele é um programa que executa pelo DOS e gera arquivos PDF de um arquivo HTML como pode ser visto no código fonte abaixo: [sourcecode language=”csharp”]</p>
+
+<p>  System.Diagnostics.Process p = new System.Diagnostics.Process();</p>
+
+<p>            p.StartInfo.FileName = @”C:\Program Files\wkhtmltopdf\wkhtmltopdf.exe”;</p>
+
+<p>            p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;  //executa em segudno plano, sem abrir a tela do DOS</p>
+
+<p>            p.StartInfo.Arguments = @”–margin-top 4mm –margin-left 20mm –page-size A4 –zoom 3  C:\html.html c:\pdf.pdf”;</p>
+
+<p>            p.Start();</p>
+
+<p>            p.WaitForExit();</p>
+
+<p>[/sourcecode] O wkhtmltopdf gerou arquivos PDF perfeitamente, perfeito para gerar Boletos Bancários e para o mais complexo dos HTML’s. Espero que esse artigo ajude alguém. Abraço!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

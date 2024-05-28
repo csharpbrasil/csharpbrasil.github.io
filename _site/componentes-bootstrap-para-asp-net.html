@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Componentes Bootstrap para ASP.NET</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Componentes Bootstrap para ASP.NET</h2>		
+	<time datetime="2014-07-25T08:00:24-03:00" class="by-line">
+		
+		25
+		Julho
+		  
+		2014
+	</time>
+	<div class="content">
+
+		<p>Quando iniciamos um novo projeto, a primeira coisa que pensamos é, o que usar como acelerador para o desenvolvimento visual e logo nos vem a cabeça em usar o <a href="http://getbootstrap.com">Bootstrap</a>. Mais quem não conhece o Bootstrap acaba por ter que aprender para utilizar e isso poderá demandar um pouco de tempo e atrasar o projeto. O Bootstrap é um framework CSS que nos permite desenvolver um website ou aplicação web utilizando uma gama de componentes e funcionalidades basicamente utilizando HTML, CSS e jQuery. Já venho utilizando o Bootstrap a um bom tempo e já desenvolvi diversos projetos com ele e sempre que inicializo um novo projeto, eu preciso reescrever novamente as tags para ter todos os componentes que preciso em tela. Porem, com o objetivo de acelerar o meu desenvolvimento e também com o objetivo de estudar dois assuntos diferentes, resolvi criar os meus próprios ASP.NET Server Controls Bootstrap, ou seja, criei alguns componentes Bootstrap para ASP.NET. Mais antes de ter feito isso, realizei uma rápida pesquisa pela internet para ver o que eu encontrava de projetos nesse nível. O que acabei por encontrar o projeto criado pelo <a href="https://github.com/pmcfernandes/BootstrapControls">Pedro Fernandes</a> e que utilizei como ponta pé inicial para desenvolver o meu projeto. Alguns dos componentes criados por ele foram reaproveitados, outros modificados ou melhorados e outros reescritos. Vale lembrar que o meu único objetivo era para estudar ASP.NET Server Controls. O objetivo desse artigo é mostrar um pouco do que foi feito com o comparativo de alguns componentes e a disponibilização do fontes. O componentes criados foram:</p>
+
+<ul>
+  <li>Alert</li>
+  <li>Button</li>
+  <li>PageHeader</li>
+  <li>Table</li>
+  <li>Images</li>
+  <li>Panel</li>
+  <li>Carousel</li>
+  <li>List Group</li>
+  <li>Collapse</li>
+  <li>Wells</li>
+  <li>Label</li>
+  <li>Breadcrumbs</li>
+  <li>Progress bars</li>
+  <li>Modal</li>
+  <li>Glyphicon</li>
+</ul>
+
+<p><img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_carousel.png" alt="Carousel" /> O primeiro componente que irei citar é o Carousel que é um dos que mais gostei de criar. Se reparar, ele tem dois parâmetros, onde um eu informa o Glyphicon para avançar e outro apara retroceder o Carousel. Abaixo o código para uso em um WebForm. [code=’html’]</p>
+
+<h4 id="first-slide">First slide</h4>
+
+<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+<h4 id="second-slide">Second slide</h4>
+
+<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+<h4 id="third-slide">Third slide</h4>
+
+<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+<p>[/code] Se eu tivesse que escrever o HTML do Carousel, ele seria algo parecido com o que teremos abaixo. [code=’html’]</p>
+
+<p><img src="img1.jpg" alt="First slide" /></p>
+
+<h4 id="first-slide-1">First slide</h4>
+
+<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+<p><img src="img2.jpg" alt="Second slide" /></p>
+
+<h4 id="second-slide-1">Second slide</h4>
+
+<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+<p><img src="img3.jpg" alt="Third slide" /></p>
+
+<h4 id="third-slide-1">Third slide</h4>
+
+<p>Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+<p><a href="#Carousel1"></a><a href="#Carousel1"></a></p>
+
+<p>[/code] <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_collapse.png" alt="Collapse" /> Outro componente que gostei muito de ter feito foi o Collapse. Esse me ajudou bastante a entender todo o funcionamento de um Server Control e o resultado ficou ótimo. Repare que o componente possui em seu conteúdo Button, ou seja, temos a possibilidade de utilizar outros Server Controls dentro do Collapse. Para escrever seu código em ASP.NET, ficará da seguinte forma: [code=’html’]     Collapsible Group Item #1</p>
+
+<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven’t heard of them accusamus labore sustainable VHS.</p>
+
+<p>Collapsible Group Item #2</p>
+
+<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven’t heard of them accusamus labore sustainable VHS.</p>
+
+<p>[/code] Já o HTML é conforme abaixo (irei resumi-lo pois ficará um código muito grande: [code=’html’]</p>
+
+<h4 id="collapsible-group-item-1"><a href="#Collapse1_CollapseItem1_ctl01">Collapsible Group Item #1</a></h4>
+
+<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven’t heard of them accusamus labore sustainable VHS.</p>
+
+<p><a href="javascript:__doPostBack('Collapse1$CollapseItem1$ctl01$Button11','')">Button Sample</a></p>
+
+<h4 id="collapsible-group-item-2"><a href="#Collapse1_CollapseItem2_ctl01">Collapsible Group Item #2</a></h4>
+
+<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven’t heard of them accusamus labore sustainable VHS.</p>
+
+<p><a href="javascript:__doPostBack('Collapse1$CollapseItem2$ctl01$Button12','')">Button Sample</a></p>
+
+<p>[/code] <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_glyphicon.png" alt="Glyphicon" /> Já o Glyphicon, ele é o mais simples. Nos permite incluir um ícone apensar selecionando de uma lista e pode ser usado da seguinte forma: [code=’html’]  [/code] O HTML, segundo a documentação do Bootstrap ficará assim: [code=’html’]  [/code] Alem dos componentes citados, alguns outros foram criados e outros poderiam ser facilmente implementados. Porem, deixarei aqui disponível o fonte para quem quiser aprender um pouco sobre o desenvolvimento de ASP.NET Server Control e do Bootstrap. Veja abaixo os outros componentes criados: <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_button.png" alt="Button" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_modal.png" alt="Modal" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_tables.png" alt="Tables" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_progressbar.png" alt="Progressbar" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_panel.png" alt="Panel" /> <img src="https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bootstrap_listgroup.png" alt="List Group" /> Fonte do projeto: <a href="https://github.com/csharpbrasil/CSharpBrasil.Web.Controls">Github</a>. Não deixe de participar do fórum. Siga o C# Brasil no Twitter e Facebook. Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Criando e consumindo Web Service em C-Sharp - Parte 1</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando e consumindo Web Service em C-Sharp - Parte 1</h2>		
+	<time datetime="2008-09-07T12:48:52-03:00" class="by-line">
+		
+		7
+		Setembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Em mais um artigo, vou explicar como criar nosso primeiro Web service e ainda consumi-lo tanto em uma aplicação Windows Form quanto em um Web Form. Como primeira parte dessa publicação iremos criar nosso Web service.</p>
+
+<p><strong>Mais o que vem a ser o Web service?</strong></p>
+
+<p><em><strong>Web service</strong> é uma solução utilizada na integração de sistemas e na comunicação entre aplicações diferentes. Com esta tecnologia é possível que novas aplicações possam interagir com aquelas que já existem e que sistemas desenvolvidos em plataformas diferentes sejam compatíveis. Os Web services são componentes que permitem às aplicações enviar e receber dados em formato XML. Cada aplicação pode ter a sua própria “linguagem”, que é traduzida para uma linguagem universal, o formato XML. (fonte: <a href="http://pt.wikipedia.org/wiki/Web_service">Wikipédia</a>)</em></p>
+
+<p>Um Web service nada mais é que uma Classe seja ela em C-Sharp quanto VB.NET. Essa classe ou Web service pode ser consumido por uma aplicação Web Form, Windows Form ou até mesmo outros Web service e detalhe, independente da linguagem que eles foram criados.<br />
+Suponhamos que você tenha criado um Web service em VB.NET com todas as regras de negocio da sua empresa onde suas aplicações Web Form irá consumi-lo, e se futuramente você pretende disponibiliza-lo para parceiros ou clientes isso não será problema, mesmo que seus parceiros possuam aplicações em C-Sharp, Java, Delphi ou qualquer outra linguagem que venha a surgir e tenha a capacidade de consumir um Web Service.</p>
+
+<p>Então agora vamos ao que interessa.</p>
+
+<p>1- Abra o Visual Studio.<br />
+2- Crie um novo <em>ASP.NET Web Service</em> em <em>File &gt; New &gt; Web Site…</em></p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice01-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice01-1.jpg" alt="" title="criandowebservice01" /></a></p>
+
+<p>Seu código inicialmente será igual ao código abaixo.</p>
+
+<p>[sourcecode language=’csharp’] using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; [WebService(Namespace = “http://tempuri.org/”)] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return “Hello World”; } } [/sourcecode]</p>
+
+<p>Iremos criar um WebMetodo que possibilita a uma aplicação realizar as 4 Operações Básicas da Matemática, mais o detalhe é que daremos a possibilidade de se escolher qual delas usar no mesmo WebMetodo.</p>
+
+<p>Para isso crie uma nova classe do tipo Enum e nosso código ficará como o exemplo abaixo:</p>
+
+<p>[sourcecode language=’csharp’] using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; [WebService(Namespace = “http://tempuri.org/”)] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return “Hello World”; } } public enum OperacoesBasicas { Adicao = 0, Divisao = 1, Multiplicacao = 2, Subtracao = 3 } [/sourcecode]</p>
+
+<p>Feito isso iremos criar então um novo WebMetodo chamado <em>Calculadora</em> onde iremos informar 2 valores do Tipo <em>Decimal</em>, a Tipo da <em>Operação</em> e será retornado um outro valor do tipo <em>Decimal</em>. Veja o código abaixo:</p>
+
+<p>[sourcecode language=’csharp’] [WebMethod] public decimal Calculadora(decimal ValorA, decimal ValorB, OperacoesBasicas TipoOperacao) { decimal ResultadoAB = 0; switch (TipoOperacao) { case OperacoesBasicas.Adicao: { ResultadoAB = decimal.Add(ValorA, ValorB); break; } case OperacoesBasicas.Divisao: { ResultadoAB = decimal.Divide(ValorA, ValorB); break; } case OperacoesBasicas.Multiplicacao: { ResultadoAB = decimal.Multiply(ValorA, ValorB); break; } case OperacoesBasicas.Subtracao: { ResultadoAB = decimal.Subtract(ValorA, ValorB); break; } } return ResultadoAB; } [/sourcecode]</p>
+
+<p>Pronto, nosso básico Web Service está pronto. Agora execute o Web Service e será aberto uma página com a lista de WebMetodos do seu Web Service. Clique no link <em>Calculadora</em> e será aberto outra página para entrada dos valores.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice02-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice02-1.jpg" alt="" title="criandowebservice02" /></a></p>
+
+<p>Para realizar as operações você deverá informar o <em>TipoOperacao</em>.</p>
+
+<ul>
+  <li>Adicao ou 0</li>
+  <li>Divisao ou 1</li>
+  <li>Multiplicacao ou 2</li>
+  <li>Subtracao ou 3</li>
+</ul>
+
+<p>Será aberto uma outra página com o resultado.<br />
+<a href="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice03-1.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice03-1.jpg" alt="" title="criandowebservice03" /></a></p>
+
+<p>Viu como é simples?</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/Criando-Consumindo-WebService">Github</a>.</p>
+
+<p>Espero que tenham entendido e no próximo artigo irei explicar como consumir esse mesmo Web Service em Windows Form.</p>
+
+<p>Abraço e sucesso!!!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

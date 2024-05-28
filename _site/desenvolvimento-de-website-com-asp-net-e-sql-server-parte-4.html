@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Desenvolvimento de Website com ASP.NET e SQL Server - Parte 4</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Desenvolvimento de Website com ASP.NET e SQL Server - Parte 4</h2>		
+	<time datetime="2012-02-20T19:02:37-02:00" class="by-line">
+		
+		20
+		Fevereiro
+		  
+		2012
+	</time>
+	<div class="content">
+
+		<p>Olá caro leitor!</p>
+
+<p>Em continuidade aos artigos anteriores sobre desenvolvimento de website com ASP.NET e SQL Server. Se você não acompanhou esse série desde o início acesse:</p>
+
+<ul>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-1/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 1">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 1</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-2/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 2">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 2</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-3/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 3">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 3</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-4/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 4">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 4</a></li>
+  <li><a href="https://raphaelcardoso.com.br/desenvolvimento-de-website-com-asp-net-e-sql-server-parte-5/" title="Desenvolvimento de Website com ASP.NET e SQL Server – Parte 5">Desenvolvimento de Website com ASP.NET e SQL Server - Parte 5</a></li>
+</ul>
+
+<p>Hoje iremos realizar o desenvolvimento das funcionalidades internas do nosso painel de controle. Nele iremos abordar os seguintes tópicos:</p>
+
+<ul>
+  <li>Controle de sessão</li>
+  <li>Criação das telas de gerenciamento de usuário</li>
+</ul>
+
+<p>Para iniciarmos, faça o download do fonte do projeto disponibilizado no <a href="https://github.com/csharpbrasil/projeto-website-aspnet">Github</a>.</p>
+
+<p>Abra o projeto e iremos definir a <em>MasterPage</em> do nosso painel de controle. Para facilitar um pouco nosso projeto, vamos utilizar a mesma <em>MasterPage</em> e o mesmo CSS que criamos para o site. Faremos isso também para agilizar e focarmos no que é mais importante. Sendo assim, copie o arquivo <em>MasterPage</em> e a pasta do <em>CSS</em> para a pasta painel.</p>
+
+<p>Feito isso, vamos alterar a nossa <em>MasterPage</em> removendo a referencia ao MenuControl utilizando no site e alterar o menu.</p>
+
+<p>Remova a referência ao MenuControl do código HTML. Ele é utilizado somente no site.</p>
+
+<p>[sourcecode language=’html’] &lt;%– Aqui ficou a referencia ao MenuControl.ascx –%&gt; &lt;%@ Register src=”MenuControl.ascx” tagname=”MenuControl” tagprefix=”uc1” %&gt; [/sourcecode]</p>
+
+<p>E remova o menu. No caso do painel de controle nosso menu será fixo.</p>
+
+<p>[sourcecode language=’html’] &lt;%– Aqui ficou o nosso MenuControl.ascx –%&gt; [/sourcecode]</p>
+
+<p>Feito isso, vamos definir nosso novo menu que ficará da seguinte forma.</p>
+
+<p>[sourcecode language=’html’]</p>
+
+<ul>
+  <li>Gerenciar páginas</li>
+  <li>Gerenciar usuários</li>
+  <li>Sair</li>
+</ul>
+
+<p>[/sourcecode]</p>
+
+<p>Nossa MasterPage ficará assim.</p>
+
+<p>[sourcecode language=’html’] &lt;%@ Master Language=”C#” AutoEventWireup=”true” CodeFile=”MasterPage.master.cs” Inherits=”MasterPage” %&gt; @import url(‘css/default.css’);</p>
+
+<h1 id="painel-de-controle--projeto-website-net">Painel de Controle :: Projeto WebSite .NET</h1>
+
+<ul>
+  <li>Gerenciar páginas</li>
+  <li>Gerenciar usuários</li>
+  <li>Sair</li>
+</ul>
+
+<p>&amp;copy; 2012. Projeto WebSite .NET by <a href="http://raphaelcardoso.com.br">C# Brasil</a></p>
+
+<p>[/sourcecode]</p>
+
+<p>Agora criaremos a página <em>Default.aspx</em>, é para ela que o usuário será direcionado após realizar a autenticação.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0011.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0011-300x162.jpg" alt="" title="image001" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0021.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0021-300x185.jpg" alt="" title="image002" /></a></p>
+
+<p>Agora definiremos a MasterPage para a página default.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0031.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0031-300x183.jpg" alt="" title="image003" /></a></p>
+
+<p>Iniciaremos a criação das demais páginas.</p>
+
+<p>Teremos 3 opções no menu do nosso painel de controle onde em cada um deles poderemos criar, modificar e excluir páginas e usuários.</p>
+
+<p>Vamos iniciar a criação da página de gerencia de usuários. Conforme foi mostrado algumas vezes anteriormente, crie a página <em>gerenciar_usuario.aspx</em> e defina a MasterPage para ela.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0041.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0041-300x185.jpg" alt="" title="image004" /></a></p>
+
+<p>Essa página conterá um GridView para listar os usuários. Para preencher esse GridView utilizaremos um ObjectDataSource. Então, adicione um GridView e um ObjectDataSource.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0051.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0051-300x161.jpg" alt="" title="image005" /></a></p>
+
+<p>Clique em cima do ObjectDataSource, e clique na seta para selecionar a opção <em>Configure Data Source</em>.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image006.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image006-300x97.png" alt="" title="image006" /></a></p>
+
+<p>Na janela de configuração selecione o nosso objeto <em>WebSite.Business.Usuarios</em> pois é nele que contem nossas regras de negocio.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0071.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0071-300x241.jpg" alt="" title="image007" /></a></p>
+
+<p>Selecionaremos a opção para <em>ListaUsuarios</em>.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0081.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0081-300x240.jpg" alt="" title="image008" /></a></p>
+
+<p>Antes de concluir, clique na aba <em>DELETE</em> e selecione a o método <em>ExcluiUsuario</em> e em seguida clique no botão <em>Finish</em> para concluirmos.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0091.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image0091-300x240.jpg" alt="" title="image009" /></a></p>
+
+<p>Agora que temos definido a opção de excluir e listar os usuários, vamos configurar nosso GridView. Para isso associaremos no GridView o ObjectDataSource. Clique no GridView e na seta que aparece no canto superior direito clique e seleciona o ObjectDataSource na opção <em>Choose Data Source</em>. Aproveite e selecione as opções <em>Enable Paging</em> e <em>Enable Deleting</em>. Essas opções irão habilitar a paginação e o link para excluir registro.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image010.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image010-300x190.jpg" alt="" title="image010" /></a></p>
+
+<p>Vamos definir no GridView qual é o <em>DataKeyNames</em>. No nosso caso informaremos DataKeysName igual Id. Assim sendo, estamos informando ao GridView que a chave de cada registro será o <em>Id</em> e essa será utilizada quando formos excluir algum registro. Para definir o <em>DataKeyNames</em>, clique no GridView e vá em <em>properties</em>.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image011.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image011-156x300.png" alt="" title="image011" /></a></p>
+
+<p>É possível definir mais de um, mais nesse caso não será necessário.</p>
+
+<p>Agora defina um estilo para o GridView.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image012.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image012-300x109.jpg" alt="" title="image012" /></a></p>
+
+<p>Agora já temos nosso resultado.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image013.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image013-300x194.jpg" alt="" title="image013" /></a></p>
+
+<p>Se você clicar no link Excluir, vai ver que o registro será realmente excluído.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image014.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image014-300x194.jpg" alt="" title="image014" /></a></p>
+
+<p>Agora vamos criar nossa página para cadastrar novos usuários.</p>
+
+<p>Adiciona acima da GridView um Button e defina o Text para “Novo usuário” e renomeie para btnNovoUsuario. Ele irá nos redirecionar para outra pagina que nos permitirá adicionar novos usuários. Para isso, de duplo clique sobre o botão e defina o código abaixo.</p>
+
+<p>[sourcecode language=’csharp’] protected void btnNovoUsuario_Click(object sender, EventArgs e) { Response.Redirect(“editar_usuario.aspx”); } [/sourcecode]</p>
+
+<p>Agora vamos cria a página que nos permitira criar um novo usuário ou editar os existentes. Então clique com o botão direito sobre a pasta painel e clique <em>Add New Item</em>. Não esqueça de definir a MasterPage do painel de controle.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image015.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image015-300x162.jpg" alt="" title="image015" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image016.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image016-300x185.jpg" alt="" title="image016" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image017.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image017-300x183.jpg" alt="" title="image017" /></a></p>
+
+<p>Antes de continuarmos, precisamos definir o CSS para os formulários. Então criaremos um novo arquivo CSS. Clique com o botão direito sobre a pasta css e clique em <em>Add New Item</em>. Defina o nome como form.css</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image018.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image018-300x162.jpg" alt="" title="image018" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image019.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image019-300x185.jpg" alt="" title="image019" /></a></p>
+
+<p>Abra o arquivo <em>default.css</em> da pasta <em>css</em> do painel e referencie o arquivo <em>form.css</em> conforme abaixo.</p>
+
+<p>[sourcecode language=’css’] @import url(‘form.css’); [/sourcecode]</p>
+
+<p>Vamos incluir o código css abaixo dentro do arquivo <em>form.css</em>.</p>
+
+<p>[sourcecode language=’css’] div.form { margin: 0 auto; padding: 20px; width: 600px; } div.form .label { display: block; } div.form input[type=text], div.form input[type=password] { width: 100%; } div.form .command { text-align: right; } [/sourcecode]</p>
+
+<p>Agora abra a página <em>editar_usuario.aspx</em> para adicionarmos os campos necessários para a edição do usuário. Inclua 1 <em>HiddenField</em>, 5 <em>TextBox</em>, 1 <em>CheckBox</em> e 2 <em>Button</em> conforme o código abaixo.</p>
+
+<p>[sourcecode language=’html’]</p>
+
+<h3 id="novo-usuários">Novo usuários</h3>
+
+<p>Nome<br />
+E-mail<br />
+Login Senha<br />
+Confirma senha</p>
+
+<p>[/sourcecode]</p>
+
+<p>Vamos definir nosso código? No CodeBehind da página, adiciona referencia a nossa classe de negocio e de entidades.</p>
+
+<p>[sourcecode language=’csharp’] using UsuariosBO = WebSite.Business.Usuarios; using Usuarios = WebSite.Entities.Usuarios; [/sourcecode]</p>
+
+<p>Para que entenda o código acima, fiz referencia as namespaces da biblioteca de entidade e de negócios, porem no caso da classe <em>Usuarios</em> ela existe nas duas bibliotecas, o que fiz foi criar um alias para elas.</p>
+
+<p>Agora daremos um duplo clique no botão Salvar para implementarmos o código que salvará os dados do usuário. O código do botão ficara assim.</p>
+
+<p>[sourcecode language=’csharp’] protected void btnSalvar_Click(object sender, EventArgs e) { int Id; int.TryParse(hdfId.Value, out Id); string Nome = txtNome.Text; string Email = txtEmail.Text; string Login = txtLogin.Text; string Senha = txtSenha.Text; bool Ativo = chkAtivo.Checked; Usuarios usuario = new Usuarios(); usuario.Id = Id; usuario.Nome = Nome; usuario.Email = Email; usuario.Login = Login; usuario.Senha = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Senha, “MD5”); usuario.Ativo = Ativo; UsuariosBO usuariosBO = new UsuariosBO(); bool Salvou = usuariosBO.SalvaUsuario(usuario); if (Salvou) { Response.Redirect(“gerenciar_usuario.aspx”); } } [/sourcecode]</p>
+
+<p>No código estamos recebendo todos os dados e os atribuindo na classe Usuarios para posteriormente salva-lo. Após ser salvo, seremos redirecionado para a página de lista de usuários.</p>
+
+<p>Existe na página o botão cancelar, vamos atribuir código a ele para que quando o usuário não queira fazer alteração, possa cancelar e volta a página anterior. De duplo clique sobre o botão Cancelar.</p>
+
+<p>[sourcecode language=’csharp’] protected void btnCancelar_Click(object sender, EventArgs e) { Response.Redirect(“gerenciar_usuario.aspx”); } [/sourcecode]</p>
+
+<p>O código HTML da nossa página ficou assim.</p>
+
+<p>[sourcecode language=’csharp’] &lt;%@ Page Title=”” Language=”C#” MasterPageFile=”~/painel/MasterPage.master” AutoEventWireup=”true” CodeFile=”editar_usuario.aspx.cs” Inherits=”painel_editar_usuario” %&gt;</p>
+
+<h3 id="novo-usuários-1">Novo usuários</h3>
+
+<p>Nome<br />
+E-mail<br />
+Login<br />
+Senha<br />
+Confirma senha</p>
+
+<p>[/sourcecode]</p>
+
+<p>E o código CodeBehind ficou assim.</p>
+
+<p>[sourcecode language=’csharp’] using System; using System.Collections.Generic; using System.Linq; using System.Web; using System.Web.UI; using System.Web.UI.WebControls; using UsuariosBO = WebSite.Business.Usuarios; using Usuarios = WebSite.Entities.Usuarios; public partial class painel_editar_usuario : System.Web.UI.Page { protected void Page_Load(object sender, EventArgs e) { } protected void btnSalvar_Click(object sender, EventArgs e) { int Id; int.TryParse(hdfId.Value, out Id); string Nome = txtNome.Text; string Email = txtEmail.Text; string Login = txtLogin.Text; string Senha = txtSenha.Text; bool Ativo = chkAtivo.Checked; Usuarios usuario = new Usuarios(); usuario.Id = Id; usuario.Nome = Nome; usuario.Email = Email; usuario.Login = Login; usuario.Senha = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Senha, “MD5”); usuario.Ativo = Ativo; UsuariosBO usuariosBO = new UsuariosBO(); bool Salvou = usuariosBO.SalvaUsuario(usuario); if (Salvou) { Response.Redirect(“gerenciar_usuario.aspx”); } } protected void btnCancelar_Click(object sender, EventArgs e) { Response.Redirect(“gerenciar_usuario.aspx”); } } [/sourcecode]</p>
+
+<p>Assim temos nosso cadastro de usuário pronto. Mais e para editar os existes? Vamos até a pagina que lista os usuários para adicionar um link ao GridView que nos direcionará a página para editar o usuário. Clique sobre o GridView e clique na seta no canto superior direito em seguinda clique no link Edit Column.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image020.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image020-300x173.jpg" alt="" title="image020" /></a></p>
+
+<p>Selecione um <em>HyperLinkField</em> e adicione. Mova até o inicio da lista. Selecione o HyperLinkField adicionado e defina o <em>Text</em>, <em>DataNavigationUrlFields</em> e <em>DataNavigationUrlFormat</em> e em seguida clique no botão OK. Teste a página.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image021.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image021-300x230.jpg" alt="" title="image021" /></a></p>
+
+<p>Veja o que acontece quando clicamos no link adicionado no GridView. Você será redirecionado para a página <em>editar_usuario.aspx</em> passando como QueryString o Id do usuário. Na página <em>editar_usuario.aspx</em> iremos utilizar o <em>Id</em> recebido por QueryString para buscar os dados do usuário, atribuir os dados nos campos do formulário. Iremos fazer isso no Page_Load da página. Vamos ao código.</p>
+
+<p>[sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { if (!IsPostBack) { if (Request.QueryString[“id”] != null) { int Id; int.TryParse(Request.QueryString[“id”], out Id); UsuariosBO usuariosBO = new UsuariosBO(); Usuarios usuario = usuariosBO.ListaUsuarios(new Usuarios(Id)).FirstOrDefault(); hdfId.Value = usuario.Id.ToString(); txtNome.Text = usuario.Nome; txtEmail.Text = usuario.Email; txtLogin.Text = usuario.Login; txtSenha.Text = usuario.Senha; txtConfirmaSenha.Text = usuario.Senha; chkAtivo.Checked = usuario.Ativo; txtLogin.Enabled = false; txtSenha.Enabled = false; txtConfirmaSenha.Enabled = false; } } } [/sourcecode]</p>
+
+<p>Esse será executado somente quando a página for carregada pela primeira vez, ou seja, somente quando não for um PostBack. Receberemos o Id por QueryString, atribuiremos a uma variável e a utilizaremos para retornar os dados do usuário populando os campos.</p>
+
+<p>Pode testar que sua página está funcionando.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image022.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image022-300x161.jpg" alt="" title="image022" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image023.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image023-300x161.jpg" alt="" title="image023" /></a></p>
+
+<p>Até aqui temos nossa gerencia de usuários o que nos possibilita listar os cadastrados, cadastrar novo, excluir e editar os existentes.</p>
+
+<p>Agora vamos atribuir segurança ao painel, pois mesmo o usuário não autenticando ele está tendo acesso às páginas.</p>
+
+<p>Primeiro abra a página <em>login.aspx</em> e atribua a linha do código abaixo após o usuário ter sido autenticado e antes de ser redirecionado para o painel.</p>
+
+<p>[sourcecode language=’csharp’] Session.Add(“PainelAutenticado”, true); Session.Add(“Usuario”, usuario); [/sourcecode]</p>
+
+<p>Assim estamos criando um Session para que possamos verificar se o usuário está logado toda vez que uma nova página for aberta e os dados do usuário caso necessitemos recupera-lo sem precisar consultar o banco. Essas informações estarão ativas até que o usuário feche o browser.</p>
+
+<p>Para fazer a verificação, abra o CodeBehind da MasterPage do painel e atribua a linha abaixo no Page_Load.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[sourcecode language=’csharp’] protected void Page_Load(object sender, EventArgs e) { if (Session[“PainelAutenticado”] == null</td>
+      <td> </td>
+      <td>!Convert.ToBoolean(Session[“PainelAutenticado”])) { Response.Redirect(“login.aspx”); } } [/sourcecode]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>No código estamos verificando se o usuário autenticou, caso contrario ele é redirecionado para a página de login forçando assim que o usuário esteja autenticado para ter acesso as páginas.</p>
+
+<p>Como pode perceber, na lista de usuários irá aparece todos os usuários e teremos a opção de exclui-los, mais não seria nada interessante excluirmos acidentalmente qualquer usuário. Então vamos atribuir uma notificação e confirmação antes de exclui-lo. Abra a página <em>gerenciar_usuario.aspx</em> e vamos editar o link Excluir. Clique sobre o GridView e clique na seta no canto superior direito em seguinda clique no link <em>Edit Column</em>.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image024.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image024-300x173.jpg" alt="" title="image024" /></a> <a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image025.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image025-300x230.jpg" alt="" title="image025" /></a></p>
+
+<p>Agora vamos converter o Field referente ao link Excluir, para um <em>TemplateField</em>. Quando convertido para <em>TemplateField</em>, teremos a possibilidade de customizar nosso link e é o que faremos. Clique sobre o GridView e clique na seta no canto superior direito em seguinda clique no link <em>Edit Template</em>.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image026.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image026-300x158.jpg" alt="" title="image026" /></a></p>
+
+<p>Agora é só editar o link.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image027.png"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image027-300x139.png" alt="" title="image027" /></a></p>
+
+<p>Clique sobre o link e vamos mudar as propriedades Text e <em>OnClientClick</em>. O Text definiremos como Excluir e o <em>OnClientClick</em> definiremos uma linha em JavaScript para exibir um alerta ao usuário quando o link for clicado. Essa propriedade <em>OnClientClick</em> é executado do lado Client, ou seja, é executada no browser do usuário e deverá ser JavaScript. Segue o JavaScript.</p>
+
+<p>[sourcecode language=’javascript’] if(confirm(‘Deseja excluir esse usuário?’)){ return true; }else{ return false; } [/sourcecode]</p>
+
+<p>Salve seu projeto e agora podemos testar.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image028.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image028-300x211.jpg" alt="" title="image028" /></a></p>
+
+<p>Cuidado! Não exclua o usuário que você está logado. Não seria nada agradável acontecer isso. Então vamos incluir um bloqueio para isso? Como? No evento <em>RowDataBound</em> do GridView. Isso, vamos adicionar um evento para ele. Selecione o GridView na tab Properties selecione os eventos.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image029.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image029-300x161.jpg" alt="" title="image029" /></a></p>
+
+<p>De duplo clique no evento <em>RowDataBound</em> e vamos incluir o código de bloqueio. Lembra-se que na parte de autenticar criamos uma Session para armazenar os dados usuário e que poderíamos utilizar a qualquer momento e sem a necessidade de consultar o banco de dados? Vamos utiliza-lo agora. Segue o código.</p>
+
+<p>[sourcecode language=’csharp’] protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e) { // Se for uma linha de registro if (e.Row.RowType == DataControlRowType.DataRow) { // Pega o Id do usuário na linha atual int IdRegistro; // Converte o registro atual para Integer int.TryParse(DataBinder.Eval(e.Row.DataItem, “Id”, “{0}”), out IdRegistro); // Verifica se a sessão nap expirou if (Session[“Usuario”] != null) { // Converte a sessão para a nossa classe Usuario WebSite.Entities.Usuarios usuario = (WebSite.Entities.Usuarios)Session[“Usuario”]; // Pega o Id do usuário logado e com o registro atual if (usuario.Id == IdRegistro) { // Pesquisa o link excluir e converte para LinkButton LinkButton lnkExcluir = (LinkButton)e.Row.FindControl(“LinkButton1”); // Oculta o link lnkExcluir.Visible = false; } } } } [/sourcecode]</p>
+
+<p>Essa implementação nos garantirá que não seja excluído acidentalmente nosso usuário.</p>
+
+<p><a href="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image030.jpg"><img src="https://raphaelcardoso.com.br/wp-content/uploads/2012/02/image030-300x211.jpg" alt="" title="image030" /></a></p>
+
+<p>Nesse artigo foi possível aprendermos a criação das funcionalidades básicas para gerenciar os usuários e controlas a sessão do nosso painel de controle para dar mais segurança.</p>
+
+<p>Fique atento ao próximo artigo que iremos concluir a série com o gerenciamento das páginas do nosso site.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/projeto-website-aspnet">Github</a></p>
+
+<p>Não deixe de participar do fórum. Siga o C# Brasil no Twitter e Facebook.</p>
+
+<p>Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="C# Brasil">
+
+	<title>Usando Dictionary para carregar menu em Windows Form</title>
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1716937206294534819">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Usando Dictionary para carregar menu em Windows Form</h2>		
+	<time datetime="2011-08-02T08:03:26-03:00" class="by-line">
+		
+		2
+		Agosto
+		  
+		2011
+	</time>
+	<div class="content">
+
+		<p>Neste post vamos usar de forma simples a classe Dictionary do .net Framework, imaginando um o seguinte cenário aonde nosso form principal trabalha com Mdi. Temos um formulário principal, e no mesmo ele tem um menuStrip responsável a carregar os menus da nossa aplicação, para cada item de menu devemos ficar fazendo instancia para cada form que existir na nossa aplicação.</p>
+
+<p>Exemplo [sourcecode language=”csharp”] FCadastroCliente CadastroCliente = new FCadastroCliente(); CadastroCliente.MdiParent = this; CadastroCliente.ShowDialog(); CadastroCliente.Dispose(); [/sourcecode]</p>
+
+<p>Isso com certeza tem que ser feito para nossa aplicação chamar as determinadas telas do nosso projeto. Com o Dictionary vamos implementar um procedimento aonde o mesmo vai se responsabilizar por fazer isso de modo simples e bastante produtivo, para que nos menus passamos chamar só o nosso metodo que acabamos de desenvolver para carregar telas.</p>
+
+<p>[sourcecode language=”csharp”] using System.Collections.Generic; private Dictionary dicForms = new Dictionary(); private void CarregaTela() { CarregarTela(typeof(T)); } private void CarregarTela(Type type) { bool carregar = true; Form f = null; try { if (dicForms.ContainsKey(type)) { if (dicForms.TryGetValue(type, out f)) { if (!f.IsDisposed) { f.Focus(); carregar = false; } else { dicForms.Remove(type); } } } if (carregar) { Cursor = Cursors.WaitCursor; f = (Form)Activator.CreateInstance(type); dicForms.Add(type, f); f.MdiParent = this; f.FormBorderStyle = FormBorderStyle.FixedSingle; f.StartPosition = FormStartPosition.CenterScreen; f.MaximizeBox = false; f.Show(); } } catch (Exception ex) { dicForms.Remove(type); MessageBox.Show(“Não foi possível inicializar a tela “ + type.Name + “!” + “\n\nCausa:” + ex.Message, “Aviso”, MessageBoxButtons.OK, MessageBoxIcon.Error); if (f != null) { f.Close(); f.Dispose(); } } finally { Cursor = Cursors.Default; } } [/sourcecode]</p>
+
+<p>Agora basta passar em cada item de menu chamar a tela assim</p>
+
+<p>[sourcecode language=”csharp”] CarregaTela(); [/sourcecode]</p>
+
+<p>E nosso método que acabamos de implementar ira criar a instância do nosso objeto tela para o sistema.</p>
+
+		
+	</div>
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>
