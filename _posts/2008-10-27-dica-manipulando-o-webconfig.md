@@ -1,0 +1,8 @@
+---
+title: 'Dica - Manipulando o Web.Config'
+date: Mon, 27 Oct 2008 13:03:44 +0000
+draft: false
+tags: ['C#', 'C#', 'Dicas', 'Dicas', 'Visual Studio', 'Visual Studio']
+---
+
+Olá leitor, em mais uma dica, vou explicar como adicionar, atualizar e excluir ConnectionStrings do nosso Web.config. Primeiro declare as Namespaces que utilizaremos no seu WebForm: \[sourcecode language='csharp'\] using System.Configuration; using System.Web.Configuration; \[/sourcecode\] Agora segue o código abaixo que irá realizar as alterações: \[sourcecode language='csharp'\] Configuration webconfig = WebConfigurationManager.OpenWebConfiguration("~"); ConnectionStringsSection dbConnString = webconfig.ConnectionStrings; // Adicionando dbConnString.ConnectionStrings.Add(new ConnectionStringSettings("Conn", "server=localhost;uid=root;pwd=123456;database=MeuBanco;", "MySql.Data.MySqlClient")); // Alterando dbConnString.ConnectionStrings\["Conn"\].ConnectionString = "server=mysql.servidor.com.br;uid=root;pwd=123456;database=MeuBanco;"; // Excluir dbConnString.ConnectionStrings.Remove("Conn"); webconfig.Save(); \[/sourcecode\] Para iniciar o teste comente as linhas que altera e exclui a ConnectionString para adicionar, depois comente a linha que adiciona e excluir para alterar e em seguida comente a linha que adiciona e altera para excluir. Sempre que executar abra o seu web.config e veja o resultado. Abraço e sucesso!

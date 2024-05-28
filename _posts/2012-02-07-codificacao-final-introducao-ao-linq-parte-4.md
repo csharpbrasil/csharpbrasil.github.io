@@ -1,0 +1,24 @@
+---
+title: 'Codificação Final: Introdução ao LINQ - Parte 4'
+date: Tue, 07 Feb 2012 00:51:10 +0000
+draft: false
+tags: ['bindingsource', 'C#', 'case', 'combobox', 'datagridview', 'LINQ', 'LINQ', 'switch']
+---
+
+Olá pessoal, neste artigo finalizaremos o exemplo criado na parte 3, usando os conceitos de LINQ. Acompanhem: Se você não viu as partes anteriores desta série de artigos sugiro que as veja clicando [aqui](http://programandodotnet.wordpress.com/tag/linq-2/). Continuando nosso exemplo, vá no modo Design do formulário, clique com o botão direito no **ComboBox** e clique em **Edit Items**. Na caixa de texto que surge adicione os seguintes itens, como é ilustrado na **Figura 01**:
+
+![](http://programandodotnet.files.wordpress.com/2011/10/comboboxitens.jpg)
+
+_Figura 01 – Itens do ComboBox, que serão os filtros do GridView_
+
+Agora dê dois cliques em cima do ComboBox para que o evento **SelectedIndexChanged** seja acionado. Nele iremos montar toda a lógica para que, quando o usuário selecionar determinado item, seja passado a instrução LINQ ao DataSource do GridView. Vemos abaixo, na **Listagem 01**, toda a codificação do evento. _Listagem 01 – Evento SelectedIndexChanged do ComboBox_ \[sourcecode language="csharp"\] private void cboValores\_SelectedIndexChanged(object sender, EventArgs e) { ListlstProducts = new List(); lstProducts = CarregarGridView(); BindingSource objBindingSource = new BindingSource(); switch (cboValores.SelectedIndex.ToString()) { case "0": objBindingSource.DataSource = from instrucao in lstProducts where instrucao.ProductName.StartsWith("Ch") select instrucao; dgvProdutos.DataSource = objBindingSource; break; case "1": objBindingSource.DataSource = from instrucao in lstProducts where instrucao.UnitsInStock > 15 orderby instrucao.UnitsInStock select instrucao; dgvProdutos.DataSource = objBindingSource; break; case "2": objBindingSource.DataSource = from instrucao in lstProducts where instrucao.UnitPrice > 25 orderby instrucao.UnitPrice select instrucao; dgvProdutos.DataSource = objBindingSource; break; case "3": objBindingSource.DataSource = from instrucao in lstProducts where instrucao.UnitsInStock < 50 orderby instrucao.UnitsInStock descending select instrucao; dgvProdutos.DataSource = objBindingSource; break; case "4": objBindingSource.DataSource = from instrucao in lstProducts where instrucao.ProductName.EndsWith("s") select instrucao; dgvProdutos.DataSource = objBindingSource; break; default: dgvProdutos.DataSource = null; break; } } \[/sourcecode\] Note que começo instanciando a lista genérica do tipo da classe **Products**, já vista na [parte 3](http://programandodotnet.wordpress.com/2011/10/27/introducao-ao-linq-parte-3/), e atribuo a ela o método **CarregarGridView**, assim tenho a lista carregada com os dados vindos do banco. Depois instancio um objeto da classe **BindingSource**, necessária para ser a fonte de dados de nosso GridView. Em meu **switch**, uso como condição a propriedade **SelectedIndex** do ComboBox. Assim, dependendo do índice escolhido pelo usuário (lembrando que **sempre** começa em 0) é realizada a codificação do respectivo operador **case**. Note que, dentro de todos os “cases”, a codificação é bem parecida: é atribuído a instrução LINQ a propriedade DataSource do objeto instanciado e o mesmo é passado como DataSource para o GridView. Perceba também que a cláusula **where** que é a responsável por definir o filtro de minha busca, e em algumas instruções é usado também o operador **orderby**, usado para ordenar os registros, em ordem ascendente (padrão) ou descendente.
+
+_Os operadores e cláusulas citados aqui podem ser vistos na_ [_parte 2_](http://programandodotnet.wordpress.com/2011/10/25/introducao-ao-linq-parte-2/)_._
+
+ Finalizando, acrescente ao formulário um botão com o texto Limpar Filtros, com o código da **Listagem 02**. _Listagem 02 – Botão Limpar Filtros_ \[sourcecode language="csharp"\] private void btnLimparFiltros\_Click(object sender, EventArgs e) { ListlstProducts = new List(); lstProducts = CarregarGridView(); dgvProdutos.DataSource = lstProducts; } \[/sourcecode\] Assim caso quisermos ver todos os registros após começarmos as filtragens é só clicarmos no botão. Rode a aplicação e altere os valores do ComboBox. A **Figura 02** ilustra o resultado para o filtro de produtos terminados com a letra **S**.
+
+![](http://programandodotnet.files.wordpress.com/2011/10/gridviewwithfilter.jpg)
+
+_Figura 02 – Filtro aplicado ao GridView_
+
+ Disponibilizo o código-fonte desta aplicação clicando aqui. Assim finalizo a série de artigos sobre LINQ. Muito obrigado a todos! Fiquem de olho no blog que farei mais artigos abordando outros providers do LINQ, como o **LINQ To XML**, por exemplo. _ Um abraço, e até o próximo artigo._ _ Wellington Balbo de Camargo_ [wellingtonbalbo@gmail.com](mailto:wellingtonbalbo@gmail.com)

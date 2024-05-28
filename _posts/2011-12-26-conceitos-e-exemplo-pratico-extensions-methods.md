@@ -1,0 +1,26 @@
+---
+title: 'Conceitos e Exemplo Prático: Extensions Methods'
+date: Mon, 26 Dec 2011 10:05:22 +0000
+draft: false
+tags: ['arraylist', 'C#', 'enumerador', 'extensions methods', 'static', 'system.linq']
+---
+
+Olá pessoal, neste artigo veremos os conceitos e exemplos práticos com os **Extensions Methods**. Acompanhem:  **Introdução –** Os **Extensions Methods** (Métodos de Extensão), como o próprio nome diz, seriam uma extensão de uma determinada classe, em forma de método. Um exemplo disso seria um método que “**estende**” a classe **String**, um método personalizado que pega todas as letras **E** de uma palavra e faz determinada ação, ou mesmo um método que estende a classe **Int32** ou a **Decimal**, pegando seus valores e os **formatando como valores monetários**, enfim temos vários exemplos. Inicialmente comente o namespace **System.Linq** e instancie um objeto da classe **ArrayList**. Note que temos diversos métodos em sua classe, como mostra a **Figura 01**:
+
+[![](http://programandodotnet.files.wordpress.com/2011/08/methodwithoutextensionmethod.jpg)](https://raphaelcardoso.com.br/csharp/visual-studio/alterando-o-idioma-do-visual-studio-2010-para-portugues/attachment/imagem0007/)
+
+_Figura 01 – Classe ArrayList sem Extensions Methods_
+
+ Agora descomente o **System.Linq** e chame novamente os métodos, veja na **Figura 02**:
+
+[![](http://programandodotnet.files.wordpress.com/2011/08/methodwithextensionsmethods.jpg)](https://raphaelcardoso.com.br/csharp/visual-studio/alterando-o-idioma-do-visual-studio-2010-para-portugues/attachment/imagem0008/)
+
+_Figura 02 – Classe ArrayList com Extensions Methods_
+
+ Percebeu que agora temos alguns métodos com uma seta pra baixo? Então, esses são os Métodos de Extensão que o **System.Linq** “incorpora” à classe **ArrayList**. É importante ressaltar o seguinte: para que os **Extensions Methods** funcionem, devemos criar uma classe estática e também um método estático, usando o modificador **static**. Dito isto, crie um projeto no Visual Studio, do tipo **Console Application**. Nele, adicione uma classe, dando qualquer nome a ela. Na classe iremos criar um método que retornará a data formatada, para o padrão brasileiro ou americano, dependendo de nossa escolha. Acompanhe toda a codificação, com explicações pertinentes na **Listagem 01**. _Listagem 01 - Usando Extensions Methods_ \[sourcecode language="csharp"\] namespace Extensions { public static class StringExtensions { public enum DateFormat { USFormat, BrazilianFormat } public static string FormatDateString(this string strData, DateFormat dateFormato) { string strRetorno = "Data Inválida!"; try { DateTime date = DateTime.Parse(strData); if (dateFormato == DateFormat.BrazilianFormat) strRetorno = date.Date.ToString("dd/MM/yyyy"); else strRetorno = date.Date.ToString("MM/dd/yyyy"); } catch { return strRetorno; } return strRetorno; } } } \[/sourcecode\] Note que dei um nome customizado para o **namespace** e criei classes e métodos **estáticos**. Criei também um [enumerador](http://programandodotnet.wordpress.com/tag/enumeradores/), onde defino dois tipos de formatações de datas, uma para o padrão brasileiro, outra para o padrão americano. Em meu método, do tipo string, passo como parâmetro um valor string, acompanhada da **keyword** **this** (que deve ser usada nesses casos), e o enumerador, também como parâmetro para o método. No método instancio uma variável do tipo string e uma variável do tipo **DateTime** que por sua vez recebe a conversão da variável do tipo string, criada anteriormente. Ao final faço uma verificação: se o formato for brasileiro a variável do tipo string recebe a data formatada como **dd/MM/yyyy** (padrão brasileiro). Se for americano, recebe o outro formato. Note que se der um erro, o valor padrão, exibindo a mensagem de **Data Inválida** irá aparecer, ao entrar no bloco **catch**. Agora vá à classe **Program.cs **e use a codificação da **Listagem 02**: _Listagem 02 - Método chamado no Program.cs_ \[sourcecode language="csharp"\] static void Main(string\[\] args) { string strData = "16/05/1989"; Console.Write(strData.FormatDateString(StringExtensions.DateFormat.USFormat)); Console.ReadKey(); } \[/sourcecode\] Aperte **F5** e veja o resultado, na **Figura 03**:
+
+[![](http://programandodotnet.files.wordpress.com/2011/08/extensionmethodexample.jpg)](https://raphaelcardoso.com.br/csharp/visual-studio/alterando-o-idioma-do-visual-studio-2010-para-portugues/attachment/imagem0009/)
+
+_Figura 03 – Extension Method em Prática_
+
+ Dessa forma podemos criar **Extensions Methods** para diversas finalidades, deixo como dica para que vocês usem a criatividade para criar métodos úteis em seu desenvolvimento! Dica de Site: acessem o site especializado em **Extension Methods**, com **mais de 300** deles, clicando [aqui](http://www.extensionmethod.net/). Disponibilizo o código fonte para quem tiver interesse clicando aqui. Assim finalizo o artigo. Muito obrigado a todos!  **Créditos** à Luciano Pimenta, que fez as videoaulas e ao [Portal Linha de Código](http://www.linhadecodigo.com.br/), por onde pude baixá-las (mediante assinatura), estudá-las e posteriormente fazer este artigo.  _Um abraço, e até o próximo artigo._  _Wellington Balbo de Camargo_ [wellingtonbalbo@gmail.com](mailto:wellingtonbalbo@gmail.com)

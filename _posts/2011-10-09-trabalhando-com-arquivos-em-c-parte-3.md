@@ -1,0 +1,36 @@
+---
+title: 'Trabalhando com Arquivos em C# - Parte 3'
+date: Sun, 09 Oct 2011 03:33:28 +0000
+draft: false
+tags: ['arquivos', 'ASP.NET', 'C#', 'C#', 'filebrowserdialog', 'filestream', 'openfiledialog', 'streamwriter', 'system.io', 'windows forms']
+---
+
+Olá pessoal, nesta última parte de nossa série de artigos sobre manipulação de arquivos em C# iremos criar caixas de diálogo em nosso Form. Faço este artigo com base nas videoaulas de [Bruno Belizário](mailto:bsbelizario@hotmail.com), do [Portal Linha de Código](http://www.linhadecodigo.com.br/), mediante autorização do mesmo. Acompanhem o passo-a-passo: Lembrando que para estes artigos estamos usando as classes [FileStream](http://msdn.microsoft.com/pt-br/library/system.io.filestream%28VS.90%29.aspx), [StreamReader](http://msdn.microsoft.com/pt-br/library/system.io.streamreader%28VS.90%29.aspx) e [StreamWriter](http://msdn.microsoft.com/pt-br/library/system.io.streamwriter%28VS.90%29.aspx), todas contidas no namespace [System.IO](http://msdn.microsoft.com/pt-br/library/system.io%28v=VS.90%29.aspx), que é específico para manipular arquivos. Nos 2 últimos artigos, não tivemos interação com o usuário, já que definimos o caminho padrão de nosso arquivo texto. Neste artigo, faremos diferente usando caixas de diálogo. Como você pode ver abaixo, na **Figura 01**, podemos usar as caixas de diálogo pelo modo visual: [![](http://programandodotnet.files.wordpress.com/2010/06/toolboxcontrols.jpg)](http://programandodotnet.files.wordpress.com/2010/06/toolboxcontrols.jpg)
+
+_Figura 01 - Aba Dialogs da Toolbox_
+
+Mais como o intuito do artigo (e da videoaula em que me baseio) é de fazer tudo via código, então continuaremos desta forma. Na página de códigos altere a variável que contém o caminho físico do arquivo para que a mesma receba um valor nulo: Vamos começar trabalhando com o componente **FolderBrowserDialog**, que nada mais do que uma janela de diálogo onde podemos trabalhar com pastas. Altere o método **CriarArquivo**, como abaixo (veja as modificações nos comentários): \[sourcecode language="csharp"\] private void Criar() { try { //Instancio o FolderBrowserDialog e o chamo pelo método ShowDialog FolderBrowserDialog objFBD = new FolderBrowserDialog(); //Chamo o método sss para que esteja habilitado o botão para criar uma nova pasta objFBD.ShowNewFolderButton = true; objFBD.ShowDialog(); //Crio uma variável que irei definir o caminho onde vou salvar meu arquivo de texto //Ela irá receber meu objFBD com o método SelectedPath, concatenado com meu arquivo string strPath = objFBD.SelectedPath + @"\\Arquivo.txt"; //Usarei a cláusula using como boas práticas de programação em todos os métodos //Instancio a classe FileStream, uso a classe File e o método Create para criar o //arquivo passando como parâmetro a variável strPathFile, que contém o arquivo //Troco a variável strPathFile pela strPath, que está definindo o caminho do meu arquivo using (FileStream fs = File.Create(strPath)) { //Crio outro using, dentro dele instancio o StreamWriter (classe para gravar os dados) //que recebe como parâmetro a variável fs, referente ao FileStream criado anteriormente using (StreamWriter sw = new StreamWriter(fs)) { //Uso o método Write para escrever algo em nosso arquivo texto sw.Write("Texto adicionado ao exemplo!"); } } } catch (Exception ex) { MessageBox.Show(ex.Message); } //Se tudo ocorrer bem, exibo a mensagem ao usuário. MessageBox.Show("Arquivo criado com sucesso!!!"); } \[/sourcecode\] Agora salve e compile. Clique no botão **Criar Arquivo** e veja a caixa de diálogo que se abriu, como mostra a **Figura 02**: [![](http://programandodotnet.files.wordpress.com/2010/06/filebrowserdialog.jpg)](http://programandodotnet.files.wordpress.com/2010/06/filebrowserdialog.jpg)
+
+_Figura 02 - Caixa de Diálogo Procurar Pasta_
+
+Escolha a pasta **C:\\temp** e clique em **OK**. Agora faça o teste com o botão **Criar nova pasta** e salve num lugar diferente da pasta **temp**, como vemos na **Figura 03**:
+
+[![](http://programandodotnet.files.wordpress.com/2010/06/createnewfolderbutton.jpg)](http://programandodotnet.files.wordpress.com/2010/06/createnewfolderbutton.jpg)
+
+_Figura 03 - Caixa de Diálogo para criar uma nova pasta_
+
+Ele salva da mesma forma e exibe a mensagem de confirmação, como mostra a **Figura 04**: [![](http://programandodotnet.files.wordpress.com/2010/06/createfilemessagebox.jpg)](http://programandodotnet.files.wordpress.com/2010/06/createfilemessagebox.jpg)
+
+_Figura 04 - Mensagem de Confirmação_
+
+Assim podemos escolher onde desejamos salvar nossos arquivos ou até criar pastas novas para eles. Agora vamos usar o componente **OpenFileDialog** em nosso método **Abrir**, já que da forma que está ele abre um local fixo sem opção do usuário escolher de qual caminho deseja abrir o arquivo. Então altere o método **Abrir** para o seguinte: \[sourcecode language="csharp"\] private void Abrir() { try { //Crio uma variável que irei definir o caminho onde vou abrir meu arquivo e a inicializo nula string strPath = null; //Instancio o OpenFileDialog e o chamo pelo método ShowDialog OpenFileDialog objOFD = new OpenFileDialog(); objOFD.ShowDialog(); //Atribuo minha variável strPath ao atributo FileName, que //representa o arquivo escolhido pelo usuário na caixa de diálogo strPath = objOFD.FileName; //Verifico se o arquivo que desejo abrir existe e passo como parâmetro a variável respectiva //Troco as variáveis strPathFile pela strPath, que está definindo o caminho do meu arquivo if (File.Exists(strPath)) { //Se existir "starto" um processo do sistema para abrir o arquivo e, sem precisar //passar ao processo o aplicativo a ser aberto, ele abre automaticamente o Notepad System.Diagnostics.Process.Start(strPath); } else { //Se não existir exibo a mensagem MessageBox.Show("Arquivo não encontrado!"); } } catch (Exception ex) { MessageBox.Show(ex.Message); } } \[/sourcecode\] Salve e compile. Clique no botão **Abrir Arquivo** e veja na **Figura 05** que irá aparecer a caixa de diálogo que foi instanciada.
+
+[![](http://programandodotnet.files.wordpress.com/2010/06/openfiledialog.jpg)](http://programandodotnet.files.wordpress.com/2010/06/openfiledialog.jpg)
+
+_Figura 05 - Caixa de Diálogo para Abrir Arquivo_
+
+Selecione o arquivo e clique em **Abrir**. Você verá o arquivo em seguida, na **Figura 06**: [![](http://programandodotnet.files.wordpress.com/2010/06/arquivo-txt.jpg)](http://programandodotnet.files.wordpress.com/2010/06/arquivo-txt.jpg)
+
+_Figura 06 - Arquivo aberto no Bloco de Notas_
+
+Assim finalizo esta série de artigos usando arquivos e caixas de diálogo. Para quem se interessar, disponibilizo o código fonte desse projeto aqui. **Créditos** à [Bruno Belizário](mailto:bsbelizario@hotmail.com), que fez as videoaulas e ao [Portal Linha de Código](http://www.linhadecodigo.com.br/), por onde pude baixá-las (mediante assinatura), estudá-las e posteriormente fazer este artigo. Quaisquer dúvidas mandem emails para [wellingtonbalbo@gmail.com](mailto:wellingtonbalbo@gmail.com) ou deixem nos comentários deste artigo que responderei o mais rápido possível.  _Até o próximo artigo!_
