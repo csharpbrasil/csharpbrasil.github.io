@@ -8,13 +8,7 @@ pagination:
 
 	{% for post in paginator.posts %}
 	  <li class="post">
-	  	<h2>
-			{% if site.baseurl == "/" %}
-			<a href="{{ post.url }}">{{ post.title }}</a>
-			{% else %}
-			<a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-			{% endif %}
-		</h2>
+	  	<h2><a href="{{ site.url }}{{ post.url}}">{{ post.title }}</a></h2>
 		<time datetime="{{ post.date | date_to_xmlschema }}" class="by-line">
 		{% assign m = post.date | date: "%-m" %}
 		{{ post.date | date: "%-d" }}
