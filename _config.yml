@@ -1,11 +1,19 @@
 # Site settings
-title: C# Brasil | Unindo paixão e código
-description: "O blog do C# Brasil sobre Tecnologia e desenvolvimento"
+title: "C# Brasil"
+description: "Unindo paixão e código | Blog sobre Tecnologias e Desenvolvimento"
 url: "http://csharpbrasil.com.br"
 author:
   name: "Raphael Cardoso"
   email: "csharpbrasil@outlook.com"
   url: "http://www.csharpbrasil.com.br"
+
+# Jekyll SEO
+social:
+  name: C# Brasil
+  links:
+    - https://twitter.com/csharpbrasil
+    - https://www.facebook.com/csharpbrasil
+    - https://github.com/csharpbrasil
 
 # Build settings
 baseurl: / # Change this to your relative path (ex: /blog/), or leave just a /
@@ -29,6 +37,7 @@ defaults:
 # Plugins
 plugins:
   - jekyll-paginate
+  - jekyll-seo-tag
 
 # Custom variables
 version: "1.0.0"
