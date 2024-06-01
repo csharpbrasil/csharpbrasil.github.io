@@ -1,27 +1,27 @@
 ---
-
 layout: page
-title: Sobre o Blog
+title: Sobre o C# Brasil
 
 ---
 
-## Sobre o Blog
+## Sobre o C# Brasil
 
-Meu nome é Raphael, e sou desenvolvedor de software com mais de 20 anos de experiência na criação de aplicações web usando a plataforma DotNet. Desde o início da minha carreira, em 1999, tenho trabalhado em empresas de vários setores, incluindo fornecimento de sistemas para cadeia de suprimentos, gestão pública, produção de cana-de-açúcar e etanol, varejo, atacado e distribuição.
+Bem-vindo ao C# Brasil! Este blog é dedicado a compartilhar conhecimentos e experiências sobre desenvolvimento em C# e outras tecnologias relacionadas.
 
-Sou formado em Análise e Desenvolvimento de Sistemas e possuo MBA em Arquitetura de Software e Soluções pela IGTI, o que me permite ter uma visão sistêmica e estratégica sobre o desenvolvimento de software. Além disso, tenho conhecimentos sólidos em arquitetura de soluções para plataforma .NET e sempre busco acompanhar as tendências e novidades na tecnologia.
+### Nossa História
 
-Embora tenha experiencia em programação em diversas linguagens, como Perl, ASP, PHP e Java, atualmente me especializei em desenvolvimento de aplicações web utilizando tecnologias como ASP.NET Core, ASP.NET MVC e C# (C-Sharp). Além disso, estou sempre me aventurando em novas áreas, e tenho me interessado cada vez mais pela segurança da informação. Tive a oportunidade de participar de alguns treinamentos voltados para Pentest – Segurança Ofensiva e Ethical Hacking, e agora busco aplicar esses conhecimentos em minhas soluções, para garantir que elas sejam seguras e protegidas contra ameaças cibernéticas.
+Meu nome é <a href="https://www.linkedin.com/in/ferronicardoso/" target="_blank">Raphael Cardoso</a> e o C# Brasil nasceu em 2007, impulsionado pela minha paixão por desenvolvimento de software e o desejo de ajudar outros desenvolvedores. Desde 2001, eu já trabalhava com desenvolvimento web utilizando ASP 3.0 e HTML. Com o passar dos anos, comecei a explorar o mundo do ASP.NET e C#, o que levou ao lançamento deste blog. O objetivo inicial era simples: criar um espaço para compartilhar artigos e tutoriais que pudessem auxiliar desenvolvedores iniciantes na jornada de aprendizado.
 
-Além disso, tenho uma forte paixão pela comunidade de desenvolvimento de software, sempre busco ajudar outros desenvolvedores compartilhando meus conhecimentos e experiências através de artigos, palestras e eventos. Eu mantenho um blog pessoal onde realizo a publicação de artigos técnicos e tutoriais sobre desenvolvimento de software e arquitetura, e também estou sempre disponível para dar suporte e ajudar a quem precisar.
+### Nossa Missão
 
-Alguns artigos publicados:
+Nossa missão é fornecer conteúdo de qualidade que seja útil tanto para iniciantes quanto para desenvolvedores experientes. Com uma vasta experiência em diversas linguagens de programação como C#, Angular, Python, Java, e uma especialização atual em tecnologias como ASP.NET Core, ASP.NET MVC e C#, buscamos abordar uma ampla gama de tópicos que vão desde os fundamentos da programação até as mais recentes inovações no desenvolvimento de software.
 
-- [Criando e consumindo Web Service em C-Sharp](/criando-e-consumindo-web-service-em-c-sharp-parte-1)
-- [Algoritmos de Ordenação em C#](/algoritmos-de-ordenacao-em-csharp)
-- [Criando e consumindo Web API](/criando-e-consumindo-web-api-parte-1)
-- [Aprender a programar em C#](/aprender-a-programar-em-csharp-parte-1)
-- [Criando Web Api com ASP.NET Core](/criando-web-api-com-asp-net-core-parte-1)
-- Criando aplicação Web com ASP.NET Core MVC
-  - [Parte 1](/criando-aplicacao-web-com-aspnet-core-mvc-parte-1)
-  - [Parte 2](/criando-aplicacao-web-com-aspnet-core-mvc-parte-2)
+### Nosso Compromisso com a Comunidade
+
+Acreditamos fortemente no poder da comunidade de desenvolvimento de software. Por isso, estamos sempre à disposição para ajudar outros desenvolvedores, seja através de artigos técnicos, tutoriais, palestras ou eventos. Nossa paixão pela segurança da informação também nos levou a explorar áreas como Pentest e Ethical Hacking, aplicando esses conhecimentos para garantir que nossas soluções sejam seguras e protegidas contra ameaças cibernéticas.
+
+### Junte-se a Nós
+
+Se você é um desenvolvedor que busca aprender mais sobre C# e outras tecnologias web, ou se interessa por segurança da informação, está no lugar certo! Sinta-se à vontade para explorar nossos artigos, deixar comentários e participar ativamente da nossa comunidade.
+
+Obrigado por visitar o C# Brasil. Juntos, podemos continuar a aprender e crescer no fascinante mundo do desenvolvimento de software.

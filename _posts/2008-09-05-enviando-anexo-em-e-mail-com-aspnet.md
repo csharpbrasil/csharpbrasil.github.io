@@ -9,18 +9,17 @@ Olá pessoa, a pedido de um amigo que recentemente começou programar em ASP.NET
 
 Estou utilizando o Visual Studio 2005, mais quem não tiver poderá usar o Visual Web Developer Express 2005 ou 2008.  
 
-  
 1- Crie um novo projeto ASP.NET Web Site  
-  
-[![](/contents/2008/09/emailcomanexo01-1.jpg "emailcomanexo01")](/contents/2008/09/emailcomanexo01-1.jpg)  
+
+![](/contents/2008/09/emailcomanexo01-1.jpg)
 
 2- Na página inicial que será criada automaticamente nesse novo projeto, adicione 4 Labels, 3 TextBox, 1 FileUpload e 1 Button.  
-  
-[![](/contents/2008/09/emailcomanexo02-1-300x228.jpg "emailcomanexo02")](/contents/2008/09/emailcomanexo02-1.jpg)  
+
+![](/contents/2008/09/emailcomanexo02-1.jpg)
 
 3- De um duplo clique no botão e vamos implementar as opções de envio. Declare as seguintes Namespaces: System.Net.Mail, System.Net e System.IO
 
-```csharp 
+```csharp
 using System.Net.Mail; 
 using System.Net; 
 using System.IO;
@@ -31,40 +30,37 @@ using System.IO;
 ```csharp
 protected void btnEnviar_Click(object sender, EventArgs e)
 {
-	// Estancia da Classe de Mensagem
-	MailMessage _mailMessage = new MailMessage();
-	// Remetente
-	_mailMessage.From = new MailAddress("meuemail@meuservidor.com");
-	// Destinatario
-	_mailMessage.CC.Add(txtEmail.Text);
-	// Assunto
-	_mailMessage.Subject = "Email com Anexo";
-	// A mensagem é do tipo HTML ou Texto Puro?
-	_mailMessage.IsBodyHtml = true;
-	// Corpo da Mensagem
-	_mailMessage.Body = txtNome.Text + " " + txtMensagem.Text;
+    // Estancia da Classe de Mensagem
+    MailMessage _mailMessage = new MailMessage();
+    // Remetente
+    _mailMessage.From = new MailAddress("meuemail@meuservidor.com");
+    // Destinatario
+    _mailMessage.CC.Add(txtEmail.Text);
+    // Assunto
+    _mailMessage.Subject = "Email com Anexo";
+    // A mensagem é do tipo HTML ou Texto Puro?
+    _mailMessage.IsBodyHtml = true;
+    // Corpo da Mensagem
+    _mailMessage.Body = txtNome.Text + " " + txtMensagem.Text;
 
-	// Recupera o binario enviado pelo FileUpload
-	MemoryStream MS = new MemoryStream(fileAnexo.FileBytes);
-	// Anexa o Stream do arquivo
-	Attachment anexo = new Attachment(MS, fileAnexo.FileName);
-	_mailMessage.Attachments.Add(anexo);
+    // Recupera o binario enviado pelo FileUpload
+    MemoryStream MS = new MemoryStream(fileAnexo.FileBytes);
+    // Anexa o Stream do arquivo
+    Attachment anexo = new Attachment(MS, fileAnexo.FileName);
+    _mailMessage.Attachments.Add(anexo);
 
-	// Estancia a Classe de Envio
-	SmtpClient _smtpClient = new SmtpClient("smtp.meuservidor.com");
-	// Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
-	_smtpClient.Credentials = new NetworkCredential("meuemail@meuservidor.com", "123minhasenha");
-	// Envia a mensagem
-	_smtpClient.Send(_mailMessage);
+    // Estancia a Classe de Envio
+    SmtpClient _smtpClient = new SmtpClient("smtp.meuservidor.com");
+    // Credencial para envio por SMTP Seguro (Quando o servidor exige autenticação)
+    _smtpClient.Credentials = new NetworkCredential("meuemail@meuservidor.com", "123minhasenha");
+    // Envia a mensagem
+    _smtpClient.Send(_mailMessage);
 }
-
 ```
 
 Pronto, se executarmos o nosso código iremos receber o e-mail com as informações e anexo informado.  
-  
-[![](/contents/2008/09/emailcomanexo04-1.jpg "emailcomanexo04")](/contents/2008/09/emailcomanexo04-1.jpg)  
-  
-Revisão: A mesma técnica utilizada para envio de e-mail no webform, segue para o winform.  
-Quem tiver idéias de artigos, deixe seu comentário que irei providenciar para as próximas postagens.  
-  
+
+![](/contents/2008/09/emailcomanexo04-1.jpg)
+
+
 Abraço a todos.
