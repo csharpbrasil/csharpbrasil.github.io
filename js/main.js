@@ -1,23 +1,23 @@
 var normal = document.getElementById("nav-menu");
-var reverse = document.getElementById("nav-menu-left");
+var reverse = document.getElementById("nav-menu-right");
 
 var icon = normal !== null ? normal : reverse;
 
 // Toggle the "menu-open" % "menu-opn-left" classes
 function toggle() {
-	  var navRight = document.getElementById("nav");
-	  var navLeft = document.getElementById("nav-left");
-	  var nav = navRight !== null ? navRight : navLeft;
+	  var navLeft = document.getElementById("nav");
+	  var navRight = document.getElementById("nav-right");
+	  var nav = navLeft !== null ? navLeft : navRight;
 
 	  var button = document.getElementById("menu");
 	  var site = document.getElementById("wrap");
 	  
-	  if (nav.className == "menu-open" || nav.className == "menu-open-left") {
+	  if (nav.className == "menu-open" || nav.className == "menu-open-right") {
 	  	  nav.className = "";
 	  	  button.className = "";
 	  	  site.className = "";
 	  } else if (reverse !== null) {
-	  	  nav.className += "menu-open-left";
+	  	  nav.className += "menu-open-right";
 	  	  button.className += "btn-close";
 	  	  site.className += "fixed";
 	  } else {

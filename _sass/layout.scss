@@ -27,20 +27,28 @@ html, body {
 }
 
 #nav {
-  @include nav-position(right);
+  @include nav-position(left);
 }
 
 #nav-left {
   @include nav-position(left);
 }
 
+#nav-right {
+  @include nav-position(right);
+}
+
 /* Toggle class to open menu */
 
 #nav.menu-open {
-  @include open(-14rem);
+  @include open(14rem);
 }
 
 #nav-left.menu-open-left {
+  @include open(14rem);
+}
+
+#nav-right.menu-open-right {
   @include open(14rem);
 }
 
@@ -58,11 +66,15 @@ html, body {
 /* Icon menu */
 
 #nav-menu {
-  @include icon-position(right);
+  @include icon-position(left);
 }
 
 #nav-menu-left {
   @include icon-position(left);
+}
+
+#nav-menu-right {
+  @include icon-position(right);
 }
 
 #menu {
