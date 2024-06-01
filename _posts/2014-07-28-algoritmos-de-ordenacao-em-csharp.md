@@ -48,7 +48,7 @@ public static int[] insertionSort(int[] vetor)
 
 Resultado da execução do Insertion Sort.
 
-![Resultado da ordenação usando o Insertion Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/insertionSort.png)
+![Resultado da ordenação usando o Insertion Sort](/contents/2014/07/insertionSort.png)
 
 ### Shell Sort
 
@@ -87,7 +87,7 @@ public static int[] shellSort(int[] vetor)
 
 Resultado da execução do Shell Sort.
 
-![Resultado da ordenação usando o Shell Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/shellSort.png)
+![Resultado da ordenação usando o Shell Sort](/contents/2014/07/shellSort.png)
 
 ### Selection Sort
 
@@ -120,7 +120,7 @@ public static int[] selectionSort(int[] vetor)
 
 Resultado da execução do Selection Sort.
 
-![Resultado da ordenação usando o Selection Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/selectionSort.png)
+![Resultado da ordenação usando o Selection Sort](/contents/2014/07/selectionSort.png)
 
 ### Heap Sort
 
@@ -176,7 +176,7 @@ private static void swap(int[] v, int j, int aposJ)
 
 Resultado da execução do Heap Sort.
 
-![Resultado da ordenação usando o Heap Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/heapSort.png)
+![Resultado da ordenação usando o Heap Sort](/contents/2014/07/heapSort.png)
 
 ### Bubble Sort
 
@@ -210,7 +210,7 @@ public static int[] bubbleSort(int[] vetor)
 
 Resultado da execução do Bubble Sort.
 
-![Resultado da ordenação usando o Bubble Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/bubbleSort.png)
+![Resultado da ordenação usando o Bubble Sort](/contents/2014/07/bubbleSort.png)
 
 ### Cocktail Sort
 
@@ -260,7 +260,7 @@ public static int[] cocktailSort(int[] vetor)
 
 Resultado da execução do Cocktail Sort.
 
-![Resultado da ordenação usando o Cocktail Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/cocktailSort.png)
+![Resultado da ordenação usando o Cocktail Sort](/contents/2014/07/cocktailSort.png)
 
 ### Comb Sort
 
@@ -299,7 +299,7 @@ public static int[] combSort(int[] vetor)
 
 Resultado da execução do Bubble Sort.
 
-![Resultado da ordenação usando o Comb Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/combSort.png)
+![Resultado da ordenação usando o Comb Sort](/contents/2014/07/combSort.png)
 
 ### Gnome Sort
 
@@ -331,7 +331,7 @@ public static int[] gnomeSort(int[] vetor)
 
 Resultado da execução do Gnome Sort.
 
-![Resultado da ordenação usando o Gnome Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/gnomeSort.png)
+![Resultado da ordenação usando o Gnome Sort](/contents/2014/07/gnomeSort.png)
 
 ### Odd-Even Sort
 
@@ -376,7 +376,7 @@ public static int[] oddEvenSort(int[] vetor)
 
 Resultado da execução do Odd-Even Sort.
 
-![Resultado da ordenação usando o Odd-Even Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/oddEvenSort.png)
+![Resultado da ordenação usando o Odd-Even Sort](/contents/2014/07/oddEvenSort.png)
 
 ### Quick Sort
 
@@ -432,7 +432,7 @@ private static void quickSort(int[] vetor, int inicio, int fim)
 
 Resultado da execução do Quick Sort.
 
-![Resultado da ordenação usando o Quick Sort](https://raphaelcardoso.com.br/wp-content/uploads/2014/07/quickSort.png)
+![Resultado da ordenação usando o Quick Sort](/contents/2014/07/quickSort.png)
 
 Esses são somente alguns dos diversos outros algoritmos de ordenação existentes, alguns mais simples e outros mais complexos. De qualquer forma, poderá fazer download do projeto completo e estudar o seu funcionamento.
 

@@ -14,7 +14,7 @@ Para garantir que o que está sendo solicitado pelo nosso cliente está sendo re
 
 Para aplicações desenvolvidas utilizando JavaScript, é possível garantir que tudo que foi desenvolvido possa estar 100% funcionando utilizando o Jasmine.
 
-![Jasmine](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem1-300x83.png)
+![Jasmine](/contents/2018/08/Imagem1-300x83.png)
 
 Veja algumas das caracteristicas do Jasmine?
 
@@ -38,24 +38,24 @@ Para utilizar a versão standalone, basta fazer o seguinte:
 
 No seu projeto teremos uma estrutura semelhante à imagem abaixo contendo o arquivo principal SpecRunner.html que irá ter associado a ele o Jasmine e as specs.
 
-![Estrutura do diretório da versão standalone do Jasmine](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem2.png)
+![Estrutura do diretório da versão standalone do Jasmine](/contents/2018/08/Imagem2.png)
 
 Nessa mesma estrutura teremos a pasta src (source) contendo os arquivos fonte do nosso projeto e a pasta spec irá conter todos os arquivos javascript com códigos fonte de teste de nosso projeto.
 
-![Arquivo Spec Runner](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem3.png)
+![Arquivo Spec Runner](/contents/2018/08/Imagem3.png)
 
 Um arquivo de spec de javascript é de facil leitura e conterá sempre as seguintes partes:
 
 *   **Suite:** representado pela função **_describe_** que por sua vez receberá dois parametros, sendo a descrição ou nome do teste e a função que conterá as specs ou outras partes importantes;
 *   **Spec:** representado pela função it, também irá receber dois parametros, sendo a descrição ou nome da spec e a função que conterá os matchers;
 
-![Estrutura do arquivo de spec contendo uma Suite, uma Spec e um Matcher](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem4.png)
+![Estrutura do arquivo de spec contendo uma Suite, uma Spec e um Matcher](/contents/2018/08/Imagem4.png)
 
 Para que que o Jasmine possa lhe retornar o resultado em um report conforme a imagem abaixo, você deverá abrir o aquivo SpecRunner.html no seu navegador padrão.
 
-![Relatório contendo o resultado de execução com sucesso do Jasmine](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem5.png)
+![Relatório contendo o resultado de execução com sucesso do Jasmine](/contents/2018/08/Imagem5.png)
 
-![Relatório contendo o resultado de execução com falha do Jasmine](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem6.png)
+![Relatório contendo o resultado de execução com falha do Jasmine](/contents/2018/08/Imagem6.png)
 
 Outra forma de executarmos os testes é usando o Karma. Esse por sua vez é um Test Runner que pode utilizar tanto o Jasmine quanto o Mocha ou QUnit.
 
@@ -93,31 +93,31 @@ npm i --save-dev jasmine jasmine-core karma karma-chrome-launcher karma-jasmine
 
 *   **toBe:** Compara o valor e o tipo do objeto
 
-![toBe](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem7.png)
+![toBe](/contents/2018/08/Imagem7.png)
 
 toBe
 
 *   **toEqual:** Compara o valor do objeto
 
-![toEqual](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem9.png)
+![toEqual](/contents/2018/08/Imagem9.png)
 
 toEqual
 
 *   **toMatch:** Comparação utilizando expressão regular
 
-![toMatch](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem8.png)
+![toMatch](/contents/2018/08/Imagem8.png)
 
 toMatch
 
 *   **toContain:** Verifica se está contido no array
 
-![toContain](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem10.png)
+![toContain](/contents/2018/08/Imagem10.png)
 
 toContain
 
 *   **not:** Pode ser utilizado em conjunto com outros matchers para inverter a comparação
 
-![not](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem11.png)
+![not](/contents/2018/08/Imagem11.png)
 
 not
 
@@ -132,7 +132,7 @@ not
 
 É possível criar seu próprio Matcher usando _jasmine.addMatchers_.
 
-![jasmine.addMatchers](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/Imagem12.png)
+![jasmine.addMatchers](/contents/2018/08/Imagem12.png)
 
 jasmine.addMatchers
 

@@ -37,15 +37,15 @@ csc /out:C:\exemplos\Exemplo1.exe C:\exemplos\Exemplo1.cs
 
 Ao executar o comando, ele irá gerar resultado abaixo informando a versão do compilador e do .NET Framework utilizado.
 
-![aprender_programar_csharp_parte2_1](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_1.jpg)
+![aprender_programar_csharp_parte2_1](/contents/2014/09/aprender_programar_csharp_parte2_1.jpg)
 
 Quando executarmos nossa aplicação, será exibido conforme a imagem abaixo:
 
-![aprender_programar_csharp_parte2_2](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_2.jpg)
+![aprender_programar_csharp_parte2_2](/contents/2014/09/aprender_programar_csharp_parte2_2.jpg)
 
 Caso ocorra algum erro, ele é informado na linha de comando como na imagem a seguir.
 
-![aprender_programar_csharp_parte2_3](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_3.jpg)
+![aprender_programar_csharp_parte2_3](/contents/2014/09/aprender_programar_csharp_parte2_3.jpg)
 
 No caso desse exemplo, foi provocado um erro proposital para ilustrar removendo o carácter ";" (ponto-virgula) do final da linha 9.
 
@@ -79,13 +79,13 @@ Vamos compilar nosso código.
 csc /out:C:\\exemplos\\Exemplo2.exe C:\\exemplos\\Exemplo2.cs
 ```
 
-![aprender_programar_csharp_parte2_4](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_4.jpg)
+![aprender_programar_csharp_parte2_4](/contents/2014/09/aprender_programar_csharp_parte2_4.jpg)
 
 Feito a compilação e sem a ocorrência de erro, vamos executar a aplicação e teremos o resultado abaixo:
 
-![aprender_programar_csharp_parte2_5](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_5.jpg) 
+![aprender_programar_csharp_parte2_5](/contents/2014/09/aprender_programar_csharp_parte2_5.jpg) 
 
-![aprender_programar_csharp_parte2_6](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_6.jpg)
+![aprender_programar_csharp_parte2_6](/contents/2014/09/aprender_programar_csharp_parte2_6.jpg)
 
 Agora vamos a um outro exemplo com um pouco mais interação do usuário. Nesse exemplo o usuário deverá informar um número entre 0 e 100 para A e B. No código é realizado a recuperação dos valores informados pelo usuário e a conversão para inteiro para fazer o calculo entre A e B. Caso o valos não seja satisfatório, o código irá retornar uma mensagem informando.
 
@@ -133,13 +133,13 @@ Vamos compilar nosso código.
 csc /out:C:\\exemplos\\Exemplo3.exe C:\\exemplos\\Exemplo3.cs
 ```
 
-![aprender_programar_csharp_parte2_7](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_7.jpg)
+![aprender_programar_csharp_parte2_7](/contents/2014/09/aprender_programar_csharp_parte2_7.jpg)
 
 Feito a compilação, vamos executar a aplicação:
 
-![aprender_programar_csharp_parte2_8](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_8.jpg) 
+![aprender_programar_csharp_parte2_8](/contents/2014/09/aprender_programar_csharp_parte2_8.jpg) 
 
-![aprender_programar_csharp_parte2_9](https://raphaelcardoso.com.br/wp-content/uploads/2014/09/aprender_programar_csharp_parte2_9.jpg)
+![aprender_programar_csharp_parte2_9](/contents/2014/09/aprender_programar_csharp_parte2_9.jpg)
 
 Até aqui você aprendeu um pouco mais sobre a linguagem C# (C-Sharp) além de poder aplicar na prática o uso do compilador [csc]([Compiler Options - C# reference | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/)) em linha de comando. Pelo fato de o compilador em si não ser nosso foco, não irei fazer maiores abordagem acerca de seus outros parametros de compilação uma vez que é possível realizar algo mais avançado do que o proposto no artigo.
 

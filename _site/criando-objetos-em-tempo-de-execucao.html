@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Criando Objetos em Tempo de Execução | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Criando Objetos em Tempo de Execução" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Vou explicar de maneira simples e exemplificada sobre criação de objetos em tempo de execução. Vou mostrar um modelo prático. Imagine a seguinte situação. Você possui um webservice que envia consultas SQL para um cliente feito em Windows Form. Nesse cliente, existirá uma aba para cada consulta com um grid para exibir a consulta. Imagine o trabalho de ter que adicionar uma aba, um grid, configurar o cabeçalho de cada coluna desse grid? Retrabalho certo? Como sou preguiçoso, pensei em uma forma mais prática. E que tal se o integrador fosse inteligente a ponto de montar suas próprias abas, com um grid dentro e tudo vier configurado do webservice? Não seria necessário a manutenção no programa cliente caso uma nova consulta fosse adicionada, certo? Vou mostrar apenas a criação dos componentes, ok? Vou deixar a cargo de vocês se precisarem montar o webservice ou o DataSet com as consultas. Aí vai de cada um na sua utilização. Primeiro, crie uma nova aplicação Windows Form. Adicione um TabControl e exclua as TabPages que já vem criadas nela. Você pode melhorar ainda mais o código e deixar o seu programa criar a TabControl. Não há problema também. Vou colocar o código no próprio construtor do formulário, o valor será fixo para a quantidade abas que serão adicionadas somente para teste. csharp private int qtdAbas = 10; O código abaixo percorre um for adicionando as abas (TabPage) dinamicamente conforme a variável qtdAbas. csharp this.SuspendLayout(); // executa um for para adicionar a quantidade de abas da variável que setamos for (int i = 0; i &lt; qtdAbas; i++) { // primeiro criamos o grid dinamicamente var dg = new System.Windows.Forms.DataGridView(); dg.Dock = System.Windows.Forms.DockStyle.Fill; dg.Location = new System.Drawing.Point(3, 3); dg.Name = &quot;dg&quot; + i.ToString(); dg.Size = new System.Drawing.Size(630, 292); dg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells; // adiciona a aba dinamicamente var aba = new System.Windows.Forms.TabPage(); aba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224))))); aba.Location = new System.Drawing.Point(4, 32); aba.Name = &quot;aba&quot; + i.ToString(); aba.Padding = new System.Windows.Forms.Padding(3); aba.Size = new System.Drawing.Size(638, 300); aba.TabIndex = tabControl1.TabCount; aba.Text = &quot;Aba &quot; +i.ToString(); aba.Controls.Add(dg); // adiciona o Grid nesta aba // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO // adiciona a tabPage no tabControl1 tabControl1.Controls.Add(aba); } this.ResumeLayout(false); Note que utilizamos os comandos “SuspendLayout()” e “ResumeLayout(false)” antes e depois do nosso loop. O método SuspendLayout(), suspende o formulário de que seja executado algum evento vinculado aos componentes do nosso formulário e depois que o loop é feito, é habilitado novamente. Agora basta rodar o projeto para ver o formulário com 10 abas criadas. Vou mostrar outro exemplo interessante. Suponhamos que você tenha um projeto com vários formulários e grids em cada um e queria que cada um tenha seu grid zebrado. Você teria que configurar cada um e caso tivesse que mudar as cores, teria que alterar tudo novamente, certo? Abaixo eu crio um método público que retorna um tipo DataGridViewCellStyle, vulgo estilo de célula de grid. csharp public DataGridViewCellStyle EstiloZebrado() { // Estilo Zebrado dos DataGridView System.Windows.Forms.DataGridViewCellStyle dgEstiloZebrado = new System.Windows.Forms.DataGridViewCellStyle(); dgEstiloZebrado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(230)))), ((int)(((byte)(254))))); return dgEstiloZebrado; } Voltamos no nosso construtor do form, no momento em que o grid é criado dinamicamente e adicionamos a seguinte linha “dg.AlternatingRowsDefaultCellStyle = EstiloZebrado();” Dessa forma, todos os grids de cada aba serão zebrados. Se precisar alterar a cor do grid zebrado, basta ir neste método. Vou mostrar outro exemplo interessante. É possível associar eventos em tempo de execução também. Mas esse evento precisa ser genérico para todos os objetos. No caso, vou associar um evento no Enter de cada aba (TabPage). Crie o método abaixo que será genérico para todas as abas (TabPage). csharp private void tabPage_Enter(object sender, EventArgs e) { DataGridView dg = ((sender as TabPage).Controls[&quot;dg&quot; + (tabControl1.SelectedIndex).ToString()]) as DataGridView; if (dg != null) // verifica se o objeto DataGridView foi encontrado { // manipule seu DataGridView da forma como quiser } } No método acima, eu busco dentro da aba (TabPage) por um componente que comece com dg e um número que é o índice da aba selecionada. Dessa forma, eu consigo manipular um objeto que seja padrão em todas as abas. No caso um DataGridView. Faço um if verificando se encontrou o DataGridView e posso manipulá-lo como quiser. No exemplo que vou colocar para download, eu utilizo um MessageBox.Show() somente para mostrar o evento funcionando. Volte no primeiro trecho de código, aquele comentado e descomente ele. Ele é o responsável por adicionar o evento dinamicamente a cada aba. csharp // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO Pronto, só colocar para executar e ver o resultado. É claro que coloquei apenas alguns exemplos práticos mas você pode melhorar muito suas aplicações tornando as bem modularizadas. Vou só dar uma última dica. Tá, prometo que é a última. Se você estiver em dúvida como criar um objeto em tempo de execução, coloque ele em design no seu formulário, vá no Solution Explorer e veja que tem seu arquivo Form1.cs certo? Clique na setinha para mostrar os arquivos Form1.Designer.cs e o Form1.resx. Clique duas vezes no Form1.Designer.cs que irá abrir o arquivo onde existe o código de criação dos objetos. Como o C# é pré-compilado, esse arquivo nada mais é do que a criação dos objetos em tempo de execução também. Acontece que ele é feito de forma fixa e não dinâmica como fizemos no exemplo acima. Boa sorte!" />
+<meta property="og:description" content="Vou explicar de maneira simples e exemplificada sobre criação de objetos em tempo de execução. Vou mostrar um modelo prático. Imagine a seguinte situação. Você possui um webservice que envia consultas SQL para um cliente feito em Windows Form. Nesse cliente, existirá uma aba para cada consulta com um grid para exibir a consulta. Imagine o trabalho de ter que adicionar uma aba, um grid, configurar o cabeçalho de cada coluna desse grid? Retrabalho certo? Como sou preguiçoso, pensei em uma forma mais prática. E que tal se o integrador fosse inteligente a ponto de montar suas próprias abas, com um grid dentro e tudo vier configurado do webservice? Não seria necessário a manutenção no programa cliente caso uma nova consulta fosse adicionada, certo? Vou mostrar apenas a criação dos componentes, ok? Vou deixar a cargo de vocês se precisarem montar o webservice ou o DataSet com as consultas. Aí vai de cada um na sua utilização. Primeiro, crie uma nova aplicação Windows Form. Adicione um TabControl e exclua as TabPages que já vem criadas nela. Você pode melhorar ainda mais o código e deixar o seu programa criar a TabControl. Não há problema também. Vou colocar o código no próprio construtor do formulário, o valor será fixo para a quantidade abas que serão adicionadas somente para teste. csharp private int qtdAbas = 10; O código abaixo percorre um for adicionando as abas (TabPage) dinamicamente conforme a variável qtdAbas. csharp this.SuspendLayout(); // executa um for para adicionar a quantidade de abas da variável que setamos for (int i = 0; i &lt; qtdAbas; i++) { // primeiro criamos o grid dinamicamente var dg = new System.Windows.Forms.DataGridView(); dg.Dock = System.Windows.Forms.DockStyle.Fill; dg.Location = new System.Drawing.Point(3, 3); dg.Name = &quot;dg&quot; + i.ToString(); dg.Size = new System.Drawing.Size(630, 292); dg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells; // adiciona a aba dinamicamente var aba = new System.Windows.Forms.TabPage(); aba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224))))); aba.Location = new System.Drawing.Point(4, 32); aba.Name = &quot;aba&quot; + i.ToString(); aba.Padding = new System.Windows.Forms.Padding(3); aba.Size = new System.Drawing.Size(638, 300); aba.TabIndex = tabControl1.TabCount; aba.Text = &quot;Aba &quot; +i.ToString(); aba.Controls.Add(dg); // adiciona o Grid nesta aba // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO // adiciona a tabPage no tabControl1 tabControl1.Controls.Add(aba); } this.ResumeLayout(false); Note que utilizamos os comandos “SuspendLayout()” e “ResumeLayout(false)” antes e depois do nosso loop. O método SuspendLayout(), suspende o formulário de que seja executado algum evento vinculado aos componentes do nosso formulário e depois que o loop é feito, é habilitado novamente. Agora basta rodar o projeto para ver o formulário com 10 abas criadas. Vou mostrar outro exemplo interessante. Suponhamos que você tenha um projeto com vários formulários e grids em cada um e queria que cada um tenha seu grid zebrado. Você teria que configurar cada um e caso tivesse que mudar as cores, teria que alterar tudo novamente, certo? Abaixo eu crio um método público que retorna um tipo DataGridViewCellStyle, vulgo estilo de célula de grid. csharp public DataGridViewCellStyle EstiloZebrado() { // Estilo Zebrado dos DataGridView System.Windows.Forms.DataGridViewCellStyle dgEstiloZebrado = new System.Windows.Forms.DataGridViewCellStyle(); dgEstiloZebrado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(230)))), ((int)(((byte)(254))))); return dgEstiloZebrado; } Voltamos no nosso construtor do form, no momento em que o grid é criado dinamicamente e adicionamos a seguinte linha “dg.AlternatingRowsDefaultCellStyle = EstiloZebrado();” Dessa forma, todos os grids de cada aba serão zebrados. Se precisar alterar a cor do grid zebrado, basta ir neste método. Vou mostrar outro exemplo interessante. É possível associar eventos em tempo de execução também. Mas esse evento precisa ser genérico para todos os objetos. No caso, vou associar um evento no Enter de cada aba (TabPage). Crie o método abaixo que será genérico para todas as abas (TabPage). csharp private void tabPage_Enter(object sender, EventArgs e) { DataGridView dg = ((sender as TabPage).Controls[&quot;dg&quot; + (tabControl1.SelectedIndex).ToString()]) as DataGridView; if (dg != null) // verifica se o objeto DataGridView foi encontrado { // manipule seu DataGridView da forma como quiser } } No método acima, eu busco dentro da aba (TabPage) por um componente que comece com dg e um número que é o índice da aba selecionada. Dessa forma, eu consigo manipular um objeto que seja padrão em todas as abas. No caso um DataGridView. Faço um if verificando se encontrou o DataGridView e posso manipulá-lo como quiser. No exemplo que vou colocar para download, eu utilizo um MessageBox.Show() somente para mostrar o evento funcionando. Volte no primeiro trecho de código, aquele comentado e descomente ele. Ele é o responsável por adicionar o evento dinamicamente a cada aba. csharp // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO Pronto, só colocar para executar e ver o resultado. É claro que coloquei apenas alguns exemplos práticos mas você pode melhorar muito suas aplicações tornando as bem modularizadas. Vou só dar uma última dica. Tá, prometo que é a última. Se você estiver em dúvida como criar um objeto em tempo de execução, coloque ele em design no seu formulário, vá no Solution Explorer e veja que tem seu arquivo Form1.cs certo? Clique na setinha para mostrar os arquivos Form1.Designer.cs e o Form1.resx. Clique duas vezes no Form1.Designer.cs que irá abrir o arquivo onde existe o código de criação dos objetos. Como o C# é pré-compilado, esse arquivo nada mais é do que a criação dos objetos em tempo de execução também. Acontece que ele é feito de forma fixa e não dinâmica como fizemos no exemplo acima. Boa sorte!" />
+<link rel="canonical" href="http://localhost:4000/criando-objetos-em-tempo-de-execucao" />
+<meta property="og:url" content="http://localhost:4000/criando-objetos-em-tempo-de-execucao" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-04-05T23:08:43-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Criando Objetos em Tempo de Execução" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2011-04-05T23:08:43-03:00","datePublished":"2011-04-05T23:08:43-03:00","description":"Vou explicar de maneira simples e exemplificada sobre criação de objetos em tempo de execução. Vou mostrar um modelo prático. Imagine a seguinte situação. Você possui um webservice que envia consultas SQL para um cliente feito em Windows Form. Nesse cliente, existirá uma aba para cada consulta com um grid para exibir a consulta. Imagine o trabalho de ter que adicionar uma aba, um grid, configurar o cabeçalho de cada coluna desse grid? Retrabalho certo? Como sou preguiçoso, pensei em uma forma mais prática. E que tal se o integrador fosse inteligente a ponto de montar suas próprias abas, com um grid dentro e tudo vier configurado do webservice? Não seria necessário a manutenção no programa cliente caso uma nova consulta fosse adicionada, certo? Vou mostrar apenas a criação dos componentes, ok? Vou deixar a cargo de vocês se precisarem montar o webservice ou o DataSet com as consultas. Aí vai de cada um na sua utilização. Primeiro, crie uma nova aplicação Windows Form. Adicione um TabControl e exclua as TabPages que já vem criadas nela. Você pode melhorar ainda mais o código e deixar o seu programa criar a TabControl. Não há problema também. Vou colocar o código no próprio construtor do formulário, o valor será fixo para a quantidade abas que serão adicionadas somente para teste. csharp private int qtdAbas = 10; O código abaixo percorre um for adicionando as abas (TabPage) dinamicamente conforme a variável qtdAbas. csharp this.SuspendLayout(); // executa um for para adicionar a quantidade de abas da variável que setamos for (int i = 0; i &lt; qtdAbas; i++) { // primeiro criamos o grid dinamicamente var dg = new System.Windows.Forms.DataGridView(); dg.Dock = System.Windows.Forms.DockStyle.Fill; dg.Location = new System.Drawing.Point(3, 3); dg.Name = &quot;dg&quot; + i.ToString(); dg.Size = new System.Drawing.Size(630, 292); dg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells; // adiciona a aba dinamicamente var aba = new System.Windows.Forms.TabPage(); aba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224))))); aba.Location = new System.Drawing.Point(4, 32); aba.Name = &quot;aba&quot; + i.ToString(); aba.Padding = new System.Windows.Forms.Padding(3); aba.Size = new System.Drawing.Size(638, 300); aba.TabIndex = tabControl1.TabCount; aba.Text = &quot;Aba &quot; +i.ToString(); aba.Controls.Add(dg); // adiciona o Grid nesta aba // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO // adiciona a tabPage no tabControl1 tabControl1.Controls.Add(aba); } this.ResumeLayout(false); Note que utilizamos os comandos “SuspendLayout()” e “ResumeLayout(false)” antes e depois do nosso loop. O método SuspendLayout(), suspende o formulário de que seja executado algum evento vinculado aos componentes do nosso formulário e depois que o loop é feito, é habilitado novamente. Agora basta rodar o projeto para ver o formulário com 10 abas criadas. Vou mostrar outro exemplo interessante. Suponhamos que você tenha um projeto com vários formulários e grids em cada um e queria que cada um tenha seu grid zebrado. Você teria que configurar cada um e caso tivesse que mudar as cores, teria que alterar tudo novamente, certo? Abaixo eu crio um método público que retorna um tipo DataGridViewCellStyle, vulgo estilo de célula de grid. csharp public DataGridViewCellStyle EstiloZebrado() { // Estilo Zebrado dos DataGridView System.Windows.Forms.DataGridViewCellStyle dgEstiloZebrado = new System.Windows.Forms.DataGridViewCellStyle(); dgEstiloZebrado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(230)))), ((int)(((byte)(254))))); return dgEstiloZebrado; } Voltamos no nosso construtor do form, no momento em que o grid é criado dinamicamente e adicionamos a seguinte linha “dg.AlternatingRowsDefaultCellStyle = EstiloZebrado();” Dessa forma, todos os grids de cada aba serão zebrados. Se precisar alterar a cor do grid zebrado, basta ir neste método. Vou mostrar outro exemplo interessante. É possível associar eventos em tempo de execução também. Mas esse evento precisa ser genérico para todos os objetos. No caso, vou associar um evento no Enter de cada aba (TabPage). Crie o método abaixo que será genérico para todas as abas (TabPage). csharp private void tabPage_Enter(object sender, EventArgs e) { DataGridView dg = ((sender as TabPage).Controls[&quot;dg&quot; + (tabControl1.SelectedIndex).ToString()]) as DataGridView; if (dg != null) // verifica se o objeto DataGridView foi encontrado { // manipule seu DataGridView da forma como quiser } } No método acima, eu busco dentro da aba (TabPage) por um componente que comece com dg e um número que é o índice da aba selecionada. Dessa forma, eu consigo manipular um objeto que seja padrão em todas as abas. No caso um DataGridView. Faço um if verificando se encontrou o DataGridView e posso manipulá-lo como quiser. No exemplo que vou colocar para download, eu utilizo um MessageBox.Show() somente para mostrar o evento funcionando. Volte no primeiro trecho de código, aquele comentado e descomente ele. Ele é o responsável por adicionar o evento dinamicamente a cada aba. csharp // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO Pronto, só colocar para executar e ver o resultado. É claro que coloquei apenas alguns exemplos práticos mas você pode melhorar muito suas aplicações tornando as bem modularizadas. Vou só dar uma última dica. Tá, prometo que é a última. Se você estiver em dúvida como criar um objeto em tempo de execução, coloque ele em design no seu formulário, vá no Solution Explorer e veja que tem seu arquivo Form1.cs certo? Clique na setinha para mostrar os arquivos Form1.Designer.cs e o Form1.resx. Clique duas vezes no Form1.Designer.cs que irá abrir o arquivo onde existe o código de criação dos objetos. Como o C# é pré-compilado, esse arquivo nada mais é do que a criação dos objetos em tempo de execução também. Acontece que ele é feito de forma fixa e não dinâmica como fizemos no exemplo acima. Boa sorte!","headline":"Criando Objetos em Tempo de Execução","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/criando-objetos-em-tempo-de-execucao"},"url":"http://localhost:4000/criando-objetos-em-tempo-de-execucao"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando Objetos em Tempo de Execução</h2>		
+	<time datetime="2011-04-05T23:08:43-03:00" class="by-line">
+		
+		5
+		Abril
+		  
+		2011
+	</time>
+	<div class="content">
+
+		<p>Vou explicar de maneira simples e exemplificada sobre criação de objetos em tempo de execução.</p>
+
+<p>Vou mostrar um modelo prático. Imagine a seguinte situação. Você possui um webservice que envia consultas SQL para um cliente feito em Windows Form. Nesse cliente, existirá uma aba para cada consulta com um grid para exibir a consulta.<br />
+Imagine o trabalho de ter que adicionar uma aba, um grid, configurar o cabeçalho de cada coluna desse grid? Retrabalho certo?</p>
+
+<p>Como sou preguiçoso, pensei em uma forma mais prática. E que tal se o integrador fosse inteligente a ponto de montar suas próprias abas, com um grid dentro e tudo vier configurado do webservice? Não seria necessário a manutenção no programa cliente caso uma nova consulta fosse adicionada, certo?</p>
+
+<p>Vou mostrar apenas a criação dos componentes, ok? Vou deixar a cargo de vocês se precisarem montar o webservice ou o DataSet com as consultas. Aí vai de cada um na sua utilização.</p>
+
+<p>Primeiro, crie uma nova aplicação Windows Form. Adicione um TabControl e exclua as TabPages que já vem criadas nela. Você pode melhorar ainda mais o código e deixar o seu programa criar a TabControl. Não há problema também.</p>
+
+<p>Vou colocar o código no próprio construtor do formulário, o valor será fixo para a quantidade abas que serão adicionadas somente para teste.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp private int qtdAbas = 10;</code></p>
+
+<p>O código abaixo percorre um for adicionando as abas (TabPage) dinamicamente conforme a variável qtdAbas.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp this.SuspendLayout(); // executa um for para adicionar a quantidade de abas da variável que setamos for (int i = 0; i &lt; qtdAbas; i++) { // primeiro criamos o grid dinamicamente var dg = new System.Windows.Forms.DataGridView(); dg.Dock = System.Windows.Forms.DockStyle.Fill; dg.Location = new System.Drawing.Point(3, 3); dg.Name = "dg" + i.ToString(); dg.Size = new System.Drawing.Size(630, 292); dg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells; // adiciona a aba dinamicamente var aba = new System.Windows.Forms.TabPage(); aba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224))))); aba.Location = new System.Drawing.Point(4, 32); aba.Name = "aba" + i.ToString(); aba.Padding = new System.Windows.Forms.Padding(3); aba.Size = new System.Drawing.Size(638, 300); aba.TabIndex = tabControl1.TabCount; aba.Text = "Aba " +i.ToString(); aba.Controls.Add(dg); // adiciona o Grid nesta aba // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO // adiciona a tabPage no tabControl1 tabControl1.Controls.Add(aba); } this.ResumeLayout(false);</code><br />
+Note que utilizamos os comandos “SuspendLayout()” e “ResumeLayout(false)” antes e depois do nosso loop.<br />
+O método SuspendLayout(), suspende o formulário de que seja executado algum evento vinculado aos componentes do nosso formulário e depois que o loop é feito, é habilitado novamente.</p>
+
+<p>Agora basta rodar o projeto para ver o formulário com 10 abas criadas.</p>
+
+<p>Vou mostrar outro exemplo interessante.<br />
+Suponhamos que você tenha um projeto com vários formulários e grids em cada um e queria que cada um tenha seu grid zebrado.<br />
+Você teria que configurar cada um e caso tivesse que mudar as cores, teria que alterar tudo novamente, certo?<br />
+Abaixo eu crio um método público que retorna um tipo DataGridViewCellStyle, vulgo estilo de célula de grid.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp public DataGridViewCellStyle EstiloZebrado() { // Estilo Zebrado dos DataGridView System.Windows.Forms.DataGridViewCellStyle dgEstiloZebrado = new System.Windows.Forms.DataGridViewCellStyle(); dgEstiloZebrado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(230)))), ((int)(((byte)(254))))); return dgEstiloZebrado; }</code></p>
+
+<p>Voltamos no nosso construtor do form, no momento em que o grid é criado dinamicamente e adicionamos a seguinte linha “dg.AlternatingRowsDefaultCellStyle = EstiloZebrado();”</p>
+
+<p>Dessa forma, todos os grids de cada aba serão zebrados. Se precisar alterar a cor do grid zebrado, basta ir neste método.</p>
+
+<p>Vou mostrar outro exemplo interessante.<br />
+É possível associar eventos em tempo de execução também. Mas esse evento precisa ser genérico para todos os objetos.<br />
+No caso, vou associar um evento no Enter de cada aba (TabPage).</p>
+
+<p>Crie o método abaixo que será genérico para todas as abas (TabPage).</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp private void tabPage_Enter(object sender, EventArgs e) { DataGridView dg = ((sender as TabPage).Controls["dg" + (tabControl1.SelectedIndex).ToString()]) as DataGridView; if (dg != null) // verifica se o objeto DataGridView foi encontrado { // manipule seu DataGridView da forma como quiser } }</code><br />
+No método acima, eu busco dentro da aba (TabPage) por um componente que comece com dg e um número que é o índice da aba selecionada.<br />
+Dessa forma, eu consigo manipular um objeto que seja padrão em todas as abas. No caso um DataGridView.<br />
+Faço um if verificando se encontrou o DataGridView e posso manipulá-lo como quiser.</p>
+
+<p>No exemplo que vou colocar para download, eu utilizo um MessageBox.Show() somente para mostrar o evento funcionando.</p>
+
+<p>Volte no primeiro trecho de código, aquele comentado e descomente ele.<br />
+Ele é o responsável por adicionar o evento dinamicamente a cada aba.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO</code><br />
+Pronto, só colocar para executar e ver o resultado.<br />
+É claro que coloquei apenas alguns exemplos práticos mas você pode melhorar muito suas aplicações tornando as bem modularizadas.</p>
+
+<p>Vou só dar uma última dica. Tá, prometo que é a última.<br />
+Se você estiver em dúvida como criar um objeto em tempo de execução, coloque ele em design no seu formulário, vá no Solution Explorer e veja que tem seu arquivo Form1.cs certo?<br />
+Clique na setinha para mostrar os arquivos Form1.Designer.cs e o Form1.resx.<br />
+Clique duas vezes no Form1.Designer.cs que irá abrir o arquivo onde existe o código de criação dos objetos.<br />
+Como o C# é pré-compilado, esse arquivo nada mais é do que a criação dos objetos em tempo de execução também. Acontece que ele é feito de forma fixa e não dinâmica como fizemos no exemplo acima.</p>
+
+<p>Boa sorte!</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/criando-objetos-em-tempo-de-execucao" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

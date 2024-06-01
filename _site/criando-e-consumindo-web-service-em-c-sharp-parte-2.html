@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Criando e consumindo Web Service em C-Sharp - Parte 2 | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Criando e consumindo Web Service em C-Sharp - Parte 2" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Olá pessoa, dando continuidade ao artigo anterior onde criamos um web service, nesse artigo irei mostrar como é simples utilizado em uma aplicação WinForm." />
+<meta property="og:description" content="Olá pessoa, dando continuidade ao artigo anterior onde criamos um web service, nesse artigo irei mostrar como é simples utilizado em uma aplicação WinForm." />
+<link rel="canonical" href="http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-2" />
+<meta property="og:url" content="http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-2" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2008-09-12T14:43:40-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Criando e consumindo Web Service em C-Sharp - Parte 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2008-09-12T14:43:40-03:00","datePublished":"2008-09-12T14:43:40-03:00","description":"Olá pessoa, dando continuidade ao artigo anterior onde criamos um web service, nesse artigo irei mostrar como é simples utilizado em uma aplicação WinForm.","headline":"Criando e consumindo Web Service em C-Sharp - Parte 2","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-2"},"url":"http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-2"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando e consumindo Web Service em C-Sharp - Parte 2</h2>		
+	<time datetime="2008-09-12T14:43:40-03:00" class="by-line">
+		
+		12
+		Setembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá pessoa, dando continuidade ao artigo anterior onde criamos um web service, nesse artigo irei mostrar como é simples utilizado em uma aplicação WinForm.</p>
+
+<p>Para quem não leu o artigo anterior:<br />
+<a href="/criando-e-consumindo-web-service-em-c-sharp-parte-1">Criando e consumindo Web Service em C-Sharp - Parte 1</a></p>
+
+<p>Vamos ao que interessa.<br />
+1- Abra o projeto anterior, quem não tiver poderá fazer o download do projeto do <a href="https://github.com/csharpbrasil/Criando-Consumindo-WebService">Github</a>.<br />
+2- Clique com o botão direito em cima do Solution no Solution Explorer do Visual Studio &gt; <em>Add</em> &gt; <em>New Project…</em><br />
+<a href="/contents/2008/09/criandowebservice05-1.jpg"><img src="/contents/2008/09/criandowebservice05-1-275x300.jpg" alt="" title="criandowebservice05" /></a><br />
+3- Na janela que ira abrir, escolha Windows Application, defina um nome <strong><em>TesteMeuWebService</em></strong><br />
+<a href="/contents/2008/09/criandowebservice04-1.jpg"><img src="/contents/2008/09/criandowebservice04-1-300x228.jpg" alt="" title="criandowebservice04" /></a><br />
+4- Agora adicionaremos referencia ao nosso WebService já criado. Clique com o botão direito em cima do Project no Solution Explorer do Visual Studio &gt; <em>Add Web Reference…</em><br />
+<a href="/contents/2008/09/criandowebservice06-1.jpg"><img src="/contents/2008/09/criandowebservice06-1.jpg" alt="" title="criandowebservice06" /></a><br />
+5- Vamos listar os Web Services inclusos em nosso Solution.<br />
+<a href="/contents/2008/09/criandowebservice07-1.jpg"><img src="/contents/2008/09/criandowebservice07-1.jpg" alt="" title="criandowebservice07" /></a><br />
+6- Selecionamos o nosso Web Service<br />
+<a href="/contents/2008/09/criandowebservice08-1.jpg"><img src="/contents/2008/09/criandowebservice08-1.jpg" alt="" title="criandowebservice08" /></a><br />
+7- Adicionamos como referencia ao projeto.<br />
+<a href="/contents/2008/09/criandowebservice09-1.jpg"><img src="/contents/2008/09/criandowebservice09-1.jpg" alt="" title="criandowebservice09" /></a><br />
+8- Agora vamos ao WinForm. Adicione 3 Labels, 3 TextBox, 1 ComboBox e 1 Button<br />
+<a href="/contents/2008/09/criandowebservice10-1.jpg"><img src="/contents/2008/09/criandowebservice10-1.jpg" alt="" title="criandowebservice10" /></a><br />
+9- Adicione a lista de operações no ComboBox conforme imagem abaixo.</p>
+
+<ul>
+  <li>Adição</li>
+  <li>Divisão</li>
+  <li>Multiplicação</li>
+  <li>Subtração</li>
+</ul>
+
+<p><a href="/contents/2008/09/criandowebservice11-1.jpg"><img src="/contents/2008/09/criandowebservice11-1.jpg" alt="" title="criandowebservice11" /></a><br />
+10- Agora de um duplo clique no Button para adicionarmos o evento Click e o código abaixo.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp private void button1_Click(object sender, EventArgs e) { decimal ValorA; decimal ValorB; localhost.OperacoesBasicas operacao = localhost.OperacoesBasicas.Adicao; decimal Resultado; decimal.TryParse(textBox1.Text, out ValorA); decimal.TryParse(textBox2.Text, out ValorB); switch (comboBox1.SelectedIndex) { case 0: operacao = localhost.OperacoesBasicas.Adicao; break; case 1: operacao = localhost.OperacoesBasicas.Divisao; break; case 2: operacao = localhost.OperacoesBasicas.Multiplicacao; break; case 3: operacao = localhost.OperacoesBasicas.Subtracao; break; default: operacao = localhost.OperacoesBasicas.Adicao; break; } localhost.Service MeuWebService = new localhost.Service(); Resultado = MeuWebService.Calculadora(ValorA, ValorB, operacao); textBox3.Text = Resultado.ToString(); }</code></p>
+
+<p>Pronto, mais se formos executar o nosso projeto, ele não será executado, pois o projeto que esta definido como principal é o WebService, então clique com o botão direito em cima do Project do WinForm &gt; <em>Set as StartUp Project</em><br />
+<a href="/contents/2008/09/criandowebservice12-1.jpg"><img src="/contents/2008/09/criandowebservice12-1.jpg" alt="" title="criandowebservice12" /></a><br />
+Agora sim, é só executar nosso projeto.<br />
+<a href="/contents/2008/09/criandowebservice13-1.jpg"><img src="/contents/2008/09/criandowebservice13-1.jpg" alt="" title="criandowebservice13" /></a></p>
+
+<p>Espero que tenham entendido e qualquer dúvida é só mandar os comentários que responderei.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/Criando-Consumindo-WebService">Github</a>.</p>
+
+<p>Abraço e até lá.</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-2" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

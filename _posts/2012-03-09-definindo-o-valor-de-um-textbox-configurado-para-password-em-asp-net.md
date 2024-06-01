@@ -13,6 +13,6 @@ Deixando a segurança de lado, uma forma de contornar isso em ASP.NET, é adicio
 
 Como o TextBox processa em sua saída um controle input de HTML é possível definir seu atributo "value", da mesma forma que você define sua propriedade Text.
 
-\[sourcecode language='html'\] TextBoxPassword.Attributes.Add("value", "MyPassword"); \[/sourcecode\]
+```html TextBoxPassword.Attributes.Add("value", "MyPassword"); ```
 
 Claro a melhor maneira de fazer isso seria criar uma pagina separada para redefinição do password, onde o usuário deverá inserir a senha atual e depois a nova senha, assim evitando a exibição da senha na pagina.

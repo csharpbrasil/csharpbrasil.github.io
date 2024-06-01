@@ -20,25 +20,25 @@ Então agora vamos ao que interessa.
 1- Abra o Visual Studio.  
 2- Crie um novo _ASP.NET Web Service_ em _File > New > Web Site..._
 
-[![](https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice01-1.jpg "criandowebservice01")](https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice01-1.jpg)
+[![](/contents/2008/09/criandowebservice01-1.jpg "criandowebservice01")](/contents/2008/09/criandowebservice01-1.jpg)
 
 Seu código inicialmente será igual ao código abaixo.
 
-\[sourcecode language='csharp'\] using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; \[WebService(Namespace = "http://tempuri.org/")\] \[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1\_1)\] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } \[WebMethod\] public string HelloWorld() { return "Hello World"; } } \[/sourcecode\]
+```csharp using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; [WebService(Namespace = "http://tempuri.org/")] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return "Hello World"; } } ```
 
 Iremos criar um WebMetodo que possibilita a uma aplicação realizar as 4 Operações Básicas da Matemática, mais o detalhe é que daremos a possibilidade de se escolher qual delas usar no mesmo WebMetodo.
 
 Para isso crie uma nova classe do tipo Enum e nosso código ficará como o exemplo abaixo:
 
-\[sourcecode language='csharp'\] using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; \[WebService(Namespace = "http://tempuri.org/")\] \[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1\_1)\] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } \[WebMethod\] public string HelloWorld() { return "Hello World"; } } public enum OperacoesBasicas { Adicao = 0, Divisao = 1, Multiplicacao = 2, Subtracao = 3 } \[/sourcecode\]
+```csharp using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; [WebService(Namespace = "http://tempuri.org/")] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return "Hello World"; } } public enum OperacoesBasicas { Adicao = 0, Divisao = 1, Multiplicacao = 2, Subtracao = 3 } ```
 
 Feito isso iremos criar então um novo WebMetodo chamado _Calculadora_ onde iremos informar 2 valores do Tipo _Decimal_, a Tipo da _Operação_ e será retornado um outro valor do tipo _Decimal_. Veja o código abaixo:
 
-\[sourcecode language='csharp'\] \[WebMethod\] public decimal Calculadora(decimal ValorA, decimal ValorB, OperacoesBasicas TipoOperacao) { decimal ResultadoAB = 0; switch (TipoOperacao) { case OperacoesBasicas.Adicao: { ResultadoAB = decimal.Add(ValorA, ValorB); break; } case OperacoesBasicas.Divisao: { ResultadoAB = decimal.Divide(ValorA, ValorB); break; } case OperacoesBasicas.Multiplicacao: { ResultadoAB = decimal.Multiply(ValorA, ValorB); break; } case OperacoesBasicas.Subtracao: { ResultadoAB = decimal.Subtract(ValorA, ValorB); break; } } return ResultadoAB; } \[/sourcecode\]
+```csharp [WebMethod] public decimal Calculadora(decimal ValorA, decimal ValorB, OperacoesBasicas TipoOperacao) { decimal ResultadoAB = 0; switch (TipoOperacao) { case OperacoesBasicas.Adicao: { ResultadoAB = decimal.Add(ValorA, ValorB); break; } case OperacoesBasicas.Divisao: { ResultadoAB = decimal.Divide(ValorA, ValorB); break; } case OperacoesBasicas.Multiplicacao: { ResultadoAB = decimal.Multiply(ValorA, ValorB); break; } case OperacoesBasicas.Subtracao: { ResultadoAB = decimal.Subtract(ValorA, ValorB); break; } } return ResultadoAB; } ```
 
 Pronto, nosso básico Web Service está pronto. Agora execute o Web Service e será aberto uma página com a lista de WebMetodos do seu Web Service. Clique no link _Calculadora_ e será aberto outra página para entrada dos valores.
 
-[![](https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice02-1.jpg "criandowebservice02")](https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice02-1.jpg)
+[![](/contents/2008/09/criandowebservice02-1.jpg "criandowebservice02")](/contents/2008/09/criandowebservice02-1.jpg)
 
 Para realizar as operações você deverá informar o _TipoOperacao_.
 
@@ -48,7 +48,7 @@ Para realizar as operações você deverá informar o _TipoOperacao_.
 *   Subtracao ou 3
 
 Será aberto uma outra página com o resultado.  
-[![](https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice03-1.jpg "criandowebservice03")](https://raphaelcardoso.com.br/wp-content/uploads/2008/09/criandowebservice03-1.jpg)
+[![](/contents/2008/09/criandowebservice03-1.jpg "criandowebservice03")](/contents/2008/09/criandowebservice03-1.jpg)
 
 Viu como é simples?
 

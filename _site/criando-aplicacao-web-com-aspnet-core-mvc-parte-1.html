@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Criando aplicação Web com ASP.NET Core MVC - Parte 1 | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Criando aplicação Web com ASP.NET Core MVC - Parte 1" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introdução" />
+<meta property="og:description" content="Introdução" />
+<link rel="canonical" href="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1" />
+<meta property="og:url" content="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-08-23T13:50:28-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Criando aplicação Web com ASP.NET Core MVC - Parte 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2018-08-23T13:50:28-03:00","datePublished":"2018-08-23T13:50:28-03:00","description":"Introdução","headline":"Criando aplicação Web com ASP.NET Core MVC - Parte 1","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1"},"url":"http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando aplicação Web com ASP.NET Core MVC - Parte 1</h2>		
+	<time datetime="2018-08-23T13:50:28-03:00" class="by-line">
+		
+		23
+		Agosto
+		  
+		2018
+	</time>
+	<div class="content">
+
+		<h2 id="introdução">Introdução</h2>
+
+<p>Como de costume, estou trazendo mais uma série de artigos e dessa vez falaremos sobre como criar aplicação web com ASP.NET Core MVC. Nesse artigo foi realizar o passo a passo para que você tenha conhecimento para explorar esse mais novo recurso. Sendo assim, esse série tem como principal foco o desenvolvimento de uma aplicação web utilizando-se da tecnologia mais comentada do momento e seguindo um dos padrões mais populares quando o assunto é desenvolvimento Web.</p>
+
+<p>Esse artigo é para todos aqueles que tenha um conhecimento prévio de desenvolvimento web com HTML, CSS e JavaScript, além de também conhecimento em C# e banco de dados. Se você não tiver conhecimento em C#, aconselho ler meu artigo <strong><a href="https://raphaelcardoso.com.br/aprender-a-programar-em-csharp-parte-1">Aprender a programar em C#</a></strong>.</p>
+
+<p>Então vamos ao que interessa.</p>
+
+<h3 id="sobre-o-padrão-mvc">Sobre o padrão MVC</h3>
+
+<p>A sigla <strong>MVC</strong> é o acrónimo de <em>Model-View-Controller</em> (Modelo-Visão-Controlador), padrão de arquitetura de software que divide um determinado aplicativo de software em três partes interconectadas, de modo a separar as representações internas de informações das formas pelas quais as informações são apresentadas ou aceitas pelo usuário.</p>
+
+<h3 id="sobre-o-aspnet-core">Sobre o ASP.NET Core</h3>
+
+<p>O <a href="https://github.com/aspnet/Home">ASP.NET Core</a> é um projeto enxuto para criação de aplicações web, open source, multiplataforma (disponível para Windows, Mac e Linux) e que está disponível no Github. Ele é uma evolução do ASP.NET, com uma arquitetura mais exuta e modular que pode ser executado desenvolvido e executado em sua plataforma favorita.</p>
+
+<p>Para saber mais sobre o ASP.NET Core, leia a <a href="https://docs.microsoft.com/pt-br/aspnet/core/?view=aspnetcore-2.1">Introdução ao ASP.NET Core</a>.</p>
+
+<h4 id="configurando-o-nosso-ambiente">Configurando o nosso ambiente</h4>
+
+<p>Para que possamos iniciar o desenvolvido, é necessário instalar algumas ferramentas dependendo do sistema operacional que esteja utilizando:</p>
+
+<ul>
+  <li><a href="https://www.microsoft.com/net/download/all">SDK do .NET Core 2.2 ou posterior</a></li>
+  <li><a href="https://code.visualstudio.com/">Visual Studio Code</a>, <a href="https://visualstudio.microsoft.com/pt-br/downloads/">Microsoft Visual Studio 2017</a> ou <a href="https://www.monodevelop.com/download/">MonoDevelop</a></li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp">C# para Visual Studio Code</a></li>
+  <li><a href="https://www.microsoft.com/pt-br/sql-server/sql-server-downloads">Microsoft SQL Server 2017 Express</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms">SQL Server Management Studio</a> ou <a href="https://docs.microsoft.com/pt-br/sql/sql-operations-studio/download?view=sql-server-2017">SQL Operation Studio</a></li>
+</ul>
+
+<p>Quanto o uso da IDE, poderá utilizar qualquer uma das citadas. Vale ressaltar que diferente do Visual Studio Code e do MonoDevelop, o Microsoft Visual Studio é exclusivo do Windows. Sendo assim, para Mac e Linux deverá fazer uso dos outros dois citados.</p>
+
+<p><a href="/contents/2018/08/0_mono_develop.jpg"><img src="/contents/2018/08/0_mono_develop-1024x576.jpg" alt="" /></a></p>
+
+<p>Caso esteja utilizando o Mac, o SQL Server deverá ser executado em um Container no Docker, já para sistemas Linux, também poderá ser executado em um Container ou instalado diretamente caso sua versão seja suportada.</p>
+
+<p>Para que possamos nos conectar ao SQL Server, utilizaremos o SQL Server Management Studio para Windows e o SQL Operation Studio para qualquer sistema operacional, seja ele Linux, Mac ou Windows.</p>
+
+<p>Com nosso ambiente configurado, podemos iniciar a criação do projeto.</p>
+
+<h4 id="informações-sobre-o-projeto">Informações sobre o projeto</h4>
+
+<p>Antes de iniciarmos o desenvolvimento do nosso projeto, é importante citar alguns pontos que iremos abordar inicialmente. O desafio será criar uma aplicação web completa.</p>
+
+<p>O projeto será desenvolvido utilizando os seguintes recursos:</p>
+
+<ul>
+  <li>ASP.NET Core MVC</li>
+  <li>Bootstrap</li>
+  <li>Font Awesome</li>
+  <li>Entity Framework Core</li>
+  <li>SQL Server</li>
+</ul>
+
+<p>Nessa primeira parte teremos as seguintes funcionalidades:</p>
+
+<ul>
+  <li><strong>Acesso protegido por senha:</strong> Para que o usuário possa utilizar a aplicação, será necessário informar login e senha para ter acesso as funcionalidades da aplicação;</li>
+</ul>
+
+<h4 id="iniciando-o-desenvolvimento">Iniciando o desenvolvimento</h4>
+
+<p>Abra o Visual Studio para criarmos a estrutura do projeto clicando em <em>File &gt; New Project</em>, selecionando <em>ASP.NET Core Web Application</em> e em seguinda escolhendo a opção <em>Web Application (Model-View-Controller)</em>.</p>
+
+<p><img src="/contents/2018/08/1_criar_solution_e_webapp.jpg" alt="" /></p>
+
+<p><img src="/contents/2018/08/2_definir_tipo_aplicacao.png" alt="" /></p>
+
+<p>Dessa forma já teremos um projeto padrão em ASP.NET Core MVC funcionando.</p>
+
+<p><img src="/contents/2018/08/3_projeto_padrao-1024x553.png" alt="" /></p>
+
+<p>O próximo passo é criar mais 3 novos projetos do tipo Class Library.</p>
+
+<p><img src="/contents/2018/08/4_projeto_class_library.jpg" alt="" /></p>
+
+<p>Sendo assim, teremos:</p>
+
+<ul>
+  <li>Business: Camada onde teremos nossa regra de negócio;</li>
+  <li>Data: Camada responsável pela interface de conexão com o banco de dados;</li>
+  <li>Model: Camada que conterá todos as nossas entidade, Dtos, etc.</li>
+</ul>
+
+<p><img src="/contents/2018/08/4_projeto_class_library.jpg" alt="" /></p>
+
+<p>Para seguirmos com o nosso desenvolvimento, vamos analisar a estrutura do projeto Web Application.</p>
+
+<p><img src="/contents/2018/08/6_estrutura_projeto_web.jpg" alt="" /></p>
+
+<p>Analisando a estrutura temos:</p>
+
+<ul>
+  <li><strong>wwwroot</strong>: diretório que contem arquivos estativos como imagens, javascripts, css, e outros;</li>
+  <li><strong>Areas</strong>: diretório que permite organizar nossa aplicação de forma que facilite a manutenção. No nosso projeto por exemplo, teremos uma área especifica para o nosso painel de controle e ainda poderia ter uma área para acesso de cliente ou até com divisões relacionados a negócio.</li>
+  <li><strong>Controllers</strong>: como o próprio nome diz, é o diretório que contem os controllers utilizados no projeto;</li>
+  <li><strong>Models</strong>: diretório dos arquivos de models utilizados pelas Views e pelas Controllers;</li>
+  <li><strong>Views</strong>: diretorio que irá conter outros subdiretorios. Esses subdiretorios estarão relacionados diretamente com os controllers, ou seja, teremos as views de cada controller alem de views, partial views e layout utilizados;</li>
+  <li><strong>Program.cs</strong>: arquivo principal responsavel por inicializar a aplicação;</li>
+  <li><strong>Startup.cs</strong>: possui configurações de nosso projeto, tais como, definição de rotas, ativação de recursos relacionados ao ASP.NET Core ou ao projeto</li>
+</ul>
+
+<p><img src="/contents/2018/08/7_estrutura_wwwroot.jpg" alt="" /></p>
+
+<p>Feito isso, vamos configurar os Layouts, Views e Controllers.</p>
+
+<p><img src="/contents/2018/08/8_estrutura_projeto.jpg" alt="" /></p>
+
+<p>Foi criado um layout para o login e um layout para o próprio painel. Separamos o SideBar, NavBar e Profile do layout para arquivos separados para facilitar o entendimento e manutenção.</p>
+
+<p>Repare que temos os diretórios, <em>Home</em> e <em>Secure</em>. No <em>Home</em> temos o <em>Index</em> do painel de controle e no <em>Secure</em> temos a View de <em>Login</em>.</p>
+
+<p>Em relação ao banco de dados, criaremos a tabela <em>Usuario</em>. Para essa primeira parte iremos somente autenticar no painel.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE TABLE Usuario
+(
+	IdUsuario INT IDENTITY(1, 1) NOT NULL,
+	Nome VARCHAR(100) NOT NULL,
+	Email VARCHAR(150) NULL,
+	Login VARCHAR(50) NOT NULL,
+	Senha VARCHAR(50) NOT NULL,
+	CONSTRAINT PK_Usuario PRIMARY KEY (IdUsuario)
+)
+GO
+</code></pre></div></div>
+
+<p>Vamos incluir também o usuário administrador</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSERT INTO Usuario (Nome, Login, Senha) VALUES ('Administrador', 'admin', '123456')
+</code></pre></div></div>
+
+<p>Para a camada de Dados, criamos o ApplicationContext e o repositório de usuários. O ApplicationContext é a classe que implementa o DbContext que é responsável por abrir conexão de nossa aplicação com o banco de dados. Já o repositório nos permitirá utilizar o ApplicationContext para interagir com nossas tabelas realizando operações de consulta, inclusão, exclusão e atualização. Inicialmente teremos somente o repositório de usuário para que possamos implementar a autenticação.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using CriandoAplicacaoAspNetCore.Data.Mapping;
+using CriandoAplicacaoAspNetCore.Model.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace CriandoAplicacaoAspNetCore.Data
+{
+    public class ApplicationContext : DbContext
+    {
+        public DbSet Usuarios { get; set; }
+
+        public ApplicationContext(DbContextOptions options)
+        : base(options)
+        {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UsuarioConfig());
+        }
+    }
+}
+</code></pre></div></div>
+<p>using System;
+using CriandoAplicacaoAspNetCore.Model.Entities;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;</p>
+
+<p>namespace CriandoAplicacaoAspNetCore.Data.Repositories
+{
+    public class UsuarioRepository : GenericRepository, IUsuarioRepository
+    {
+        public UsuarioRepository(ApplicationContext context)
+        : base(context)
+        {
+        }
+    }
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Repare que nosso repositório de usuário não possui nenhum metodo implementado. Ele herda do GenericRepository todas os métodos necessários.
+
+</code></pre></div></div>
+<p>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;
+using Microsoft.EntityFrameworkCore;</p>
+
+<p>namespace CriandoAplicacaoAspNetCore.Data.Repositories
+{
+    public abstract class GenericRepository : IGenericRepository where TEntity : class
+    {
+        private readonly ApplicationContext _context;
+        private readonly DbSet _dbSet;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    public GenericRepository(ApplicationContext context)
+    {
+        this._context = context;
+        this._dbSet = this._context.Set();
+    }
+
+    public virtual void Add(TEntity entity)
+    {
+        this._dbSet.Add(entity);
+    }
+
+    public virtual void AddRange(List list)
+    {
+        list.ForEach(this.Add);
+    }
+
+    public virtual TEntity GetById(int id)
+    {
+        return this._dbSet.Find(id);
+    }
+
+    public virtual IQueryable Get(Expression&lt;Func&lt;TEntity, bool&gt;&gt; expression = null, Func&lt;iqueryable, IOrderedQueryable&gt; orderby = null, string includes = "", bool noTracking = false)
+    {
+        IQueryable query = this._dbSet;
+
+        if (expression != null)
+        {
+            query = query.Where(expression);
+        }
+
+        foreach (var include in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        {
+            query = query.Include(include);
+        }
+
+        if (noTracking)
+            query = query.AsNoTracking();
+
+        if (orderby != null)
+        {
+            return orderby(query).AsQueryable();
+        }
+        else
+        {
+            return query;
+        }
+    }
+
+    public virtual void Update(TEntity entity)
+    {
+        this._context.Entry(entity).State = EntityState.Modified;
+    }
+
+    public virtual void Delete(int id)
+    {
+        var entity = this._dbSet.Find(id);
+        this._dbSet.Remove(entity);
+    }
+
+    public virtual void Delete(TEntity entity)
+    {
+        this._dbSet.Attach(entity);
+        this._dbSet.Remove(entity);
+    }
+
+    public virtual void Delete(Expression&lt;Func&lt;TEntity, bool&gt;&gt; expression)
+    {
+        foreach (var entity in this._dbSet.Where(expression).AsEnumerable())
+        {
+            this._dbSet.Remove(entity);
+        }
+    }
+
+    public virtual bool Any(int id)
+    {
+        return this._dbSet.Find(id) != null;
+    }
+
+    public virtual bool Any(Expression&lt;func&lt;tentity, bool&gt;&gt; expression)
+    {
+        return this._dbSet.Any(expression);
+    }
+} } ```
+</code></pre></div></div>
+
+<p>Na camada de negócio, criamos o código que irá autenticar o usuário.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using System.Linq;
+using System.Linq.Expressions;
+using CriandoAplicacaoAspNetCore.Model.Dtos;
+using CriandoAplicacaoAspNetCore.Model.Entities;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;
+
+namespace CriandoAplicacaoAspNetCore.Business
+{
+    public class UsuarioBusiness : IUsuarioBusiness
+    {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public UsuarioBusiness(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
+
+        public virtual UsuarioDto Autenticar(LoginDto loginDto)
+        {
+            Expression&lt;Func&lt;Usuario, bool&gt;&gt; expression = q =&gt; q.Login.ToLower().Equals(loginDto.Usuario) &amp;&amp; q.Senha.Equals(loginDto.Senha);
+            var usuarioDto = this._unitOfWork.UsuarioRepository
+                                             .Get(expression)
+                                             .Select(s =&gt; new UsuarioDto
+                                             {
+                                                 IdUsuario = s.IdUsuario,
+                                                 Nome = s.Nome,
+                                                 Email = s.Email,
+                                                 Login = s.Login
+                                             })
+                                             .FirstOrDefault();
+
+            return usuarioDto;
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>Não me preocupei muito com a parte de segurança nesse momento. Então, nossa senha estará armazenada no banco de dados sem nenhuma criptografia.</p>
+
+<p>Tendo agora nossa camada de dados e de negócio pronta, poderemos criar o controller que será o reponsável por interagir com a nossa view. Criamos então o controller do login em nosso Web Application.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using CriandoAplicacaoAspNetCore.Model.Dtos;
+using CriandoAplicacaoAspNetCore.Model.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CriandoAplicacaoAspNetCore.WebApp.Areas.Painel.Controllers
+{
+    [Area("Painel")]
+    public class SecureController : Controller
+    {
+        private readonly IUsuarioBusiness _usuarioBusiness;
+
+        public SecureController(IUsuarioBusiness usuarioBusiness)
+        {
+            this._usuarioBusiness = usuarioBusiness;
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            var model = new LoginDto();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task Login(LoginDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = this._usuarioBusiness.Autenticar(model);
+
+                if (usuario != null)
+                {
+                    var claims = new List()
+                    {
+                    new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Nome),
+                    new Claim(ClaimTypes.GivenName, usuario.Login)
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        AllowRefresh = true,
+                        IsPersistent = true,
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(2)
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    model = new LoginDto();
+
+                    TempData["ErroAutenticacao"] = "Usuário ou senha inválido";
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Secure");
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>Em nosso controller temos três actions, uma responsável por exibir o formulário de login, que apesar de estar omitido, ele é do tipo HttpGet, outra action responsável por processar os dados submetidos, ou seja, irá receber a operação de Post do formulário de login e outra para deslogar o usuário.</p>
+
+<p>Para que possa entender melhor como é realizado a autenticação, o action de login, após receber os dados e autenticar, utilizamos os dados do usuário para gerar a lista de Claim para criação do cookies. Para saber mais, leia sobre como <a href="https://docs.microsoft.com/pt-br/aspnet/core/security/authentication/cookie">Usar autenticação de cookie sem o ASP.NET Core Identity</a>.</p>
+
+<p>Quando o usuário realizar a autenticação, será redirecionado para a tela inicial do painel. Se eu executar nosso projeto, terei acesso ao painel pelo porta 5000 que é padrão do ASP.NET Core.</p>
+
+<p><img src="/contents/2018/08/9_tela_login-1024x553.png" alt="" /></p>
+
+<p>Espero que com esse artigo você tenha conseguido entender um pouco do ASP.NET Core MVC que na minha opinião, quem já tem um conhecimento prévio do ASP.NET MVC conseguirá seguir tranquilamente com o desenvolvimento.</p>
+
+<p>Para os próximos artigos, iremos abordar a implementação de algumas telas. Caso tenha alguma dúvida ou sugestão, pode mandar para mim.</p>
+
+<h4 id="referências">Referências</h4>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/tutorials/first-mvc-app/start-mvc">Introdução ao ASP.NET Core MVC e ao Visual Studio</a></li>
+  <li><a href="https://docs.microsoft.com/pt-br/aspnet/core/mvc/overview">Visão geral do ASP.NET Core MVC</a></li>
+  <li><a href="https://www.microsoft.com/pt-br/sql-server/sql-server-downloads">Download do SQL Server</a></li>
+</ul>
+
+<h4 id="fonte-do-projeto">Fonte do projeto</h4>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/CriandoAplicacaoAspNetCore">Github</a>.</p>
+
+<p>Abraço e bom estudo!</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/criando-aplicacao-web-com-aspnet-core-mvc-parte-1" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

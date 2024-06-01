@@ -19,19 +19,19 @@ Para iniciar o projeto é necessário ter instalado o **.NET Core e o Visual Stu
 
 Abra o seu Visual Studio e crie um novo projeto. Clique no menu **File > New > Project** e escolha a opção **Visual C# > .NET Core > ASP.NET Core Web Application (.NET Core)** e defina um nome para o seu projeto. No meu caso será **AspNetCoreWebApi**:
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/novo_projeto_webapplication_dotnetcore.png)
+![](/contents/2017/02/novo_projeto_webapplication_dotnetcore.png)
 
 Na próxima janela, defina o template para o tipo **Empty**.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/template_novo_projeto.png)
+![](/contents/2017/02/template_novo_projeto.png)
 
 O template escolhido já auxilia trazendo a nossa API funcionando, bastanto somente executar.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/resultado_api.png)
+![](/contents/2017/02/resultado_api.png)
 
 Dentro da nossa solution já temos um Controller criado.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/solutions.png)
+![](/contents/2017/02/solutions.png)
 
 Se abrir a classe ValueController criada, iá reparar que várias actions foram criados como exemplo:
 
@@ -86,16 +86,16 @@ namespace AspNetCoreWebApi.Controllers
 Ao executar, nossa api irá responder pelos seguintes link:
 
 ```
-**GET: http://\[servidor\]:\[porta\]/api/value**
+**GET: http://[servidor]:[porta]/api/value**
 ```
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/api_value_get-1024x553.png)
+![](/contents/2017/02/api_value_get-1024x553.png)
 
 ```
-**POST: http://\[servidor\]:\[porta\]/api/value**
+**POST: http://[servidor]:[porta]/api/value**
 ```
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/api_value_post-1024x553.png)
+![](/contents/2017/02/api_value_post-1024x553.png)
 
 Nesse artigo você pode ter uma breve introdução sobre o ASP.NET Core e como cria-lo de forma simples.
 

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Criando e consumindo Web Service em C-Sharp - Parte 1 | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Criando e consumindo Web Service em C-Sharp - Parte 1" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Em mais um artigo, vou explicar como criar nosso primeiro Web service e ainda consumi-lo tanto em uma aplicação Windows Form quanto em um Web Form. Como primeira parte dessa publicação iremos criar nosso Web service." />
+<meta property="og:description" content="Em mais um artigo, vou explicar como criar nosso primeiro Web service e ainda consumi-lo tanto em uma aplicação Windows Form quanto em um Web Form. Como primeira parte dessa publicação iremos criar nosso Web service." />
+<link rel="canonical" href="http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-1" />
+<meta property="og:url" content="http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-1" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2008-09-07T12:48:52-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Criando e consumindo Web Service em C-Sharp - Parte 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2008-09-07T12:48:52-03:00","datePublished":"2008-09-07T12:48:52-03:00","description":"Em mais um artigo, vou explicar como criar nosso primeiro Web service e ainda consumi-lo tanto em uma aplicação Windows Form quanto em um Web Form. Como primeira parte dessa publicação iremos criar nosso Web service.","headline":"Criando e consumindo Web Service em C-Sharp - Parte 1","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-1"},"url":"http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-1"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Criando e consumindo Web Service em C-Sharp - Parte 1</h2>		
+	<time datetime="2008-09-07T12:48:52-03:00" class="by-line">
+		
+		7
+		Setembro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Em mais um artigo, vou explicar como criar nosso primeiro Web service e ainda consumi-lo tanto em uma aplicação Windows Form quanto em um Web Form. Como primeira parte dessa publicação iremos criar nosso Web service.</p>
+
+<p><strong>Mais o que vem a ser o Web service?</strong></p>
+
+<p><em><strong>Web service</strong> é uma solução utilizada na integração de sistemas e na comunicação entre aplicações diferentes. Com esta tecnologia é possível que novas aplicações possam interagir com aquelas que já existem e que sistemas desenvolvidos em plataformas diferentes sejam compatíveis. Os Web services são componentes que permitem às aplicações enviar e receber dados em formato XML. Cada aplicação pode ter a sua própria “linguagem”, que é traduzida para uma linguagem universal, o formato XML. (fonte: <a href="http://pt.wikipedia.org/wiki/Web_service">Wikipédia</a>)</em></p>
+
+<p>Um Web service nada mais é que uma Classe seja ela em C-Sharp quanto VB.NET. Essa classe ou Web service pode ser consumido por uma aplicação Web Form, Windows Form ou até mesmo outros Web service e detalhe, independente da linguagem que eles foram criados.<br />
+Suponhamos que você tenha criado um Web service em VB.NET com todas as regras de negocio da sua empresa onde suas aplicações Web Form irá consumi-lo, e se futuramente você pretende disponibiliza-lo para parceiros ou clientes isso não será problema, mesmo que seus parceiros possuam aplicações em C-Sharp, Java, Delphi ou qualquer outra linguagem que venha a surgir e tenha a capacidade de consumir um Web Service.</p>
+
+<p>Então agora vamos ao que interessa.</p>
+
+<p>1- Abra o Visual Studio.<br />
+2- Crie um novo <em>ASP.NET Web Service</em> em <em>File &gt; New &gt; Web Site…</em></p>
+
+<p><a href="/contents/2008/09/criandowebservice01-1.jpg"><img src="/contents/2008/09/criandowebservice01-1.jpg" alt="" title="criandowebservice01" /></a></p>
+
+<p>Seu código inicialmente será igual ao código abaixo.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; [WebService(Namespace = "http://tempuri.org/")] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return "Hello World"; } }</code></p>
+
+<p>Iremos criar um WebMetodo que possibilita a uma aplicação realizar as 4 Operações Básicas da Matemática, mais o detalhe é que daremos a possibilidade de se escolher qual delas usar no mesmo WebMetodo.</p>
+
+<p>Para isso crie uma nova classe do tipo Enum e nosso código ficará como o exemplo abaixo:</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp using System; using System.Web; using System.Web.Services; using System.Web.Services.Protocols; [WebService(Namespace = "http://tempuri.org/")] [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)] public class Service : System.Web.Services.WebService { public Service() { //Uncomment the following line if using designed components //InitializeComponent(); } [WebMethod] public string HelloWorld() { return "Hello World"; } } public enum OperacoesBasicas { Adicao = 0, Divisao = 1, Multiplicacao = 2, Subtracao = 3 }</code></p>
+
+<p>Feito isso iremos criar então um novo WebMetodo chamado <em>Calculadora</em> onde iremos informar 2 valores do Tipo <em>Decimal</em>, a Tipo da <em>Operação</em> e será retornado um outro valor do tipo <em>Decimal</em>. Veja o código abaixo:</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp [WebMethod] public decimal Calculadora(decimal ValorA, decimal ValorB, OperacoesBasicas TipoOperacao) { decimal ResultadoAB = 0; switch (TipoOperacao) { case OperacoesBasicas.Adicao: { ResultadoAB = decimal.Add(ValorA, ValorB); break; } case OperacoesBasicas.Divisao: { ResultadoAB = decimal.Divide(ValorA, ValorB); break; } case OperacoesBasicas.Multiplicacao: { ResultadoAB = decimal.Multiply(ValorA, ValorB); break; } case OperacoesBasicas.Subtracao: { ResultadoAB = decimal.Subtract(ValorA, ValorB); break; } } return ResultadoAB; }</code></p>
+
+<p>Pronto, nosso básico Web Service está pronto. Agora execute o Web Service e será aberto uma página com a lista de WebMetodos do seu Web Service. Clique no link <em>Calculadora</em> e será aberto outra página para entrada dos valores.</p>
+
+<p><a href="/contents/2008/09/criandowebservice02-1.jpg"><img src="/contents/2008/09/criandowebservice02-1.jpg" alt="" title="criandowebservice02" /></a></p>
+
+<p>Para realizar as operações você deverá informar o <em>TipoOperacao</em>.</p>
+
+<ul>
+  <li>Adicao ou 0</li>
+  <li>Divisao ou 1</li>
+  <li>Multiplicacao ou 2</li>
+  <li>Subtracao ou 3</li>
+</ul>
+
+<p>Será aberto uma outra página com o resultado.<br />
+<a href="/contents/2008/09/criandowebservice03-1.jpg"><img src="/contents/2008/09/criandowebservice03-1.jpg" alt="" title="criandowebservice03" /></a></p>
+
+<p>Viu como é simples?</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/Criando-Consumindo-WebService">Github</a>.</p>
+
+<p>Espero que tenham entendido e no próximo artigo irei explicar como consumir esse mesmo Web Service em Windows Form.</p>
+
+<p>Abraço e sucesso!!!</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/criando-e-consumindo-web-service-em-c-sharp-parte-1" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

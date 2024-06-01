@@ -15,7 +15,7 @@ Utilizarei a seguinte metodologia:
 
 Segue um exemplo simples de acesso, onde estarei comentando item a item sobre o mesmo.
 
-\[sourcecode language='csharp'\] using (ctx) { try { if (ctx != null) { List Lista = ctx.Web.Lists.GetById(new Guid("{173139CB-4AEFE-4002-9EE2-C411BD64CEAF}")); ctx.Load(Lista); ctx.ExecuteQuery(); CamlQuery query = new CamlQuery(); query.ViewXml = ""; ListItemCollection collListItem = Lista.GetItems(query); ctx.Load(collListItem); ctx.ExecuteQuery(); int jobnro = 0; foreach (ListItem item in collListItem) { jobnro++; String Id = item\["ID"\].ToString(); } } } catch (Exception e) { MessageBox.Show("Erro na visualização da lista - " + e.Message); } } \[/sourcecode\]
+```csharp using (ctx) { try { if (ctx != null) { List Lista = ctx.Web.Lists.GetById(new Guid("{173139CB-4AEFE-4002-9EE2-C411BD64CEAF}")); ctx.Load(Lista); ctx.ExecuteQuery(); CamlQuery query = new CamlQuery(); query.ViewXml = ""; ListItemCollection collListItem = Lista.GetItems(query); ctx.Load(collListItem); ctx.ExecuteQuery(); int jobnro = 0; foreach (ListItem item in collListItem) { jobnro++; String Id = item["ID"].ToString(); } } } catch (Exception e) { MessageBox.Show("Erro na visualização da lista - " + e.Message); } } ```
 
 O ctx é na verdade a conexão com o Share Point, obtendo-se pela classe ClientContext.
 
@@ -40,7 +40,7 @@ Desta forma é possível pesquisar e averiguar qual lista é realmente aquela qu
 
 Uma forma comum de obter esta classe é através da referencia direta das propriedades da classe ClientContext, exemplo: _ctx.Web.Lists (ListColletion)_
 
-\[sourcecode language='csharp'\] List Lista = ctx.Web.Lists.GetById(new Guid("{173139CB-4AEFE-4002-9EE2-C411BD64CEAF}")); \[/sourcecode\]
+```csharp List Lista = ctx.Web.Lists.GetById(new Guid("{173139CB-4AEFE-4002-9EE2-C411BD64CEAF}")); ```
 
 No exemplo acima, pesquisamos se o site possui uma lista especifica.
 
@@ -52,7 +52,7 @@ As informações dos elementos da lista são obtidas através da propriedade  _
 
 Um mecanismo muito interessante que ai deve ser aferido, é que como o volume de elementos pode ser muito grande, é importante filtrar os elementos, resgatando apenas o conjunto de itens que se deseja. Isso é realizado por um mecanismo similar ao SQL. O _CamlQuery_ foi a forma encontrada para se realizar esta pesquisa. A sua sintaxe, é bem complexa, mas é de forma geral um mix entre comandos sql e xml.
 
-\[sourcecode language='csharp'\] CamlQuery query = new CamlQuery(); query.ViewXml = ""; ListItemCollection collListItem = Lista.GetItems(query) \[/sourcecode\]
+```csharp CamlQuery query = new CamlQuery(); query.ViewXml = ""; ListItemCollection collListItem = Lista.GetItems(query) ```
 
 No exemplo acima, estamos pegando todos os itens e coletando na coleção de itens da lista (_ListItemCollection_).
 
@@ -60,7 +60,7 @@ Ao instanciar o ListItemColletion, tem-se na verdade não a lista mas o conjunto
 
 Para acessar a informação individual utilizamos o artificio de programação:
 
-\[sourcecode language='csharp'\] foreach (ListItem item in collListItem) { jobnro++; String Id = item\["ID"\].ToString(); } \[/sourcecode\]
+```csharp foreach (ListItem item in collListItem) { jobnro++; String Id = item["ID"].ToString(); } ```
 
 No caso pegamos os “registros” encontrados no collListItem (_ListItemCollection_) e trabalhamos com estes registros. Um a um, ou registro por registro.
 

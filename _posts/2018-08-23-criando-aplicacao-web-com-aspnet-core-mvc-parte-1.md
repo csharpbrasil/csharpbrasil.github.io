@@ -10,7 +10,7 @@ Introdução
 
 Como de costume, estou trazendo mais uma série de artigos e dessa vez falaremos sobre como criar aplicação web com ASP.NET Core MVC. Nesse artigo foi realizar o passo a passo para que você tenha conhecimento para explorar esse mais novo recurso. Sendo assim, esse série tem como principal foco o desenvolvimento de uma aplicação web utilizando-se da tecnologia mais comentada do momento e seguindo um dos padrões mais populares quando o assunto é desenvolvimento Web.
 
-Esse artigo é para todos aqueles que tenha um conhecimento prévio de desenvolvimento web com HTML, CSS e JavaScript, além de também conhecimento em C# e banco de dados. Se você não tiver conhecimento em C#, aconselho ler meu artigo **[Aprender a programar em C#](https://raphaelcardoso.com.br/aprender-a-programar-em-csharp-parte-1/)**.
+Esse artigo é para todos aqueles que tenha um conhecimento prévio de desenvolvimento web com HTML, CSS e JavaScript, além de também conhecimento em C# e banco de dados. Se você não tiver conhecimento em C#, aconselho ler meu artigo **[Aprender a programar em C#](https://raphaelcardoso.com.br/aprender-a-programar-em-csharp-parte-1)**.
 
 Então vamos ao que interessa.
 
@@ -36,7 +36,7 @@ Para que possamos iniciar o desenvolvido, é necessário instalar algumas ferram
 
 Quanto o uso da IDE, poderá utilizar qualquer uma das citadas. Vale ressaltar que diferente do Visual Studio Code e do MonoDevelop, o Microsoft Visual Studio é exclusivo do Windows. Sendo assim, para Mac e Linux deverá fazer uso dos outros dois citados.
 
-[![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/0_mono_develop-1024x576.jpg)](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/0_mono_develop.jpg)
+[![](/contents/2018/08/0_mono_develop-1024x576.jpg)](/contents/2018/08/0_mono_develop.jpg)
 
 Caso esteja utilizando o Mac, o SQL Server deverá ser executado em um Container no Docker, já para sistemas Linux, também poderá ser executado em um Container ou instalado diretamente caso sua versão seja suportada.
 
@@ -64,17 +64,17 @@ Nessa primeira parte teremos as seguintes funcionalidades:
 
 Abra o Visual Studio para criarmos a estrutura do projeto clicando em _File > New Project_, selecionando _ASP.NET Core Web Application_ e em seguinda escolhendo a opção _Web Application (Model-View-Controller)_.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/1_criar_solution_e_webapp.jpg)
+![](/contents/2018/08/1_criar_solution_e_webapp.jpg)
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/2_definir_tipo_aplicacao.png)
+![](/contents/2018/08/2_definir_tipo_aplicacao.png)
 
 Dessa forma já teremos um projeto padrão em ASP.NET Core MVC funcionando.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/3_projeto_padrao-1024x553.png)
+![](/contents/2018/08/3_projeto_padrao-1024x553.png)
 
 O próximo passo é criar mais 3 novos projetos do tipo Class Library.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/4_projeto_class_library.jpg)
+![](/contents/2018/08/4_projeto_class_library.jpg)
 
 Sendo assim, teremos:
 
@@ -82,11 +82,11 @@ Sendo assim, teremos:
 *   Data: Camada responsável pela interface de conexão com o banco de dados;
 *   Model: Camada que conterá todos as nossas entidade, Dtos, etc.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/4_projeto_class_library.jpg)
+![](/contents/2018/08/4_projeto_class_library.jpg)
 
 Para seguirmos com o nosso desenvolvimento, vamos analisar a estrutura do projeto Web Application.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/6_estrutura_projeto_web.jpg)
+![](/contents/2018/08/6_estrutura_projeto_web.jpg)
 
 Analisando a estrutura temos:
 
@@ -98,11 +98,11 @@ Analisando a estrutura temos:
 *   **Program.cs**: arquivo principal responsavel por inicializar a aplicação;
 *   **Startup.cs**: possui configurações de nosso projeto, tais como, definição de rotas, ativação de recursos relacionados ao ASP.NET Core ou ao projeto
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/7_estrutura_wwwroot.jpg)
+![](/contents/2018/08/7_estrutura_wwwroot.jpg)
 
 Feito isso, vamos configurar os Layouts, Views e Controllers.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/8_estrutura_projeto.jpg)
+![](/contents/2018/08/8_estrutura_projeto.jpg)
 
 Foi criado um layout para o login e um layout para o próprio painel. Separamos o SideBar, NavBar e Profile do layout para arquivos separados para facilitar o entendimento e manutenção.
 
@@ -409,7 +409,7 @@ Para que possa entender melhor como é realizado a autenticação, o action de l
 
 Quando o usuário realizar a autenticação, será redirecionado para a tela inicial do painel. Se eu executar nosso projeto, terei acesso ao painel pelo porta 5000 que é padrão do ASP.NET Core.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2018/08/9_tela_login-1024x553.png)
+![](/contents/2018/08/9_tela_login-1024x553.png)
 
 Espero que com esse artigo você tenha conseguido entender um pouco do ASP.NET Core MVC que na minha opinião, quem já tem um conhecimento prévio do ASP.NET MVC conseguirá seguir tranquilamente com o desenvolvimento.
 

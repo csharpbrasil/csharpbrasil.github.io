@@ -18,11 +18,11 @@ Primeiro, crie uma nova aplicação Windows Form. Adicione um TabControl e exclu
   
 Vou colocar o código no próprio construtor do formulário, o valor será fixo para a quantidade abas que serão adicionadas somente para teste.  
   
-\[sourcecode language="csharp"\] private int qtdAbas = 10; \[/sourcecode\]  
+```csharp private int qtdAbas = 10; ```  
   
 O código abaixo percorre um for adicionando as abas (TabPage) dinamicamente conforme a variável qtdAbas.  
   
-\[sourcecode language="csharp"\] this.SuspendLayout(); // executa um for para adicionar a quantidade de abas da variável que setamos for (int i = 0; i < qtdAbas; i++) { // primeiro criamos o grid dinamicamente var dg = new System.Windows.Forms.DataGridView(); dg.Dock = System.Windows.Forms.DockStyle.Fill; dg.Location = new System.Drawing.Point(3, 3); dg.Name = "dg" + i.ToString(); dg.Size = new System.Drawing.Size(630, 292); dg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells; // adiciona a aba dinamicamente var aba = new System.Windows.Forms.TabPage(); aba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224))))); aba.Location = new System.Drawing.Point(4, 32); aba.Name = "aba" + i.ToString(); aba.Padding = new System.Windows.Forms.Padding(3); aba.Size = new System.Drawing.Size(638, 300); aba.TabIndex = tabControl1.TabCount; aba.Text = "Aba " +i.ToString(); aba.Controls.Add(dg); // adiciona o Grid nesta aba // aba.Enter += new System.EventHandler(tabPage\_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO // adiciona a tabPage no tabControl1 tabControl1.Controls.Add(aba); } this.ResumeLayout(false); \[/sourcecode\]  
+```csharp this.SuspendLayout(); // executa um for para adicionar a quantidade de abas da variável que setamos for (int i = 0; i < qtdAbas; i++) { // primeiro criamos o grid dinamicamente var dg = new System.Windows.Forms.DataGridView(); dg.Dock = System.Windows.Forms.DockStyle.Fill; dg.Location = new System.Drawing.Point(3, 3); dg.Name = "dg" + i.ToString(); dg.Size = new System.Drawing.Size(630, 292); dg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells; // adiciona a aba dinamicamente var aba = new System.Windows.Forms.TabPage(); aba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224))))); aba.Location = new System.Drawing.Point(4, 32); aba.Name = "aba" + i.ToString(); aba.Padding = new System.Windows.Forms.Padding(3); aba.Size = new System.Drawing.Size(638, 300); aba.TabIndex = tabControl1.TabCount; aba.Text = "Aba " +i.ToString(); aba.Controls.Add(dg); // adiciona o Grid nesta aba // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO // adiciona a tabPage no tabControl1 tabControl1.Controls.Add(aba); } this.ResumeLayout(false); ```  
 Note que utilizamos os comandos "SuspendLayout()" e "ResumeLayout(false)" antes e depois do nosso loop.  
 O método SuspendLayout(), suspende o formulário de que seja executado algum evento vinculado aos componentes do nosso formulário e depois que o loop é feito, é habilitado novamente.  
   
@@ -33,7 +33,7 @@ Suponhamos que você tenha um projeto com vários formulários e grids em cada u
 Você teria que configurar cada um e caso tivesse que mudar as cores, teria que alterar tudo novamente, certo?  
 Abaixo eu crio um método público que retorna um tipo DataGridViewCellStyle, vulgo estilo de célula de grid.  
   
-\[sourcecode language="csharp"\] public DataGridViewCellStyle EstiloZebrado() { // Estilo Zebrado dos DataGridView System.Windows.Forms.DataGridViewCellStyle dgEstiloZebrado = new System.Windows.Forms.DataGridViewCellStyle(); dgEstiloZebrado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(230)))), ((int)(((byte)(254))))); return dgEstiloZebrado; } \[/sourcecode\]  
+```csharp public DataGridViewCellStyle EstiloZebrado() { // Estilo Zebrado dos DataGridView System.Windows.Forms.DataGridViewCellStyle dgEstiloZebrado = new System.Windows.Forms.DataGridViewCellStyle(); dgEstiloZebrado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(230)))), ((int)(((byte)(254))))); return dgEstiloZebrado; } ```  
   
 Voltamos no nosso construtor do form, no momento em que o grid é criado dinamicamente e adicionamos a seguinte linha "dg.AlternatingRowsDefaultCellStyle = EstiloZebrado();"  
   
@@ -46,7 +46,7 @@ No caso, vou associar um evento no Enter de cada aba (TabPage).
 Crie o método abaixo que será genérico para todas as abas (TabPage).  
   
   
-\[sourcecode language="csharp"\] private void tabPage\_Enter(object sender, EventArgs e) { DataGridView dg = ((sender as TabPage).Controls\["dg" + (tabControl1.SelectedIndex).ToString()\]) as DataGridView; if (dg != null) // verifica se o objeto DataGridView foi encontrado { // manipule seu DataGridView da forma como quiser } } \[/sourcecode\]  
+```csharp private void tabPage_Enter(object sender, EventArgs e) { DataGridView dg = ((sender as TabPage).Controls["dg" + (tabControl1.SelectedIndex).ToString()]) as DataGridView; if (dg != null) // verifica se o objeto DataGridView foi encontrado { // manipule seu DataGridView da forma como quiser } } ```  
 No método acima, eu busco dentro da aba (TabPage) por um componente que comece com dg e um número que é o índice da aba selecionada.  
 Dessa forma, eu consigo manipular um objeto que seja padrão em todas as abas. No caso um DataGridView.  
 Faço um if verificando se encontrou o DataGridView e posso manipulá-lo como quiser.  
@@ -56,7 +56,7 @@ No exemplo que vou colocar para download, eu utilizo um MessageBox.Show() soment
 Volte no primeiro trecho de código, aquele comentado e descomente ele.  
 Ele é o responsável por adicionar o evento dinamicamente a cada aba.  
   
-\[sourcecode language="csharp"\] // aba.Enter += new System.EventHandler(tabPage\_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO \[/sourcecode\]  
+```csharp // aba.Enter += new System.EventHandler(tabPage_Enter); // DESCOMENTE ESSA LINHA SÓ NO FINAL DO CÓDIGO ```  
 Pronto, só colocar para executar e ver o resultado.  
 É claro que coloquei apenas alguns exemplos práticos mas você pode melhorar muito suas aplicações tornando as bem modularizadas.  
   

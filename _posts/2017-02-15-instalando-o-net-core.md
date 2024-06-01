@@ -13,7 +13,7 @@ Após ter instalado o Visual Studio, terá também a versão mais recente do .NE
 
 Depois de instalado, basta abrir o Visual Studio para iniciar o desenvolvimento de um novo projeto.  
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2017/02/novo_projeto_dotnetcore.png)
+![](/contents/2017/02/novo_projeto_dotnetcore.png)
 
 Para maiores informações sobre o .NET Core, acesse: [https://www.microsoft.com/net/core/platform](https://www.microsoft.com/net/core/platform)
 

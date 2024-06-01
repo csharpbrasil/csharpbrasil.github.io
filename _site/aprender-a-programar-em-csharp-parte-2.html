@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Aprender a programar em C# – Parte 2 | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Aprender a programar em C# – Parte 2" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Como você pode ter acompanhado no artigo anterior, nós realizamos uma breve introdução e abordagem dos conceitos básicos do C# (C-Sharp) como sintaxe, tipos de dados, variáveis, operadores, controle de fluxo e laços de repetição, caso ainda não tenha conferido, acesse o link Aprender a programar em C# – Parte 1" />
+<meta property="og:description" content="Como você pode ter acompanhado no artigo anterior, nós realizamos uma breve introdução e abordagem dos conceitos básicos do C# (C-Sharp) como sintaxe, tipos de dados, variáveis, operadores, controle de fluxo e laços de repetição, caso ainda não tenha conferido, acesse o link Aprender a programar em C# – Parte 1" />
+<link rel="canonical" href="http://localhost:4000/aprender-a-programar-em-csharp-parte-2" />
+<meta property="og:url" content="http://localhost:4000/aprender-a-programar-em-csharp-parte-2" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-09-01T08:30:22-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Aprender a programar em C# – Parte 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2014-09-01T08:30:22-03:00","datePublished":"2014-09-01T08:30:22-03:00","description":"Como você pode ter acompanhado no artigo anterior, nós realizamos uma breve introdução e abordagem dos conceitos básicos do C# (C-Sharp) como sintaxe, tipos de dados, variáveis, operadores, controle de fluxo e laços de repetição, caso ainda não tenha conferido, acesse o link Aprender a programar em C# – Parte 1","headline":"Aprender a programar em C# – Parte 2","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/aprender-a-programar-em-csharp-parte-2"},"url":"http://localhost:4000/aprender-a-programar-em-csharp-parte-2"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Aprender a programar em C# – Parte 2</h2>		
+	<time datetime="2014-09-01T08:30:22-03:00" class="by-line">
+		
+		1
+		Setembro
+		  
+		2014
+	</time>
+	<div class="content">
+
+		<p>Como você pode ter acompanhado no artigo anterior, nós realizamos uma breve introdução e abordagem dos conceitos básicos do C# (C-Sharp) como sintaxe, tipos de dados, variáveis, operadores, controle de fluxo e laços de repetição, caso ainda não tenha conferido, acesse o link <a href="/aprender-a-programar-em-csharp-parte-1" title="Aprender a programar em C# – Parte 1">Aprender a programar em C# – Parte 1</a></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Nessa segunda parte da série Aprender a programar em C#, iremos criar alguns exemplos de código C# em um editor de texto comum de sua preferencia (pode ser o notepad ou notepad++) e compilar o código no compilador [csc]([Compiler Options - C# reference</td>
+      <td>Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/)) que acompanha o .NET Framework.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Abra seu editor favorito (no meu caso, vou usar o Notepad++) e vamos criar um código simples abaixo:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MeuNamespace</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MinhaClasse</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Olá C# Brasil!"</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">ReadKey</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Agora que seu código de exemplo está pronto, vamos realizar a compilação por linha de comando e gerar nosso primeiro executável. Abra o prompt de comando em <em>iniciar &gt; executar</em> ou utilizando a tecla de atalho <em>Win + R</em> e digite o comando abaixo:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>csc /out:C:<span class="se">\e</span>xemplos<span class="se">\E</span>xemplo1.exe C:<span class="se">\e</span>xemplos<span class="se">\E</span>xemplo1.cs
+</code></pre></div></div>
+
+<p>Ao executar o comando, ele irá gerar resultado abaixo informando a versão do compilador e do .NET Framework utilizado.</p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_1.jpg" alt="aprender_programar_csharp_parte2_1" /></p>
+
+<p>Quando executarmos nossa aplicação, será exibido conforme a imagem abaixo:</p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_2.jpg" alt="aprender_programar_csharp_parte2_2" /></p>
+
+<p>Caso ocorra algum erro, ele é informado na linha de comando como na imagem a seguir.</p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_3.jpg" alt="aprender_programar_csharp_parte2_3" /></p>
+
+<p>No caso desse exemplo, foi provocado um erro proposital para ilustrar removendo o carácter “;” (ponto-virgula) do final da linha 9.</p>
+
+<p>Vamos dificultar um pouco mais as coisas e incluir um pouco de interação ao nosso aplicativo.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MeuNamespace</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MinhaClasse</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="s">"Informe seu nome: "</span><span class="p">);</span>
+            <span class="kt">string</span> <span class="n">nome</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
+
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Olá "</span> <span class="p">+</span> <span class="n">nome</span> <span class="p">+</span> <span class="s">" bem-vindo ao C# Brasil!"</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="s">"Pressione qualquer tecla para continuar..."</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">ReadKey</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>No código acima, o aplicativo ao ser executado, o usuário será solicitado que informe o seu nome e ao concluir o preenchimento e teclar <em>enter</em> uma mensagem é exibida.</p>
+
+<p>Vamos compilar nosso código.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>csc /out:C:<span class="se">\\</span>exemplos<span class="se">\\</span>Exemplo2.exe C:<span class="se">\\</span>exemplos<span class="se">\\</span>Exemplo2.cs
+</code></pre></div></div>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_4.jpg" alt="aprender_programar_csharp_parte2_4" /></p>
+
+<p>Feito a compilação e sem a ocorrência de erro, vamos executar a aplicação e teremos o resultado abaixo:</p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_5.jpg" alt="aprender_programar_csharp_parte2_5" /></p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_6.jpg" alt="aprender_programar_csharp_parte2_6" /></p>
+
+<p>Agora vamos a um outro exemplo com um pouco mais interação do usuário. Nesse exemplo o usuário deverá informar um número entre 0 e 100 para A e B. No código é realizado a recuperação dos valores informados pelo usuário e a conversão para inteiro para fazer o calculo entre A e B. Caso o valos não seja satisfatório, o código irá retornar uma mensagem informando.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MeuNamespace</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MinhaClasse</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="s">"Informe um número para A entre 0 e 100: "</span><span class="p">);</span>
+            <span class="kt">string</span> <span class="n">input1</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="s">"Informe um número para B entre 0 e 100: "</span><span class="p">);</span>
+            <span class="kt">string</span> <span class="n">input2</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
+
+            <span class="kt">int</span> <span class="n">num1</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">num2</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> 
+
+            <span class="k">if</span> <span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="nf">TryParse</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="k">out</span> <span class="n">num1</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="kt">int</span><span class="p">.</span><span class="nf">TryParse</span><span class="p">(</span><span class="n">input2</span><span class="p">,</span> <span class="k">out</span> <span class="n">num2</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="n">num1</span> <span class="p">&gt;=</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">num1</span> <span class="p">&lt;=</span> <span class="m">100</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="n">num2</span> <span class="p">&gt;=</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">num2</span> <span class="p">&lt;=</span> <span class="m">100</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="n">num1</span> <span class="p">+</span> <span class="n">num2</span><span class="p">;</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"A) "</span> <span class="p">+</span> <span class="n">num1</span><span class="p">);</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"B) "</span> <span class="p">+</span> <span class="n">num2</span><span class="p">);</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Resultado: "</span> <span class="p">+</span> <span class="n">result</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Ocorreu um problema. Um dos números informados não eram validos ou não eram números inteiros."</span><span class="p">);</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"A) "</span> <span class="p">+</span> <span class="n">num1</span><span class="p">);</span>
+                <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"B) "</span> <span class="p">+</span> <span class="n">num2</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Pressione qualquer tecla para continuar..."</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">ReadKey</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Vamos compilar nosso código.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>csc /out:C:<span class="se">\\</span>exemplos<span class="se">\\</span>Exemplo3.exe C:<span class="se">\\</span>exemplos<span class="se">\\</span>Exemplo3.cs
+</code></pre></div></div>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_7.jpg" alt="aprender_programar_csharp_parte2_7" /></p>
+
+<p>Feito a compilação, vamos executar a aplicação:</p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_8.jpg" alt="aprender_programar_csharp_parte2_8" /></p>
+
+<p><img src="/contents/2014/09/aprender_programar_csharp_parte2_9.jpg" alt="aprender_programar_csharp_parte2_9" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Até aqui você aprendeu um pouco mais sobre a linguagem C# (C-Sharp) além de poder aplicar na prática o uso do compilador [csc]([Compiler Options - C# reference</td>
+      <td>Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/)) em linha de comando. Pelo fato de o compilador em si não ser nosso foco, não irei fazer maiores abordagem acerca de seus outros parametros de compilação uma vez que é possível realizar algo mais avançado do que o proposto no artigo.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Para a <a href="/aprender-a-programar-em-csharp-parte-3">próxima parte</a>, iremos começar com a abordagem do uso do Visual Studio, então aconselho te-lo instalado pois não iremos abordar sua instalação mais sim o seu uso. Poderá ser usado o Visual Studio Express ou qualquer outra versão completa (Professional, Premium ou Ultimate).</p>
+
+<p>Para obter o Visual Studio, basta acessar o site <a href="visualstudio.microsoft.com">visualstudio.microsoft.com</a>.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/aprender_programar_csharp_parte2">Github</a>.</p>
+
+<p>Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/aprender-a-programar-em-csharp-parte-2" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

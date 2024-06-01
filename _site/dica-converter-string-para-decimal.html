@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Dica - Converter String para Decimal | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Dica - Converter String para Decimal" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Olá caro leitor, em mais uma dica útil, principalmente para os iniciantes, vou ensinar como converter um valor do tipo String para Decimal. Existe várias formas de realizar essa conversão. Esse exemplo se aplica aos demais tipos como: Int, DateTime, Float, etc. Então veja que temos um valor do tipo String e queremos converte-lo para Decimal. Será atribuído o valor convertido a variável declarada preco2 e a variável Booleana converteu retornará valor igual a True, ou seja, a conversão ocorreu com sucesso. csharp string sPreco1 = &quot;12,95&quot;; decimal dPreco1; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Mais tem um porem, suponhamos que esse valor em string não só possua somente numero mais também algum outro caracter como por exemplo uma letra. Então nesse caso ao tentarmos converter será retornado a variável preco2 o valor igual a 0 (zero) e a variável Booleana converteu retornará valor igual a False, ou seja, a conversão não ocorreu. Em que caso podemos aplica-lo? Suponha que você ira realizar um calculo matemática, então realizamos a tratativa antes de executa-lo. csharp string sPreco1 = &quot;12,95&quot;; string sPreco2 = &quot;6,76&quot;; decimal dPreco1; decimal dPreco2; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Boolean Convercao2 = decimal.TryParse(sPreco2, out dPreco2); decimal result; if (Convercao1 &amp;&amp; Convercao2) { result = decimal.Add(dPreco1, dPreco2); } else { result = 100; } Existe outras formar mais simples de realizar a conversão. Utilizando o Convert.ToDecimal() csharp string sPreco1 = &quot;12,95&quot;; decimal result = Convert.ToDecimal(sPreco1); Utilizando o decimal.Parse() csharp string sPreco1 = &quot;12,95&quot;; decimal result = decimal.Parse(sPreco1); Tá ai mais uma dica. Para realizar a conversão em outros tipo, é só seguir o mesmo conceito. Dúvidas? mande comentários. Abraço e sucesso!" />
+<meta property="og:description" content="Olá caro leitor, em mais uma dica útil, principalmente para os iniciantes, vou ensinar como converter um valor do tipo String para Decimal. Existe várias formas de realizar essa conversão. Esse exemplo se aplica aos demais tipos como: Int, DateTime, Float, etc. Então veja que temos um valor do tipo String e queremos converte-lo para Decimal. Será atribuído o valor convertido a variável declarada preco2 e a variável Booleana converteu retornará valor igual a True, ou seja, a conversão ocorreu com sucesso. csharp string sPreco1 = &quot;12,95&quot;; decimal dPreco1; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Mais tem um porem, suponhamos que esse valor em string não só possua somente numero mais também algum outro caracter como por exemplo uma letra. Então nesse caso ao tentarmos converter será retornado a variável preco2 o valor igual a 0 (zero) e a variável Booleana converteu retornará valor igual a False, ou seja, a conversão não ocorreu. Em que caso podemos aplica-lo? Suponha que você ira realizar um calculo matemática, então realizamos a tratativa antes de executa-lo. csharp string sPreco1 = &quot;12,95&quot;; string sPreco2 = &quot;6,76&quot;; decimal dPreco1; decimal dPreco2; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Boolean Convercao2 = decimal.TryParse(sPreco2, out dPreco2); decimal result; if (Convercao1 &amp;&amp; Convercao2) { result = decimal.Add(dPreco1, dPreco2); } else { result = 100; } Existe outras formar mais simples de realizar a conversão. Utilizando o Convert.ToDecimal() csharp string sPreco1 = &quot;12,95&quot;; decimal result = Convert.ToDecimal(sPreco1); Utilizando o decimal.Parse() csharp string sPreco1 = &quot;12,95&quot;; decimal result = decimal.Parse(sPreco1); Tá ai mais uma dica. Para realizar a conversão em outros tipo, é só seguir o mesmo conceito. Dúvidas? mande comentários. Abraço e sucesso!" />
+<link rel="canonical" href="http://localhost:4000/dica-converter-string-para-decimal" />
+<meta property="og:url" content="http://localhost:4000/dica-converter-string-para-decimal" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2008-10-24T20:56:18-02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Dica - Converter String para Decimal" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2008-10-24T20:56:18-02:00","datePublished":"2008-10-24T20:56:18-02:00","description":"Olá caro leitor, em mais uma dica útil, principalmente para os iniciantes, vou ensinar como converter um valor do tipo String para Decimal. Existe várias formas de realizar essa conversão. Esse exemplo se aplica aos demais tipos como: Int, DateTime, Float, etc. Então veja que temos um valor do tipo String e queremos converte-lo para Decimal. Será atribuído o valor convertido a variável declarada preco2 e a variável Booleana converteu retornará valor igual a True, ou seja, a conversão ocorreu com sucesso. csharp string sPreco1 = &quot;12,95&quot;; decimal dPreco1; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Mais tem um porem, suponhamos que esse valor em string não só possua somente numero mais também algum outro caracter como por exemplo uma letra. Então nesse caso ao tentarmos converter será retornado a variável preco2 o valor igual a 0 (zero) e a variável Booleana converteu retornará valor igual a False, ou seja, a conversão não ocorreu. Em que caso podemos aplica-lo? Suponha que você ira realizar um calculo matemática, então realizamos a tratativa antes de executa-lo. csharp string sPreco1 = &quot;12,95&quot;; string sPreco2 = &quot;6,76&quot;; decimal dPreco1; decimal dPreco2; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Boolean Convercao2 = decimal.TryParse(sPreco2, out dPreco2); decimal result; if (Convercao1 &amp;&amp; Convercao2) { result = decimal.Add(dPreco1, dPreco2); } else { result = 100; } Existe outras formar mais simples de realizar a conversão. Utilizando o Convert.ToDecimal() csharp string sPreco1 = &quot;12,95&quot;; decimal result = Convert.ToDecimal(sPreco1); Utilizando o decimal.Parse() csharp string sPreco1 = &quot;12,95&quot;; decimal result = decimal.Parse(sPreco1); Tá ai mais uma dica. Para realizar a conversão em outros tipo, é só seguir o mesmo conceito. Dúvidas? mande comentários. Abraço e sucesso!","headline":"Dica - Converter String para Decimal","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/dica-converter-string-para-decimal"},"url":"http://localhost:4000/dica-converter-string-para-decimal"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Dica - Converter String para Decimal</h2>		
+	<time datetime="2008-10-24T20:56:18-02:00" class="by-line">
+		
+		24
+		Outubro
+		  
+		2008
+	</time>
+	<div class="content">
+
+		<p>Olá caro leitor, em mais uma dica útil, principalmente para os iniciantes, vou ensinar como converter um valor do tipo String para Decimal. Existe várias formas de realizar essa conversão. Esse exemplo se aplica aos demais tipos como: Int, DateTime, Float, etc. Então veja que temos um valor do tipo String e queremos converte-lo para Decimal. Será atribuído o valor convertido a variável declarada <strong><em>preco2</em></strong> e a variável Booleana <strong><em>converteu</em></strong> retornará valor igual a True, ou seja, a conversão ocorreu com sucesso. <code class="language-plaintext highlighter-rouge">csharp string sPreco1 = "12,95"; decimal dPreco1; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1);</code> Mais tem um porem, suponhamos que esse valor em string não só possua somente numero mais também algum outro caracter como por exemplo uma letra. Então nesse caso ao tentarmos converter será retornado a variável <strong><em>preco2</em></strong> o valor igual a 0 (zero) e a variável Booleana <strong><em>converteu</em></strong> retornará valor igual a False, ou seja, a conversão não ocorreu. Em que caso podemos aplica-lo? Suponha que você ira realizar um calculo matemática, então realizamos a tratativa antes de executa-lo. <code class="language-plaintext highlighter-rouge">csharp string sPreco1 = "12,95"; string sPreco2 = "6,76"; decimal dPreco1; decimal dPreco2; Boolean Convercao1 = decimal.TryParse(sPreco1, out dPreco1); Boolean Convercao2 = decimal.TryParse(sPreco2, out dPreco2); decimal result; if (Convercao1 &amp;&amp; Convercao2) { result = decimal.Add(dPreco1, dPreco2); } else { result = 100; }</code> Existe outras formar mais simples de realizar a conversão. Utilizando o Convert.ToDecimal() <code class="language-plaintext highlighter-rouge">csharp string sPreco1 = "12,95"; decimal result = Convert.ToDecimal(sPreco1);</code> Utilizando o decimal.Parse() <code class="language-plaintext highlighter-rouge">csharp string sPreco1 = "12,95"; decimal result = decimal.Parse(sPreco1);</code> Tá ai mais uma dica. Para realizar a conversão em outros tipo, é só seguir o mesmo conceito. Dúvidas? mande comentários. Abraço e sucesso!</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/dica-converter-string-para-decimal" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

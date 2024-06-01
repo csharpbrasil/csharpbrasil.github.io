@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Algoritmos de Ordenação em C# | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Algoritmos de Ordenação em C#" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Quando iniciamos o estudo em programação, um dos primeiros assuntos que se aprende é sobre algoritmo. O algoritmo é um processo de resolução de uma determinada tarefa para a qual ele foi designado. Podemos citar como um exemplo e que é assunto desse artigo o algoritmos de ordenação, que alem de ser o mais comum são também os mais solicitados em atividades acadêmicas quando essa possui como disciplina a programação." />
+<meta property="og:description" content="Quando iniciamos o estudo em programação, um dos primeiros assuntos que se aprende é sobre algoritmo. O algoritmo é um processo de resolução de uma determinada tarefa para a qual ele foi designado. Podemos citar como um exemplo e que é assunto desse artigo o algoritmos de ordenação, que alem de ser o mais comum são também os mais solicitados em atividades acadêmicas quando essa possui como disciplina a programação." />
+<link rel="canonical" href="http://localhost:4000/algoritmos-de-ordenacao-em-csharp" />
+<meta property="og:url" content="http://localhost:4000/algoritmos-de-ordenacao-em-csharp" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-07-28T09:00:49-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Algoritmos de Ordenação em C#" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2014-07-28T09:00:49-03:00","datePublished":"2014-07-28T09:00:49-03:00","description":"Quando iniciamos o estudo em programação, um dos primeiros assuntos que se aprende é sobre algoritmo. O algoritmo é um processo de resolução de uma determinada tarefa para a qual ele foi designado. Podemos citar como um exemplo e que é assunto desse artigo o algoritmos de ordenação, que alem de ser o mais comum são também os mais solicitados em atividades acadêmicas quando essa possui como disciplina a programação.","headline":"Algoritmos de Ordenação em C#","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/algoritmos-de-ordenacao-em-csharp"},"url":"http://localhost:4000/algoritmos-de-ordenacao-em-csharp"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Algoritmos de Ordenação em C#</h2>		
+	<time datetime="2014-07-28T09:00:49-03:00" class="by-line">
+		
+		28
+		Julho
+		  
+		2014
+	</time>
+	<div class="content">
+
+		<p>Quando iniciamos o estudo em programação, um dos primeiros assuntos que se aprende é sobre algoritmo. O algoritmo é um processo de resolução de uma determinada tarefa para a qual ele foi designado. Podemos citar como um exemplo e que é assunto desse artigo o algoritmos de ordenação, que alem de ser o mais comum são também os mais solicitados em atividades acadêmicas quando essa possui como disciplina a programação.</p>
+
+<p>Em programação, um algoritmo de ordenação tem com objetivo realizar a ordenação de uma lista de valores. Citaremos os seguintes métodos:</p>
+
+<ol>
+  <li>Ordenação por inserção
+    <ul>
+      <li>Insertion Sort</li>
+      <li>Shell Sort</li>
+    </ul>
+  </li>
+  <li>Ordenação por seleção
+    <ul>
+      <li>Selection Sort</li>
+      <li>HeapSort</li>
+    </ul>
+  </li>
+  <li>Ordenação por troca
+    <ul>
+      <li>Bubble sort</li>
+      <li>Cocktail sort</li>
+      <li>Comb sort</li>
+      <li>Gnome sort</li>
+      <li>Odd-even sort</li>
+      <li>Quicksort</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="insertion-sort">Insertion Sort</h3>
+
+<p>O Insertion Sort ou Ordenação por inserção é um método simples de ordenação que percorre um vetor ordenando os elementos a esquerda a medida que avança. Vamos ao exemplo em C#.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">insertionSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">atual</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+    <span class="p">{</span>
+        <span class="n">atual</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">j</span> <span class="p">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">((</span><span class="n">j</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">atual</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">-</span> <span class="m">1</span><span class="p">];</span>
+            <span class="n">j</span> <span class="p">=</span> <span class="n">j</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">atual</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Insertion Sort.</p>
+
+<p><img src="/contents/2014/07/insertionSort.png" alt="Resultado da ordenação usando o Insertion Sort" /></p>
+
+<h3 id="shell-sort">Shell Sort</h3>
+
+<p>É um método de ordenação por inserção criado por Donald Shell que basicamente divide a lista a ser ordenada em grupos menores e aplica o método de ordenação por inserção.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">shellSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">h</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+	
+	<span class="k">while</span> <span class="p">(</span><span class="n">h</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">h</span> <span class="p">=</span> <span class="n">h</span> <span class="p">*</span> <span class="m">3</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">h</span> <span class="p">=</span> <span class="n">h</span> <span class="p">/</span> <span class="m">3</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">h</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">h</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+		<span class="p">{</span>
+			<span class="n">c</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+			<span class="n">j</span> <span class="p">=</span> <span class="n">i</span><span class="p">;</span>
+			<span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="p">&gt;=</span> <span class="n">h</span> <span class="p">&amp;&amp;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">-</span> <span class="n">h</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">c</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">-</span> <span class="n">h</span><span class="p">];</span>
+				<span class="n">j</span> <span class="p">=</span> <span class="n">j</span> <span class="p">-</span> <span class="n">h</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">c</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">h</span> <span class="p">=</span> <span class="n">h</span> <span class="p">/</span> <span class="m">2</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>   
+</code></pre></div></div>
+
+<p>Resultado da execução do Shell Sort.</p>
+
+<p><img src="/contents/2014/07/shellSort.png" alt="Resultado da ordenação usando o Shell Sort" /></p>
+
+<h3 id="selection-sort">Selection Sort</h3>
+
+<p>O Selection Sort é um método de ordenação por seleção. Ele percorre a lista em busca do menor valor e o move para a posição correta precedido sempre do elemento de menor valor.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">selectionSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">min</span><span class="p">,</span> <span class="n">aux</span><span class="p">;</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+	<span class="p">{</span>
+		<span class="n">min</span> <span class="p">=</span> <span class="n">i</span><span class="p">;</span>
+
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span> <span class="n">j</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">j</span><span class="p">++)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">min</span><span class="p">])</span>
+				<span class="n">min</span> <span class="p">=</span> <span class="n">j</span><span class="p">;</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">min</span> <span class="p">!=</span> <span class="n">i</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">aux</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">min</span><span class="p">];</span>
+			<span class="n">vetor</span><span class="p">[</span><span class="n">min</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+			<span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="n">aux</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Selection Sort.</p>
+
+<p><img src="/contents/2014/07/selectionSort.png" alt="Resultado da ordenação usando o Selection Sort" /></p>
+
+<h3 id="heap-sort">Heap Sort</h3>
+
+<p>Desenvolvido em 1964 por Robert W. Floyd e J.W.J. Williams, o algoritmo Heap Sort é um método de ordenação por seleção. Esse algoritmo tem esse nome por utiliza uma estrutura de dados chamada <a href="http://pt.wikipedia.org/wiki/Heap">heap</a>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">heapSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nf">buildMaxHeap</span><span class="p">(</span><span class="n">vetor</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">--)</span>
+	<span class="p">{</span>
+		<span class="nf">swap</span><span class="p">(</span><span class="n">vetor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+		<span class="nf">maxHeapify</span><span class="p">(</span><span class="n">vetor</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">--</span><span class="n">n</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">buildMaxHeap</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">v</span><span class="p">.</span><span class="n">Length</span> <span class="p">/</span> <span class="m">2</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">--)</span>
+	<span class="p">{</span>
+		<span class="nf">maxHeapify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">maxHeapify</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">max</span> <span class="p">=</span> <span class="m">2</span> <span class="p">*</span> <span class="n">pos</span> <span class="p">+</span> <span class="m">1</span><span class="p">,</span> <span class="n">right</span> <span class="p">=</span> <span class="n">max</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">right</span> <span class="p">&lt;</span> <span class="n">n</span> <span class="p">&amp;&amp;</span> <span class="n">v</span><span class="p">[</span><span class="n">max</span><span class="p">]</span> <span class="p">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+		<span class="p">{</span>
+			<span class="n">max</span> <span class="p">=</span> <span class="n">right</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">max</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">v</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span>
+		<span class="p">{</span>
+			<span class="nf">swap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">max</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+			<span class="nf">maxHeapify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">max</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">,</span> <span class="kt">int</span> <span class="n">aposJ</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">aux</span> <span class="p">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+	<span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">v</span><span class="p">[</span><span class="n">aposJ</span><span class="p">];</span>
+	<span class="n">v</span><span class="p">[</span><span class="n">aposJ</span><span class="p">]</span> <span class="p">=</span> <span class="n">aux</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Heap Sort.</p>
+
+<p><img src="/contents/2014/07/heapSort.png" alt="Resultado da ordenação usando o Heap Sort" /></p>
+
+<h3 id="bubble-sort">Bubble Sort</h3>
+
+<p>O Bubble Sort é um algoritmo de ordenação mais simples que tem como característica percorrer a vista várias vezes e a cada passagem fazendo flutuar para o topo o maior elemento da sequência.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">bubbleSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tamanho</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">comparacoes</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">trocas</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">tamanho</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&gt;=</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span><span class="p">--)</span>
+	<span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="p">++)</span>
+		<span class="p">{</span>
+			<span class="n">comparacoes</span><span class="p">++;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+			<span class="p">{</span>
+				<span class="kt">int</span> <span class="n">aux</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">j</span> <span class="p">+</span> <span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">aux</span><span class="p">;</span>
+				<span class="n">trocas</span><span class="p">++;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Bubble Sort.</p>
+
+<p><img src="/contents/2014/07/bubbleSort.png" alt="Resultado da ordenação usando o Bubble Sort" /></p>
+
+<h3 id="cocktail-sort">Cocktail Sort</h3>
+
+<p>O Cocktail Sort ou Bubble Sort Bidirecional é uma variação do Bubble Sort que se difere pelo fato de ordenar a lista em ambas as direções.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">cocktailSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tamanho</span><span class="p">,</span> <span class="n">inicio</span><span class="p">,</span> <span class="n">fim</span><span class="p">,</span> <span class="n">swap</span><span class="p">,</span> <span class="n">aux</span><span class="p">;</span>
+	<span class="n">tamanho</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+	<span class="n">inicio</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+	<span class="n">fim</span> <span class="p">=</span> <span class="n">tamanho</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+	<span class="n">swap</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">swap</span> <span class="p">==</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">inicio</span> <span class="p">&lt;</span> <span class="n">fim</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">swap</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">inicio</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">fim</span><span class="p">;</span> <span class="n">i</span> <span class="p">=</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+			<span class="p">{</span>
+				<span class="n">aux</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">aux</span><span class="p">;</span>
+				<span class="n">swap</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+		<span class="n">fim</span> <span class="p">=</span> <span class="n">fim</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">fim</span><span class="p">;</span> <span class="n">i</span> <span class="p">&gt;</span> <span class="n">inicio</span><span class="p">;</span> <span class="n">i</span> <span class="p">=</span> <span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">])</span>
+			<span class="p">{</span>
+				<span class="n">aux</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">aux</span><span class="p">;</span>
+				<span class="n">swap</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+		<span class="n">inicio</span> <span class="p">=</span> <span class="n">inicio</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Cocktail Sort.</p>
+
+<p><img src="/contents/2014/07/cocktailSort.png" alt="Resultado da ordenação usando o Cocktail Sort" /></p>
+
+<h3 id="comb-sort">Comb Sort</h3>
+
+<p>O Comb Sort, é um algoritmo de ordenação por troca. Desenvolvido em 1980 por Wlodzimierz Dobosiewicz e mais tarde, foi redescoberto e popularizado por Stephen Lacey e Richard Box em um artigo publicado na revista Byte em Abril de 1991. O Comb Sort é uma melhoria do Bubble Sort e rivaliza com o Quick Sort.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">combSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">gap</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+	<span class="kt">bool</span> <span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">gap</span> <span class="p">&gt;</span> <span class="m">1</span> <span class="p">||</span> <span class="n">swapped</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">gap</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">gap</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">gap</span> <span class="p">/</span> <span class="m">1.247330950103979</span><span class="p">);</span>
+		<span class="p">}</span>
+
+		<span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+		<span class="n">swapped</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+		<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="p">+</span> <span class="n">gap</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">CompareTo</span><span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">])</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="kt">int</span> <span class="n">t</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span> <span class="p">+</span> <span class="n">gap</span><span class="p">]</span> <span class="p">=</span> <span class="n">t</span><span class="p">;</span>
+				<span class="n">swapped</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="n">i</span><span class="p">++;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Bubble Sort.</p>
+
+<p><img src="/contents/2014/07/combSort.png" alt="Resultado da ordenação usando o Comb Sort" /></p>
+
+<h3 id="gnome-sort">Gnome Sort</h3>
+
+<p>O Gnome Sort é um algoritmo com uma sequencia grande de trocas como o Bubble Sort, porem ele é similar ao Insertion Sort com a diferença de levar um elemento para sua posição correta.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">gnomeSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">p</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">aux</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">p</span> <span class="p">&lt;</span> <span class="p">(</span><span class="n">vetor</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">))</span>
+	<span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">p</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+		<span class="p">{</span>
+			<span class="n">aux</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+			<span class="n">vetor</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">p</span> <span class="p">+</span> <span class="m">1</span><span class="p">];</span>
+			<span class="n">vetor</span><span class="p">[</span><span class="n">p</span> <span class="p">+</span> <span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">aux</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">p</span> <span class="p">-=</span> <span class="m">2</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="n">p</span><span class="p">++;</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Gnome Sort.</p>
+
+<p><img src="/contents/2014/07/gnomeSort.png" alt="Resultado da ordenação usando o Gnome Sort" /></p>
+
+<h3 id="odd-even-sort">Odd-Even Sort</h3>
+
+<p>O Odd-Even Sort é um algoritmo de ordenação por comparação baseado no Bubble Sort.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">oddEvenSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">bool</span> <span class="n">sorted</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(!</span><span class="n">sorted</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">sorted</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+		<span class="c1">// odd-even</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span> <span class="n">x</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">x</span> <span class="p">+=</span> <span class="m">2</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+			<span class="p">{</span>
+				<span class="kt">int</span> <span class="n">tmp</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">tmp</span><span class="p">;</span>
+
+				<span class="n">sorted</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+		<span class="c1">// even-odd</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">x</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span> <span class="n">x</span> <span class="p">+=</span> <span class="m">2</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">])</span>
+			<span class="p">{</span>
+				<span class="kt">int</span> <span class="n">tmp</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">tmp</span><span class="p">;</span>
+
+				<span class="n">sorted</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Odd-Even Sort.</p>
+
+<p><img src="/contents/2014/07/oddEvenSort.png" alt="Resultado da ordenação usando o Odd-Even Sort" /></p>
+
+<h3 id="quick-sort">Quick Sort</h3>
+
+<p>O Quick Sort é um método de ordenação inventado por <a href="http://pt.wikipedia.org/wiki/C.A.R._Hoare">Charles Antony Richard Hoare</a> em 1960 quando estudante.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">quickSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">inicio</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">fim</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">;</span>
+
+	<span class="nf">quickSort</span><span class="p">(</span><span class="n">vetor</span><span class="p">,</span> <span class="n">inicio</span><span class="p">,</span> <span class="n">fim</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="n">vetor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">quickSort</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">vetor</span><span class="p">,</span> <span class="kt">int</span> <span class="n">inicio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fim</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">inicio</span> <span class="p">&lt;</span> <span class="n">fim</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="kt">int</span> <span class="n">p</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">inicio</span><span class="p">];</span>
+		<span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">inicio</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">f</span> <span class="p">=</span> <span class="n">fim</span><span class="p">;</span>
+
+		<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="p">&lt;=</span> <span class="n">f</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&lt;=</span> <span class="n">p</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">i</span><span class="p">++;</span>
+			<span class="p">}</span>
+			<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="p">&lt;</span> <span class="n">vetor</span><span class="p">[</span><span class="n">f</span><span class="p">])</span>
+			<span class="p">{</span>
+				<span class="n">f</span><span class="p">--;</span>
+			<span class="p">}</span>
+			<span class="k">else</span>
+			<span class="p">{</span>
+				<span class="kt">int</span> <span class="n">troca</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">f</span><span class="p">];</span>
+				<span class="n">vetor</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="p">=</span> <span class="n">troca</span><span class="p">;</span>
+				<span class="n">i</span><span class="p">++;</span>
+				<span class="n">f</span><span class="p">--;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+		<span class="n">vetor</span><span class="p">[</span><span class="n">inicio</span><span class="p">]</span> <span class="p">=</span> <span class="n">vetor</span><span class="p">[</span><span class="n">f</span><span class="p">];</span>
+		<span class="n">vetor</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="p">=</span> <span class="n">p</span><span class="p">;</span>
+
+		<span class="nf">quickSort</span><span class="p">(</span><span class="n">vetor</span><span class="p">,</span> <span class="n">inicio</span><span class="p">,</span> <span class="n">f</span> <span class="p">-</span> <span class="m">1</span><span class="p">);</span>
+		<span class="nf">quickSort</span><span class="p">(</span><span class="n">vetor</span><span class="p">,</span> <span class="n">f</span> <span class="p">+</span> <span class="m">1</span><span class="p">,</span> <span class="n">fim</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resultado da execução do Quick Sort.</p>
+
+<p><img src="/contents/2014/07/quickSort.png" alt="Resultado da ordenação usando o Quick Sort" /></p>
+
+<p>Esses são somente alguns dos diversos outros algoritmos de ordenação existentes, alguns mais simples e outros mais complexos. De qualquer forma, poderá fazer download do projeto completo e estudar o seu funcionamento.</p>
+
+<p>Fonte do projeto: <a href="https://github.com/csharpbrasil/AlgoritmoOrdenacao">Github</a>.</p>
+
+<p>Até o próximo artigo e bons estudos!</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/algoritmos-de-ordenacao-em-csharp" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>

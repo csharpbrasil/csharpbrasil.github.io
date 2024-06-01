@@ -12,15 +12,15 @@ Você viu nos artigos anteriores a abordagem sobre a linguagem C# (C-Sharp) de c
 
 Nessa nova parte iremos abordar o desenvolvimento de uma aplicação simples utilizando o Visual Studio para que nós possamos nos familiarizar com a ferramente. Portanto, é importante que já tenha o Visual Studio instalado. Sugiro o uso do Visual Studio Community 2013. Acesse o link [visualstudio.microsoft.com](visualstudio.microsoft.com/) e faça o download e instalação, é fácil.
 
-![Tela do Visual Studio Community 2013](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_1.png) 
+![Tela do Visual Studio Community 2013](/contents/2015/02/aprender_a_programar_em_csharp_3_1.png) 
 
 Com o Visual Studio aberto, vamos criar um novo projeto. Acesse o menu principal _File > New > Project_. Criaremos um projeto do tipo Windows Forms Application que se encontra no Template Windows Desktop utilizando o .NET Framework 4.5 e definindo o nome do projeto como _MeuPrimeiroWindowsFormApplication_.
 
-![Tela de criação do novo projeto.](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_2.png)
+![Tela de criação do novo projeto.](/contents/2015/02/aprender_a_programar_em_csharp_3_2.png)
 
 Com o nosso projeto criado e aberto no Visual Studio, vamos edita-lo e criar alguns componentes. Enquanto isso vamos conhecendo um pouco mais da ferramenta.
 
-![Tela do nosso projeto aberto no Visual Studio](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_3.png)
+![Tela do nosso projeto aberto no Visual Studio](/contents/2015/02/aprender_a_programar_em_csharp_3_3.png)
 
 Vamos fazer algo simples, da barra de ferramentas (Toolbox) arrastaremos alguns componentes para o nosso Windows Form.
 
@@ -28,7 +28,7 @@ Vamos fazer algo simples, da barra de ferramentas (Toolbox) arrastaremos alguns 
 * 2 Label
 * 2 TextBox
 
-![Tela contendo os componentes arrastados](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_4.png)
+![Tela contendo os componentes arrastados](/contents/2015/02/aprender_a_programar_em_csharp_3_4.png)
 
 Edite a propriedade Text dos _Buttons_ e dos _Labels_.
 
@@ -37,7 +37,7 @@ Edite a propriedade Text dos _Buttons_ e dos _Labels_.
 * Label1 = Nome
 * Label2 = E-mail
 
-![Tela com a propriedade Text alterada dos TextBox e das Labels](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_5.png)
+![Tela com a propriedade Text alterada dos TextBox e das Labels](/contents/2015/02/aprender_a_programar_em_csharp_3_5.png)
 
 Agora vamos codificar os botões. Primeiro clique duas vezes sobre o botão _Sair_ e digite a linha abaixo. Esse será o comando que informaremos ao Form (this) que ele deverá ser fechado.
 
@@ -52,7 +52,7 @@ if (mensagem == System.Windows.Forms.DialogResult.Yes)
 
 Aperte a tecla F5 ou clique no menu principal _Debug > Starting Debugging_.
 
-![Tela com a pergunta se deseja encerrar](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_6.png)
+![Tela com a pergunta se deseja encerrar](/contents/2015/02/aprender_a_programar_em_csharp_3_6.png)
 
 Codificaremos o botão confirmar. Clique duas vezes sobre o botão _Confirmar_ e digite o código abaixo.
 
@@ -72,15 +72,15 @@ Aperte a tecla F5 ou clique no menu principal _Debug > Starting Debugging_.
 
 Preencha os campos com seu nome e e-mail para realizar o teste.
 
-![Tela com o resultado da execução](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_7.png)
+![Tela com o resultado da execução](/contents/2015/02/aprender_a_programar_em_csharp_3_7.png)
 
 Adicione um novo botão ao nosso Form e altere a propriedade Text para _Abrir Form_.
 
-![Tela com o novo botão](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_8.png)
+![Tela com o novo botão](/contents/2015/02/aprender_a_programar_em_csharp_3_8.png)
 
 Adicione um novo Form ao projeto. Clique com o botão direito sobre o projeto e _Add > Windows Form_.
 
-![Tela de como adicionar um novo Form](https://raphaelcardoso.com.br/wp-content/uploads/2015/02/aprender_a_programar_em_csharp_3_9.png)
+![Tela de como adicionar um novo Form](/contents/2015/02/aprender_a_programar_em_csharp_3_9.png)
 
 Clique duas vezes sobre esse novo botão adicionado ao Form1 e vamos adicionar uma nova ação. Essa ação irá chamar o Form2. Digite o código abaixo.
 
@@ -95,7 +95,7 @@ Aperte a tecla F5 ou clique no menu principal _Debug > Starting Debugging_.
 
 Clique no botão _Abrir Form_ e terá o resultado abaixo.
 
-![Tela do resultado quando botão Abrir Form é clicado](https://raphaelcardoso.com.br/wp-content/uploads/2015/03/aprender_a_programar_em_csharp_3_10.png)
+![Tela do resultado quando botão Abrir Form é clicado](/contents/2015/03/aprender_a_programar_em_csharp_3_10.png)
 
 Até aqui foi possível você aprender como criar um formulário, fazer chamada a outros formulários, adicionar e utilizar componentes e como alterar suas propriedades.
 

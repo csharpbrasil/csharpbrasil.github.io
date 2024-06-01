@@ -24,15 +24,15 @@ Após autenticar no painel adminitrativo, a primeira visão que o usuário terá
 
 Normalmente em um sistema usamos permissão para essas ações, mas a principio, qualquer usuário que tiver acesso ao painel, poderá editar e utilizar todas as funcionalidades existentes.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_painel_administrativo-1024x553.png)
+![](/contents/2019/05/1_painel_administrativo-1024x553.png)
 
 Dando sequencia em nosso projeto, vamos criar a tela onde iremos consultar os usuários cadastrados. Para isso, incluiremos um novo controle na area do painel.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/novo_controller.png)
+![](/contents/2019/05/novo_controller.png)
 
 Definaremos o nome como UsuarioController.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/novo_controller_usuario.png)
+![](/contents/2019/05/novo_controller_usuario.png)
 
 E incluiremos a consulta para listar todos os usuários cadastrados.
 
@@ -117,13 +117,13 @@ Criaremos também a view referente a tela de consulta de usuários.
 
 Ao executar nosso projeto, teremos agora a lista de todos os usuários cadastrados.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/consulta_usuarios-1024x553.png)
+![](/contents/2019/05/consulta_usuarios-1024x553.png)
 
 #### Melhorando a segurança
 
 Se reparar, a nossa senha esta armazenada de forma que qualquer um que tenha acesso ao nosso banco de dados poderá visualiza-la.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/senha_banco.png)
+![](/contents/2019/05/senha_banco.png)
 
 Para melhorar a segurança, não vamos mais armazenar nossa senha, mas sim o hash.
 
@@ -182,7 +182,7 @@ UPDATE Usuario SET Hash = 'NLAZBttBU8HbUrODUPQxViEDr1d7RMi4B/2F6yaKOrQ=', Salt =
 WHERE Login = 'admin'
 ```
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/hash_salt_banco.png)
+![](/contents/2019/05/hash_salt_banco.png)
 
 Atualizaremos a entidade Usuario e a configuração do Entity Framework.
 
@@ -296,11 +296,11 @@ Agora para completar a funcionalidade de cadastro de usuários, será necessári
 
 Seguindo os passos anteriores, vamos criar uma nova View.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/nova_view_salvar.png)
+![](/contents/2019/05/nova_view_salvar.png)
 
 Teremos uma view para listar a Consulta de Usuários e uma View para Salvar. Essa view de Salvar, será usado tanto para Novo quanto para edição. O detalhe é que para Novo, teremos o campo senha sendo exibido, já na edição, não iremos editar a senha.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_novo_usuario-1024x553.png)
+![](/contents/2019/05/1_novo_usuario-1024x553.png)
 
 Tela de cadastro de usuário
 
@@ -308,19 +308,19 @@ Não me preocupei muito com valiação dos campos. A principio iremos nos preocu
 
 Teremos também a tela de edição de usuário.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_editar_usuario-1024x553.png)
+![](/contents/2019/05/1_editar_usuario-1024x553.png)
 
 Em ambas as funcionalidades, iremos utilizar o [Bootbox](http://bootboxjs.com/), biblioteca que facilitar a criação de modal utilizando o [Bootstrap](https://getbootstrap.com/).
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_editar_usuario_mensagem_sucesso-1024x553.png)
+![](/contents/2019/05/1_editar_usuario_mensagem_sucesso-1024x553.png)
 
 Para a exclusão, iremos fazer uso do bootbox para informar ao usuário sobre a ação que ele esta executando e permitir que ele escolha continuar ou não.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_excluir_usuario-1024x553.png)
+![](/contents/2019/05/1_excluir_usuario-1024x553.png)
 
 E o usuário é alertado sobre a execução que acabou de ser realizada, dando a opção para ele clicar no botão _OK_ e regarregar a página de consulta de usuários.
 
-![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/1_usuario_excluido_sucesso-1024x553.png)
+![](/contents/2019/05/1_usuario_excluido_sucesso-1024x553.png)
 
 Com isso temos a nossa funcionalidade de cadastro de usuários praticamente pronto. É claro que poderiamos colocar validações dos campos, opção para checar se o login já esta cadastrado e até dar opção para que o usuário possa alterar a senha. Mas deixaremos essas funcionalidades para uma outra ocasião.
 

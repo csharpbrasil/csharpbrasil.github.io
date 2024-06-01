@@ -9,7 +9,7 @@ No desenvolvimento de aplicações .NET seja ela, ASP.NET, ASP.NET MVC, Windows 
 
 Mais imagina-se a seguinte situação, um pouco absurda, mais possível de se ocorrer. Você é um implantador de sistemas e deverá atender a uma demanda em um cliente. Implantar o sistema e se depara com um erro ao executar o sistema que acabou de instalar com a seguinte mensagem:
 
-\[sourcecode language='plain'\] System.BadImageFormatException: Could not load file or assembly '' or one of it dependencies. An attempt was made to load programa with an incorrect format. \[/sourcecode\]
+```plain System.BadImageFormatException: Could not load file or assembly '' or one of it dependencies. An attempt was made to load programa with an incorrect format. ```
 
 Alguns outros Exceptions poderão ser vistos aqui nesse artigo sobre [Exceptions do .NET Framework](https://raphaelcardoso.com.br/csharp/exceptions-do-net-framework/)
 
@@ -30,15 +30,15 @@ Para responder a essa pergunta, basta efetuar o download do [Microsoft Windows S
 
 Inicie a instalação do SDK.
 
-\[caption id="attachment\_4767" align="aligncenter" width="772"\]![Imagem da tela de inicio do setup do SDK](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela1.png) Imagem da tela de inicio do setup do SDK\[/caption\] \[caption id="attachment\_4768" align="aligncenter" width="776"\]![Imagem da Tela de informações sobre o termo da licença de uso](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela2.png) Tela de informações sobre o termo da licença de uso\[/caption\] \[caption id="attachment\_4769" align="aligncenter" width="771"\]![Imagem da Tela de definição do local de instalação do SDK](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela3.png) Imagem da Tela de definição do local de instalação do SDK\[/caption\] \[caption id="attachment\_4770" align="aligncenter" width="777"\]![Imagem da tela de escolha das opções de instalação](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela4.png) Imagem da tela de escolha das opções de instalação\[/caption\] \[caption id="attachment\_4771" align="aligncenter" width="772"\]![Imagem da tela sobre o aviso de inicio da instalação do SDK](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela5.png) Imagem da tela sobre o aviso de inicio da instalação do SDK\[/caption\] \[caption id="attachment\_4772" align="aligncenter" width="775"\]![Imagem da tela de progresso da instalação do SDK](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela6.png) Imagem da tela de progresso da instalação do SDK\[/caption\] \[caption id="attachment\_4773" align="aligncenter" width="773"\]![Imagem da tela de informação da conclusão da instalação do SDK](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela7.png) Imagem da tela de informação da conclusão da instalação do SDK\[/caption\]
+[caption id="attachment_4767" align="aligncenter" width="772"]![Imagem da tela de inicio do setup do SDK](/contents/2014/02/tela1.png) Imagem da tela de inicio do setup do SDK[/caption] [caption id="attachment_4768" align="aligncenter" width="776"]![Imagem da Tela de informações sobre o termo da licença de uso](/contents/2014/02/tela2.png) Tela de informações sobre o termo da licença de uso[/caption] [caption id="attachment_4769" align="aligncenter" width="771"]![Imagem da Tela de definição do local de instalação do SDK](/contents/2014/02/tela3.png) Imagem da Tela de definição do local de instalação do SDK[/caption] [caption id="attachment_4770" align="aligncenter" width="777"]![Imagem da tela de escolha das opções de instalação](/contents/2014/02/tela4.png) Imagem da tela de escolha das opções de instalação[/caption] [caption id="attachment_4771" align="aligncenter" width="772"]![Imagem da tela sobre o aviso de inicio da instalação do SDK](/contents/2014/02/tela5.png) Imagem da tela sobre o aviso de inicio da instalação do SDK[/caption] [caption id="attachment_4772" align="aligncenter" width="775"]![Imagem da tela de progresso da instalação do SDK](/contents/2014/02/tela6.png) Imagem da tela de progresso da instalação do SDK[/caption] [caption id="attachment_4773" align="aligncenter" width="773"]![Imagem da tela de informação da conclusão da instalação do SDK](/contents/2014/02/tela7.png) Imagem da tela de informação da conclusão da instalação do SDK[/caption]
 
 Após a instalação, abra o prompt do SDK localizado no menu _Iniciar > Microsoft Windows SDK v7.1 > Windows SDK 7.1 Command Prompt_ e digite o comando abaixo:
 
-\[sourcecode language='plain'\] CorFlags \[/sourcecode\] \[caption id="attachment\_4774" align="aligncenter" width="684"\]![Imagem do prompt do SDK com a execução do comando citado](https://raphaelcardoso.com.br/wp-content/uploads/2014/02/tela8.png) Imagem do prompt do SDK com a execução do comando citado\[/caption\]
+```plain CorFlags ``` [caption id="attachment_4774" align="aligncenter" width="684"]![Imagem do prompt do SDK com a execução do comando citado](/contents/2014/02/tela8.png) Imagem do prompt do SDK com a execução do comando citado[/caption]
 
 No meu caso, esse comando irá gerar o resultado abaixo:
 
-\[sourcecode language='plain'\] Version : v2.0.50727 CLR Header: 2.5 PE : PE32 CorFlags : 9 ILONLY : 1 32BIT : 0 Signed : 1 \[/sourcecode\]
+```plain Version : v2.0.50727 CLR Header: 2.5 PE : PE32 CorFlags : 9 ILONLY : 1 32BIT : 0 Signed : 1 ```
 
 Para entender o resultado, criei a tabela abaixo que explica como identificar qual a plataforma do assembly
 

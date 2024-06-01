@@ -1,8 +1,0 @@
----
-title: 'Diferença entre ToString( ), Convert.ToString( ), (string) Cast, Safe Cast'
-date: Wed, 14 Mar 2012 10:00:33 +0000
-draft: false
-tags: ['(string) Cast', 'C#', 'Convert.ToString( )', 'Safe Cast', 'ToString( )']
----
-
-Há uma diferença simples mas importante entre os quatro **ToString( ) gera uma exceção se o objeto for nulo.** Assim, nullObject.ToString( ), sendo nullObject nulo, uma NullReferenceException será lançada. **Convert.ToString( ) retorna string.Empty se o objeto for nulo.** **(string) cast assina o objeto se ele for nulo.** MyObject o = (string) NullObject; Mas quando você acessar qualquer propriedade de MyObject, uma NullReferenceException será disparada. Potencialmente uma InvalidCastException também pode ocorrer, pois essa forma de cast explícito não é segura, nessecitando estar em um bloco try/catch. **MyObject o = nullObject as string atribui null ao objeto se o cast for inválido.** No caso acima, se o caso for inválido será atribuído null a MyObject não necessitando do bloco try/catch, essa operação é conhecida como safe cast ( cast seguro). Uma melhor abordagem seria verificar se o objeto é de um determinado tipo utilizando o operador **‘is’** \[sourcecode language="csharp"\] if ( myObject is string ) { myObject = o as string } \[/sourcecode\] No código acima verificamos se o objeto é de um determinado tipo e se for realizamos o cast. Referêcias: [Manish Pansiniya’s Blog](http://maniish.wordpress.com/2007/10/08/difference-between-tostring-vs-converttostring-vs-string-cast/ "Difference Between ToString() vs Convert.ToString() vs (string) cast")

@@ -42,23 +42,23 @@ INSERT INTO CLIENTES (NOME,DATA_NASCIMENTO,EMAIL) VALUES ('Maya N. Singleton','1
 
 Com o banco de dados pronto, já podemos iniciar o desenvolvimento. 
 
-![aprender_programar_csharp_parte4_001](https://raphaelcardoso.com.br/wp-content/uploads/2015/06/aprender_programar_csharp_parte4_001.png)
+![aprender_programar_csharp_parte4_001](/contents/2015/06/aprender_programar_csharp_parte4_001.png)
 
 Sugiro para o desenvolvimento desse projeto o [Visual Studio Community](visualstudio.microsoft.com) porque alem de gratuito, ele é completo e atende bem as nossas necessidades. Para efetuar o download, basta ir diretamente no site do Visual Studio acessando o link [visualstudio.microsoft.com](visualstudio.microsoft.com).
 
-![aprender_programar_csharp_parte4_002](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_002-1.png) 
+![aprender_programar_csharp_parte4_002](/contents/2016/09/aprender_programar_csharp_parte4_002-1.png) 
 
 Dando continuidade, abra o Visual Studio e clique no menu _File > New > Project_ e escolha o template _Windows Desktop > Windows Forms Application_. Para nosso projeto também utilizaremos o _.NET Framework 4.5_. Defina o nome do projeto como **ProgramarCSharpComBancoDados**. 
 
-![aprender_programar_csharp_parte4_003](https://raphaelcardoso.com.br/wp-content/uploads/2015/06/aprender_programar_csharp_parte4_003.png) 
+![aprender_programar_csharp_parte4_003](/contents/2015/06/aprender_programar_csharp_parte4_003.png) 
 
 No template escolhido, já teremos um Form criado na qual iremos adicionar 1 DataGridView e 4 Button. Precisaremos alterar o nome dos nossos objetos. Para fazer isso, clique com o botão direito em cima do objeto que deseja e altere a propriedade "(Name)" de cada objeto. 
 
-![aprender_programar_csharp_parte4_005](https://raphaelcardoso.com.br/wp-content/uploads/2015/07/aprender_programar_csharp_parte4_005.png) 
+![aprender_programar_csharp_parte4_005](/contents/2015/07/aprender_programar_csharp_parte4_005.png) 
 
 Para o DataGridView defina o nome como gridClientes,para o primeiro botão que usado para para listar os clientes no grid defina o nome como btnListar, o segundo será para excluir e terá o nome de btnExcluir, o terceiro será para editar e terá o nome de btnEditar e o quarto botão será para incluir um novo cliente e terá o nome de btnNovo. A posição dos componentes em tela não fará diferença. Distribua os objetos da forma que achar conveniente. 
 
-![aprender_programar_csharp_parte4_004](https://raphaelcardoso.com.br/wp-content/uploads/2015/06/aprender_programar_csharp_parte4_004.png) 
+![aprender_programar_csharp_parte4_004](/contents/2015/06/aprender_programar_csharp_parte4_004.png) 
 
 Agora adicione vamos adicionar a Connection String no App.config da aplicação. Acesse o Solution Explorer, localize o App.Config e dê um duplo clique sobre ele para que possamos incluir a linha abaixo: 
 
@@ -70,7 +70,7 @@ Agora adicione vamos adicionar a Connection String no App.config da aplicação.
 
 Adicionaremos a biblioteca _System.Configuration.dll_ clicando com botão direito sobre a pasta _References_ e _Add References_. 
 
-![aprender_programar_csharp_parte4_006](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_006-1.png) 
+![aprender_programar_csharp_parte4_006](/contents/2016/09/aprender_programar_csharp_parte4_006-1.png) 
 
 Vamos começar a codificar atribuindo as operações de consulta, exclusão, edição e inclusão para os respectivos botões. Para inicio, dê um duplo clique no botão Listar e realize a codificação conforme abaixo: 
 
@@ -119,7 +119,7 @@ private void btnListar_Click(object sender, EventArgs e)
 
 Para realizar o teste, basta apertar F5 ou clicar no menu _Debug > Start Debugging_. 
 
-![aprender_programar_csharp_parte4_007](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_007-1.png) 
+![aprender_programar_csharp_parte4_007](/contents/2016/09/aprender_programar_csharp_parte4_007-1.png) 
 
 Agora vamos codificar o botão Excluir clicando duas vezes sobre ele e atribuindo o código baixo:
 
@@ -167,9 +167,9 @@ private void btnExcluir_Click(object sender, EventArgs e)
 
 Para os botões de Editar e Novo vamos criar um segundo formulário que terá os campos que deverão ser preenchidos. Clique com o botão direto sobre o projeto e depois selecione _Add > Windows Form_. 
 
-![aprender_programar_csharp_parte4_008](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_008-1.png) 
+![aprender_programar_csharp_parte4_008](/contents/2016/09/aprender_programar_csharp_parte4_008-1.png) 
 
-![aprender_programar_csharp_parte4_009](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_009-1.png) 
+![aprender_programar_csharp_parte4_009](/contents/2016/09/aprender_programar_csharp_parte4_009-1.png) 
 
 Criado o formulário, precisaremos alterar o seu construtor para que ele possa receber valores do tipo Integer. Esses valores será o ID para utilizarmos o mesmo formulário para Edição e Inclusão. O código deverá ficar conforme abaixo:
 
@@ -184,7 +184,7 @@ public Form2(int id = 0)
 
 Agora vamos adicionar os campos necessários e atribuir nome para eles. 
 
-![aprender_programar_csharp_parte4_010](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_010-1.png) 
+![aprender_programar_csharp_parte4_010](/contents/2016/09/aprender_programar_csharp_parte4_010-1.png) 
 
 Adicione 1 Botão, 3 labels, 2 Textbox e 1 DateTimePicker. Renomeie para btnSalvar, txtNome, txtDataNascimento e txtEmail respectivamente. Feito isso, vamos atribuir o código para o botão Salvar. Dê um duplo clique sobre o botão Salvar.
 
@@ -336,7 +336,7 @@ private void btnEditar_Click(object sender, EventArgs e)
 
 Ao executar nossa aplicação, já podemos listar, excluir, incluir e editar os registros. 
 
-![aprender_programar_csharp_parte4_011](https://raphaelcardoso.com.br/wp-content/uploads/2016/09/aprender_programar_csharp_parte4_011-1.png) 
+![aprender_programar_csharp_parte4_011](/contents/2016/09/aprender_programar_csharp_parte4_011-1.png) 
 
 Até aqui você aprendeu como criar formulários, efetuar a chamada de um formulário através de outros, efetuar a conexão com banco de dados SQL Server e efetuar transações efetuando as quarto operações Consulta, Inclusão, Exclusão e Edição. Procure exercitar atribuindo mais campos de dados ou até mesmo faça um novo projeto de cadastro mais completo.
 

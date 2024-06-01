@@ -103,8 +103,8 @@ Para a criação das variáveis, é importante seguir algumas regrinhas básicas
 
 * Não utilizar palavras reservadas do C#: while, for, if, do, event, etc...
 * Não é permitido caracteres especiais, espaços
-* Utilizar somente \_ ou letras ou números
-* Obrigatoriamente deverá iniciar com \_ ou letras
+* Utilizar somente _ ou letras ou números
+* Obrigatoriamente deverá iniciar com _ ou letras
 * O nome da variável deverá ser único no contexto que ela for declarada.
 
 Vamos a alguns exemplo de declaração de variáveis:

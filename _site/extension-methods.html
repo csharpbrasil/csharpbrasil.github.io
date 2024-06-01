@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T668JSDW');</script>
+    <!-- End Google Tag Manager -->
+
+	<!-- Meta -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Extension Methods | C# Brasil</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Extension Methods" />
+<meta name="author" content="Raphael Cardoso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Extension Methods é uma nova característica presente apartir do C# 3.0 e que permitem adicionarmos métodos para tipos existentes sem criar um novo tipo derivado, recompilar ou modificar o tipo original. Extension Methods são um tipo especial de método estático, mas eles são chamados como se fossem métodos de instância no tipo estendido." />
+<meta property="og:description" content="Extension Methods é uma nova característica presente apartir do C# 3.0 e que permitem adicionarmos métodos para tipos existentes sem criar um novo tipo derivado, recompilar ou modificar o tipo original. Extension Methods são um tipo especial de método estático, mas eles são chamados como se fossem métodos de instância no tipo estendido." />
+<link rel="canonical" href="http://localhost:4000/extension-methods" />
+<meta property="og:url" content="http://localhost:4000/extension-methods" />
+<meta property="og:site_name" content="C# Brasil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-02-21T07:00:05-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Extension Methods" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Raphael Cardoso","url":"http://www.csharpbrasil.com.br"},"dateModified":"2011-02-21T07:00:05-03:00","datePublished":"2011-02-21T07:00:05-03:00","description":"Extension Methods é uma nova característica presente apartir do C# 3.0 e que permitem adicionarmos métodos para tipos existentes sem criar um novo tipo derivado, recompilar ou modificar o tipo original. Extension Methods são um tipo especial de método estático, mas eles são chamados como se fossem métodos de instância no tipo estendido.","headline":"Extension Methods","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/extension-methods"},"url":"http://localhost:4000/extension-methods"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css?1717257970198203784">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800" rel="stylesheet" type="text/css">
+
+    <link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NS9JFVVY3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NS9JFVVY3Z');
+</script>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T668JSDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+	<div id="wrap">
+	  	
+    <!-- Navigation -->
+    <nav id="nav">
+	<div id="nav-list">
+		<a href="http://localhost:4000/">Página inicial</a>
+		<a href="http://localhost:4000/sobre">Sobre o blog</a>
+	</div>
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+    <!-- Header -->
+    <header id="header">
+	<a href="http://localhost:4000/">
+		<img src="/images/logo_csharpbrasil.png" class="logo" alt="C# Brasil">
+	</a>
+</header>
+
+    <!-- Main content -->
+	  <div id="container">
+      <main>
+        <article id="post-page">
+	<h2>Extension Methods</h2>		
+	<time datetime="2011-02-21T07:00:05-03:00" class="by-line">
+		
+		21
+		Fevereiro
+		  
+		2011
+	</time>
+	<div class="content">
+
+		<p>Extension Methods é uma nova característica presente apartir do C# 3.0 e que permitem adicionarmos métodos para tipos existentes sem criar um novo tipo derivado, recompilar ou modificar o tipo original. Extension Methods são um tipo especial de método estático, mas eles são chamados como se fossem métodos de instância no tipo estendido.</p>
+
+<p>Agora que sabemos como funciona na teoria, vamos a prática.</p>
+
+<p>O Extension Methods pode ser aplicado em projetos WebForm quanto WinForm, porem nesse exemplo irei fazer WebForm. Para inicia crie um novo WebSite.</p>
+
+<p><a href="/contents/2011/02/ExemploExtensionMethods000-1.jpg"><img src="/contents/2011/02/ExemploExtensionMethods000-1-300x186.jpg" alt="" title="ExemploExtensionMethods000" /></a> <a href="/contents/2011/02/ExemploExtensionMethods001-1.jpg"><img src="/contents/2011/02/ExemploExtensionMethods001-1-300x185.jpg" alt="" title="ExemploExtensionMethods001" /></a></p>
+
+<p>Iniciando o novo projeto, iremos adicionar o diretorio App_Code para criar nossa classe.</p>
+
+<p><a href="/contents/2011/02/ExemploExtensionMethods002-1.jpg"><img src="/contents/2011/02/ExemploExtensionMethods002-1-300x219.jpg" alt="" title="ExemploExtensionMethods002" /></a> <a href="/contents/2011/02/ExemploExtensionMethods003-1.jpg"><img src="/contents/2011/02/ExemploExtensionMethods003-1-300x185.jpg" alt="" title="ExemploExtensionMethods003" /></a></p>
+
+<p>Agora iremos alterar nossa classe incluido o código que desejamos para extender por exemplo uma string.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp using System; public static class CSharpBrasilExtension { public static string ToMD5(this string value) { System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create(); byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(value); byte[] hash = md5.ComputeHash(inputBytes); System.Text.StringBuilder sb = new System.Text.StringBuilder(); for (int i = 0; i &lt; hash.Length; i++) { sb.Append(hash[i].ToString("X2")); } return sb.ToString(); } }</code> <a href="/contents/2011/02/ExemploExtensionMethods004-1.jpg"><img src="/contents/2011/02/ExemploExtensionMethods004-1-300x174.jpg" alt="" title="ExemploExtensionMethods004" /></a></p>
+
+<p>Após criarmos a nossa classe, o metodo irá estender todo e qualquer objeto do tipo String e no código acima criamos uma extensão para converter uma determinada String em MD5. Veja exemplo de uso.</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp string Nome = "C# Brasil"; string MD5 = Nome.ToMD5(); Response.Write(MD5);</code></p>
+
+<p>Você pode estender qualquer tipo de objeto. Podemos extender por exemplo um objeto do tipo string para converte-lo para decimal ou um DateTime para Int ou até mesmo String.</p>
+
+<p>O Extension Methods quando bem utilizado pode facilitar e muito o desenvolvimento. Por exemplo, podemos criar uma extesão para calcular um valor decimal. Veja abaixo:</p>
+
+<p><code class="language-plaintext highlighter-rouge">csharp public static decimal CalcularIPI(this decimal value, decimal percentual) { decimal Total = decimal.Divide(decimal.Multiply(value, percentual), 100); return Total; }</code></p>
+
+<p>No caso do exemplo acima utilizamos a passagem de parametros. Veja como utiliza-lo:</p>
+
+<p><a href="/contents/2011/02/ExemploExtensionMethods005-1.jpg"><img src="/contents/2011/02/ExemploExtensionMethods005-1-300x169.jpg" alt="" title="ExemploExtensionMethods005" /></a> <code class="language-plaintext highlighter-rouge">csharp decimal Valor = 580.78M; decimal Perc = 2; decimal IPI = Valor.CalcularIPI(Perc); Response.Write(IPI.ToString());</code></p>
+
+<p>Não existe nada de tão complicado na criação de um Extension Methods é tão simples quanto desenvolver e encapsular aquelas tão usadas funções em nossas classes.</p>
+
+<p>Você também pode ver alguns outros extension methods criados por mim <a href="http://www.extensionmethod.net/Author/raphael-augusto-ferroni-cardoso">aqui</a>.</p>
+
+<p>Deixarei para download o projeto criado: [download id=”7” format=”2”]</p>
+
+<p>Abraço e até a próxima.</p>
+
+		
+	</div>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v20.0" nonce="T10lHT3x"></script>
+<div class="fb-comments" data-href="http://localhost:4000/extension-methods" data-width="" data-numposts="10"></div>
+
+
+</article>
+
+
+      </main>		
+      <!-- Pagination links -->
+      
+	  </div>
+    
+    <!-- Footer -->
+    <footer class="footer"><span>&copy; 2024 C# Brasil. Todos os direitos reservados | Versão: 1.0.0 </span></footer>
+    <!-- Script -->
+    <script src="/js/main.js"></script>	
+
+	</div>
+</body>
+</html>
