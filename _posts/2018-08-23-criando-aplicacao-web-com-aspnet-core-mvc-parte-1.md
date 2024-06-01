@@ -36,7 +36,7 @@ Para que possamos iniciar o desenvolvido, é necessário instalar algumas ferram
 
 Quanto o uso da IDE, poderá utilizar qualquer uma das citadas. Vale ressaltar que diferente do Visual Studio Code e do MonoDevelop, o Microsoft Visual Studio é exclusivo do Windows. Sendo assim, para Mac e Linux deverá fazer uso dos outros dois citados.
 
-[![](/contents/2018/08/0_mono_develop-1024x576.jpg)](/contents/2018/08/0_mono_develop.jpg)
+[](/contents/2018/08/0_mono_develop-1024x576.jpg)
 
 Caso esteja utilizando o Mac, o SQL Server deverá ser executado em um Container no Docker, já para sistemas Linux, também poderá ser executado em um Container ou instalado diretamente caso sua versão seja suportada.
 
@@ -110,7 +110,7 @@ Repare que temos os diretórios, _Home_ e _Secure_. No _Home_ temos o _Index_ do
 
 Em relação ao banco de dados, criaremos a tabela _Usuario_. Para essa primeira parte iremos somente autenticar no painel.
 
-```
+```sql
 CREATE TABLE Usuario
 (
 	IdUsuario INT IDENTITY(1, 1) NOT NULL,
@@ -125,13 +125,13 @@ GO
 
 Vamos incluir também o usuário administrador
 
-```
+```sql
 INSERT INTO Usuario (Nome, Login, Senha) VALUES ('Administrador', 'admin', '123456')
 ```
 
 Para a camada de Dados, criamos o ApplicationContext e o repositório de usuários. O ApplicationContext é a classe que implementa o DbContext que é responsável por abrir conexão de nossa aplicação com o banco de dados. Já o repositório nos permitirá utilizar o ApplicationContext para interagir com nossas tabelas realizando operações de consulta, inclusão, exclusão e atualização. Inicialmente teremos somente o repositório de usuário para que possamos implementar a autenticação.
 
-```
+```csharp
 using System;
 using CriandoAplicacaoAspNetCore.Data.Mapping;
 using CriandoAplicacaoAspNetCore.Model.Entities;
@@ -155,7 +155,7 @@ namespace CriandoAplicacaoAspNetCore.Data
         }
     }
 }
-``````
+```csharp
 using System;
 using CriandoAplicacaoAspNetCore.Model.Entities;
 using CriandoAplicacaoAspNetCore.Model.Interfaces;
@@ -174,7 +174,7 @@ namespace CriandoAplicacaoAspNetCore.Data.Repositories
 
 Repare que nosso repositório de usuário não possui nenhum metodo implementado. Ele herda do GenericRepository todas os métodos necessários.
 
-```
+```csharp
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -210,7 +210,8 @@ namespace CriandoAplicacaoAspNetCore.Data.Repositories
             return this._dbSet.Find(id);
         }
 
-        public virtual IQueryable Get(Expression<Func<TEntity, bool>> expression = null, Func<iqueryable, IOrderedQueryable> orderby = null, string includes = "", bool noTracking = false)
+        public virtual IQueryable Get(Expression<Func<TEntity, bool>> expression = null, 
+            Func<iqueryable, IOrderedQueryable> orderby = null, string includes = "", bool noTracking = false)
         {
             IQueryable query = this._dbSet;
 
@@ -277,7 +278,7 @@ namespace CriandoAplicacaoAspNetCore.Data.Repositories
 
 Na camada de negócio, criamos o código que irá autenticar o usuário.
 
-```
+```csharp
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -298,7 +299,8 @@ namespace CriandoAplicacaoAspNetCore.Business
 
         public virtual UsuarioDto Autenticar(LoginDto loginDto)
         {
-            Expression<Func<Usuario, bool>> expression = q => q.Login.ToLower().Equals(loginDto.Usuario) && q.Senha.Equals(loginDto.Senha);
+            Expression<Func<Usuario, bool>> expression = q => q.Login.ToLower().Equals(loginDto.Usuario) && 
+                q.Senha.Equals(loginDto.Senha);
             var usuarioDto = this._unitOfWork.UsuarioRepository
                                              .Get(expression)
                                              .Select(s => new UsuarioDto
@@ -320,7 +322,7 @@ Não me preocupei muito com a parte de segurança nesse momento. Então, nossa s
 
 Tendo agora nossa camada de dados e de negócio pronta, poderemos criar o controller que será o reponsável por interagir com a nossa view. Criamos então o controller do login em nosso Web Application.
 
-```
+```csharp
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -378,7 +380,9 @@ namespace CriandoAplicacaoAspNetCore.WebApp.Areas.Painel.Controllers
                         ExpiresUtc = DateTime.UtcNow.AddMinutes(2)
                     };
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+                    await HttpContext
+                        .SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
+                            principal, authProperties);
 
                     return RedirectToAction("Index", "Home");
                 }

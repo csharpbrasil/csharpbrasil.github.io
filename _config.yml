@@ -34,10 +34,26 @@ defaults:
     values:
       layout: "post"
 
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input:          GFM
+  # https://github.com/jekyll/jekyll/pull/4090
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
 # Plugins
 plugins:
   - jekyll-paginate
   - jekyll-seo-tag
+  - kramdown-syntax-coderay
 
 # Custom variables
 version: "1.0.0"

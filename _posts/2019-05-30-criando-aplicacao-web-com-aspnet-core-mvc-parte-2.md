@@ -81,7 +81,9 @@ Criaremos também a view referente a tela de consulta de usuários.
 
 <div class="row mt-4 mb-4">
     <div class="col">
-        <a class="btn btn-primary" asp-area="Painel" asp-controller="Usuario" asp-action="Novo"><i class="fas fa-plus-circle"></i> Novo</a>
+        <a class="btn btn-primary" asp-area="Painel" asp-controller="Usuario" asp-action="Novo">
+            <i class="fas fa-plus-circle"></i> Novo
+        </a>
     </div>
 </div>
 
@@ -101,8 +103,16 @@ Criaremos também a view referente a tela de consulta de usuários.
                 {
                     <tr>
                         <th scope="row">
-                            <a class="btn btn-info btn-sm" asp-area="Painel" asp-controller="Usuario" asp-action="Editar" asp-route-id="@item.IdUsuario"><i class="fas fa-pen-alt"></i></a>
-                            <a class="btn btn-danger btn-sm" asp-area="Painel" asp-controller="Usuario" asp-action="Excluir" asp-route-id="@item.IdUsuario"><i class="fas fa-trash-alt"></i></a>
+                            <a class="btn btn-info btn-sm" asp-area="Painel" 
+                                asp-controller="Usuario" asp-action="Editar" 
+                                asp-route-id="@item.IdUsuario">
+                                <i class="fas fa-pen-alt"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm" asp-area="Painel" 
+                                asp-controller="Usuario" asp-action="Excluir" 
+                                asp-route-id="@item.IdUsuario">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
                         </th>
                         <td>@item.Nome</td>
                         <td>@item.Login</td>
@@ -153,9 +163,9 @@ namespace CriandoAplicacaoAspNetCore.Utils
 
         public static string CreateHash(string value, string salt)
         {
-            var valueBytes = KeyDerivation.Pbkdf2(password: value, salt: Encoding.UTF8.GetBytes(salt),
-                                                  prf: KeyDerivationPrf.HMACSHA512, iterationCount: ITERATION_COUNT,
-                                                  numBytesRequested: 256 / 8);
+            var valueBytes = KeyDerivation
+                .Pbkdf2(password: value, salt: Encoding.UTF8.GetBytes(salt), 
+                    prf: KeyDerivationPrf.HMACSHA512, iterationCount: ITERATION_COUNT, numBytesRequested: 256 / 8);
             return Convert.ToBase64String(valueBytes);
         }
 
@@ -178,7 +188,9 @@ ALTER TABLE usuario ADD Salt VARCHAR(256)
 E atualizaremos a senha do usuário _**Admin**_ para a senha padrão _**123456**_, porém, será armazenado somente o Hash e o Salt. Não teremos mais a senha gravada.
 
 ```sql
-UPDATE Usuario SET Hash = 'NLAZBttBU8HbUrODUPQxViEDr1d7RMi4B/2F6yaKOrQ=', Salt = 'Nkt8krN4/TBHUJXu4zEm6A==' 
+UPDATE Usuario SET 
+    Hash = 'NLAZBttBU8HbUrODUPQxViEDr1d7RMi4B/2F6yaKOrQ=', 
+    Salt = 'Nkt8krN4/TBHUJXu4zEm6A==' 
 WHERE Login = 'admin'
 ```
 
