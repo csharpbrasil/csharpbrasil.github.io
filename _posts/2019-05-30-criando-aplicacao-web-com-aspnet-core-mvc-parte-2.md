@@ -36,7 +36,7 @@ Definaremos o nome como UsuarioController.
 
 E incluiremos a consulta para listar todos os usuários cadastrados.
 
-{% highlight csharp %}
+```csharp
 using CriandoAplicacaoAspNetCore.Model.Dtos;
 using CriandoAplicacaoAspNetCore.Model.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -63,11 +63,11 @@ namespace CriandoAplicacaoAspNetCore.WebApp.Areas.Painel.Controllers
         }
     }
 }
-{% endhighlight %}
+```
 
 Criaremos também a view referente a tela de consulta de usuários.
 
-{% highlight csharp %}
+```csharp
 @model IEnumerable<CriandoAplicacaoAspNetCore.Model.Dtos.UsuarioDto>
 @{
     ViewData["Title"] = "Usuários";
@@ -113,7 +113,7 @@ Criaremos também a view referente a tela de consulta de usuários.
         </table>
     </div>
 </div>
-{% endhighlight %}
+```
 
 Ao executar nosso projeto, teremos agora a lista de todos os usuários cadastrados.
 
@@ -129,7 +129,7 @@ Para melhorar a segurança, não vamos mais armazenar nossa senha, mas sim o has
 
 Criaremos um novo projeto contendo nosso **_SecurityManager.cs_** que será responsável por criar e validar nosso hash.
 
-{% highlight csharp %}
+```csharp
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
 using System.Security.Cryptography;
@@ -163,30 +163,30 @@ namespace CriandoAplicacaoAspNetCore.Utils
             => CreateHash(value, salt) == hash;
     }
 } 
-{% endhighlight %}
+```
 
 E agora vamos alterar a autenticação do usuário para que ele passe a fazer uso da validação pelo hash.
 
 Primeiro, vamos remover a coluna de **_Senha_** e criar as Colunas para o _**Hash**_ e outra para p **_Salt_**.
 
-{% highlight sql %}
+```sql
 ALTER TABLE Usuario DROP COLUMN Senha
 ALTER TABLE usuario ADD Hash VARCHAR(256)
 ALTER TABLE usuario ADD Salt VARCHAR(256)
-{% endhighlight %}
+```
 
 E atualizaremos a senha do usuário _**Admin**_ para a senha padrão _**123456**_, porém, será armazenado somente o Hash e o Salt. Não teremos mais a senha gravada.
 
-{% highlight sql %}
+```sql
 UPDATE Usuario SET Hash = 'NLAZBttBU8HbUrODUPQxViEDr1d7RMi4B/2F6yaKOrQ=', Salt = 'Nkt8krN4/TBHUJXu4zEm6A==' 
 WHERE Login = 'admin'
-{% endhighlight %}
+```
 
 ![](https://raphaelcardoso.com.br/wp-content/uploads/2019/05/hash_salt_banco.png)
 
 Atualizaremos a entidade Usuario e a configuração do Entity Framework.
 
-{% highlight csharp %}
+```csharp
 using System;
 namespace CriandoAplicacaoAspNetCore.Model.Entities
 {
@@ -200,9 +200,9 @@ namespace CriandoAplicacaoAspNetCore.Model.Entities
 		public virtual string Salt { get; set; }
 	}
 } 
-{% endhighlight %}
+```
 
-{% highlight csharp %}
+```csharp
 using System;
 using CriandoAplicacaoAspNetCore.Model.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -225,11 +225,11 @@ namespace CriandoAplicacaoAspNetCore.Data.Mapping
 		}
 	}
 }
-{% endhighlight %}
+```
 
 Agora vamos alterar a autenticação do usuário para que seja validado atraves do hash.
 
-{% highlight csharp %}
+```csharp
 using CriandoAplicacaoAspNetCore.Model.Dtos;
 using CriandoAplicacaoAspNetCore.Model.Interfaces;
 using CriandoAplicacaoAspNetCore.Utils;
@@ -282,7 +282,7 @@ namespace CriandoAplicacaoAspNetCore.Business
         }
     }
 }
-{% endhighlight %}
+```
 
 Feito isso, o usuário passará a se autenticar informando a senha, porém para validar será necessário buscar o usuário no banco de dados, pegar a senha informada juntamente com o Hash e o Salt para validar.
 

@@ -64,7 +64,7 @@ Existem 2 formar de incluir as bibliotecas pelo Nuget. Uma é usando o **Package
 
 Abra o **Package Manager Console** e digite as linhas abaixo ou simplesmente copie e cole.
 
-\[code='powershell'\] Install-Package DotNetZip Install-Package Microsoft.AspNet.Cors Install-Package Microsoft.AspNet.WebApi.Client Install-Package Microsoft.AspNet.WebApi.Core Install-Package Microsoft.AspNet.WebApi.Owin Install-Package Microsoft.Bcl Install-Package Microsoft.Bcl.Build Install-Package Microsoft.Bcl.Compression Install-Package Microsoft.Net.Http Install-Package Microsoft.Owin Install-Package Microsoft.Owin.Cors Install-Package Microsoft.Owin.Host.SystemWeb Install-Package Microsoft.Owin.Security Install-Package Microsoft.Owin.Security.OAuth Install-Package Newtonsoft.Json Install-Package Owin Install-Package Strathweb.CacheOutput.WebApi2 Install-Package Unity \[/code\]
+\[code='powershell'\] Install-Package DotNetZip Install-Package Microsoft.AspNet.Cors Install-Package Microsoft.AspNet.WebApi.Client Install-Package Microsoft.AspNet.WebApi.Core Install-Package Microsoft.AspNet.WebApi.Owin Install-Package Microsoft.Bcl Install-Package Microsoft.Bcl.Build Install-Package Microsoft.Bcl.Compression Install-Package Microsoft.Net.Http Install-Package Microsoft.Owin Install-Package Microsoft.Owin.Cors Install-Package Microsoft.Owin.Host.SystemWeb Install-Package Microsoft.Owin.Security Install-Package Microsoft.Owin.Security.OAuth Install-Package Newtonsoft.Json Install-Package Owin Install-Package Strathweb.CacheOutput.WebApi2 Install-Package Unity ```
 
 Após copiar as linhas acima e colocar teremos todas as bibliotecas e suas dependências adicionas.
 
@@ -76,7 +76,10 @@ Para que possamos começar a utilizar nosso ASP.NEt Web API e começar implement
 
 A classe criada terá o código abaixo:
 
-\[code='csharp'\] using Newtonsoft.Json; using Newtonsoft.Json.Serialization; using Owin; using System.Web.Http; \[/code\] \[code='csharp'\] public class Startup { public void Configuration(IAppBuilder app) { HttpConfiguration config = new HttpConfiguration(); var formatters = config.Formatters; formatters.Remove(formatters.XmlFormatter); var jsonSettings = formatters.JsonFormatter.SerializerSettings; jsonSettings.Formatting = Formatting.Indented; jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects; config.MapHttpAttributeRoutes(); config.Routes.MapHttpRoute( name: "DefaultRoute", routeTemplate: "api/{controller}/{id}", defaults: new { id = RouteParameter.Optional } ); app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll); app.UseWebApi(config); } } \[/code\]
+```csharp 
+using Newtonsoft.Json; using Newtonsoft.Json.Serialization; using Owin; using System.Web.Http; ```
+```csharp 
+public class Startup { public void Configuration(IAppBuilder app) { HttpConfiguration config = new HttpConfiguration(); var formatters = config.Formatters; formatters.Remove(formatters.XmlFormatter); var jsonSettings = formatters.JsonFormatter.SerializerSettings; jsonSettings.Formatting = Formatting.Indented; jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects; config.MapHttpAttributeRoutes(); config.Routes.MapHttpRoute( name: "DefaultRoute", routeTemplate: "api/{controller}/{id}", defaults: new { id = RouteParameter.Optional } ); app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll); app.UseWebApi(config); } } ```
 
 O que esse código faz é, remover o formato XML e adicionar o formato JSON alem de definir nossa mapa da rota.
 
@@ -98,13 +101,15 @@ Com o controller criado, criaremos então alguns métodos para nosso controller 
 
 Defina o RoutePrefix para o Controller, ficando conforme código abaixo.
 
-\[code='csharp'\] \[RoutePrefix("api/meuprojeto")\] public class DefaultController : ApiController { } \[/code\]
+```csharp 
+\[RoutePrefix("api/meuprojeto")\] public class DefaultController : ApiController { } ```
 
 O exemplo acima estabelecemos que quando for chamado a url com o prefixo **api/meuprojeto**, será direcionado para esse controller que acabamos de criar.
 
 Agora crie o método abaixo dentro do controller.
 
-\[code='csharp'\] \[RoutePrefix("api/meuprojeto")\] public class DefaultController : ApiController { \[HttpGet\] \[Route("datahora/consulta")\] public HttpResponseMessage GetDataHoraServidor() { try { var dataHora = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); return Request.CreateResponse(HttpStatusCode.OK, dataHora); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } } \[/code\]
+```csharp 
+\[RoutePrefix("api/meuprojeto")\] public class DefaultController : ApiController { \[HttpGet\] \[Route("datahora/consulta")\] public HttpResponseMessage GetDataHoraServidor() { try { var dataHora = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); return Request.CreateResponse(HttpStatusCode.OK, dataHora); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } } ```
 
 Como pode ver no exemplo, criamos um método do tipo _HttpGet_ com a rota _datahora/consulta_ que no final, quando formos chamar-la no browser, chamaremos pela url _http://{servidor}/api/meuprojeto/datahora/consulta_.
 
@@ -112,7 +117,8 @@ Como pode ver no exemplo, criamos um método do tipo _HttpGet_ com a rota _datah
 
 Podemos também criar um método utilizando-se do uso de parâmetros para consulta.
 
-\[code='csharp'\] \[HttpGet\] \[Route("consulta/cliente/{id:int}")\] public HttpResponseMessage GetClientePorId(int id) { try { var clientes = new\[\] { new { Id = 1, Nome = "Pedro", DataNascimento = new DateTime(1954, 2, 1) }, new { Id = 2, Nome = "Paulo", DataNascimento = new DateTime(1944, 4, 12) }, new { Id = 3, Nome = "Fernando", DataNascimento = new DateTime(1963, 5, 9) }, new { Id = 4, Nome = "Maria", DataNascimento = new DateTime(1984, 4, 30) }, new { Id = 5, Nome = "João", DataNascimento = new DateTime(1990, 3, 14) }, new { Id = 6, Nome = "Joana", DataNascimento = new DateTime(1974, 6, 19) } }; var cliente = clientes.Where(x => x.Id == id).FirstOrDefault(); if (cliente == null) throw new Exception("Cliente não encontrado"); return Request.CreateResponse(HttpStatusCode.OK, cliente); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } \[/code\]
+```csharp 
+\[HttpGet\] \[Route("consulta/cliente/{id:int}")\] public HttpResponseMessage GetClientePorId(int id) { try { var clientes = new\[\] { new { Id = 1, Nome = "Pedro", DataNascimento = new DateTime(1954, 2, 1) }, new { Id = 2, Nome = "Paulo", DataNascimento = new DateTime(1944, 4, 12) }, new { Id = 3, Nome = "Fernando", DataNascimento = new DateTime(1963, 5, 9) }, new { Id = 4, Nome = "Maria", DataNascimento = new DateTime(1984, 4, 30) }, new { Id = 5, Nome = "João", DataNascimento = new DateTime(1990, 3, 14) }, new { Id = 6, Nome = "Joana", DataNascimento = new DateTime(1974, 6, 19) } }; var cliente = clientes.Where(x => x.Id == id).FirstOrDefault(); if (cliente == null) throw new Exception("Cliente não encontrado"); return Request.CreateResponse(HttpStatusCode.OK, cliente); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } ```
 
 No exemplo criamos um novo método que recebe um parâmetro do tipo _int_, que é do tipo _HttpGet_ que possui a rota _consulta/cliente/{id:int}_. Quando for chamar no browser essa url, chamaremos pela url _http://{servidor}/api/meuprojeto/consulta/cliente/{id}_, onde {id} é o id que queremos consultar.
 
@@ -126,17 +132,21 @@ Até aqui fizemos alguns exemplos de _HttpGet_, agora vou exemplificar como faze
 
 Primeiro criaremos a classe _Cliente_.
 
-\[code='csharp'\] public class Cliente { public string Nome { get; set; } } \[/code\]
+```csharp 
+public class Cliente { public string Nome { get; set; } } ```
 
 E agora criaremos o nosso método de _HttpPost_.
 
-\[code='csharp'\] \[HttpPost\] \[Route("cadastrar")\] public HttpResponseMessage PostCadastro(Cliente cliente) { try { return Request.CreateResponse(HttpStatusCode.OK, "Cadastro do usuário " + cliente.Nome + " realizado."); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } \[/code\]
+```csharp 
+\[HttpPost\] \[Route("cadastrar")\] public HttpResponseMessage PostCadastro(Cliente cliente) { try { return Request.CreateResponse(HttpStatusCode.OK, "Cadastro do usuário " + cliente.Nome + " realizado."); } catch (Exception ex) { return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message); } } ```
 
 No exemplo criamos um novo método que não recebe nenhum parâmetro pela url como ocorre com os HttpGet. Nesse caso, os dados precisam ser submetidos para a url e nesse caso vou testar usando o aplicativo [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) para o Google Chrome.
 
 Para testar, abra o Postman e selecione o tipo de requisição. No caso usaremos o _Post_. Informe a url, selecione o formato _raw_ e o tipo de dados a ser submetido como _JSON (application/json)_ e informe o JSON.
 
-\[code='javascript'\] { "Nome":"Raphael Cardoso" } \[/code\] ![criando_e_consumindo_webapi_012](https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_012.png)
+\[code='javascript'\] { "Nome":"Raphael Cardoso" }
+ ``` 
+![criando_e_consumindo_webapi_012](https://raphaelcardoso.com.br/wp-content/uploads/2015/06/criando_e_consumindo_webapi_012.png)
 
 Você aprendeu de forma simples a criação de uma Web API. Poderá tranquilamente explorar o que foi passado criando novos métodos que recebam parametros diferentes ou até mesmo que utilize de objetos mais complexos ao realizar um HttpPost.
 
