@@ -47,6 +47,11 @@ kramdown:
       line_numbers: true
       start_line: 1
 
+exclude:
+- README.md
+- Gemfile
+- Gemfile.lock
+
 # Plugins
 plugins:
 - jekyll-paginate
