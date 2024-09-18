@@ -38,6 +38,4 @@ bundle exec jekyll serve
 
 - [Jekyll • Simple, blog-aware, static sites](https://jekyllrb.com/)
 
-- 
-
 
