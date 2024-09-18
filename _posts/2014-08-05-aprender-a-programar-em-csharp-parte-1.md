@@ -227,6 +227,6 @@ while (z <10)
 }
 ```
 
-Até aqui você conseguiu ver ó básico da linguagem C#. Para que possamos mesmo começar a entender mais, [no próximo artigo](/aprender-a-programar-em-csharp-parte-2/) começaremos com a criação de um exemplo em C# criado em um editor de texto qualquer e compilando diretamente em linha de comando com o compilador [csc](http://msdn.microsoft.com/en-us/library/78f4aasd.aspx) para entender mais um pouco do funcionamento. 
+Até aqui você conseguiu ver ó básico da linguagem C#. Para que possamos mesmo começar a entender mais, [no próximo artigo](/aprender-a-programar-em-csharp-parte-2) começaremos com a criação de um exemplo em C# criado em um editor de texto qualquer e compilando diretamente em linha de comando com o compilador [csc](http://msdn.microsoft.com/en-us/library/78f4aasd.aspx) para entender mais um pouco do funcionamento. 
 
 Até o próximo artigo e bons estudos!
