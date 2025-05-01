@@ -122,7 +122,7 @@ Essa biblioteca foi pensada para aplicações reais que precisam de caching loca
 Acesse o código no GitHub e instale o pacote no NuGet para começar a usar agora mesmo!
 
 - **NuGet:** [CSharpBrasil.Extensions.Caching.LiteDb](https://www.nuget.org/packages/CSharpBrasil.Extensions.Caching.LiteDb)
-- **GitHub:** https://github.com/csharpbrasil/CSharpBrasil.Extensions.Caching.LiteDb
+- **GitHub:** [CSharpBrasil.Extensions.Caching.LiteDb](https://github.com/csharpbrasil/CSharpBrasil.Extensions.Caching.LiteDb)
 
 Participe da nossa comunidade no [WhastApp](https://chat.whatsapp.com/CYW7HUiK70xAmPpFx9mVMR).
 
