@@ -59,7 +59,8 @@ plugins:
 - kramdown-syntax-coderay
 
 # Custom variables
-version: "1.1.0"
+version: "1.1.1"
+year: 2025
 github: "csharpbrasil"
 facebook: "csharpbrasil"
 twitter: "csharpbrasil"
