@@ -1,6 +1,6 @@
 ---
 title: 'Observabilidade: Os Três Pilares para Monitorar Aplicações Modernas'
-date: Sat, 08 Feb 2026 10:00:00 +0000
+date: Sat, 07 Feb 2026 22:00:00 +0000
 draft: false
 tags: ['Observabilidade', 'Monitoramento', 'DevOps', 'SRE', 'Métricas', 'Logs', 'Traces', 'Prometheus', 'Grafana', 'OpenTelemetry']
 ---
