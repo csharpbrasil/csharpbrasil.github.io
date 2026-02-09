@@ -357,7 +357,7 @@ Quando o error budget acaba, você **para de fazer deploys** e foca em confiabil
 
 Para ajudar você a colocar esses conceitos em prática, criamos um **laboratório completo de observabilidade** que demonstra todos os três pilares em ação:
 
-**🔗 [Lab de Observabilidade no GitHub](https://github.com/ferronicardoso/lab-observabilidade)**
+**🔗 [Lab de Observabilidade no GitHub](https://github.com/ferronicardoso/laboratorio-observabilidade)**
 
 O laboratório inclui:
 - ✅ Stack completa Grafana (Prometheus + Loki + Grafana + Alloy)
@@ -371,8 +371,8 @@ O laboratório inclui:
 Basta clonar o repositório e executar:
 
 ```bash
-git clone https://github.com/ferronicardoso/lab-observabilidade
-cd lab-observabilidade
+git clone https://github.com/ferronicardoso/laboratorio-observabilidade
+cd laboratorio-observabilidade
 docker compose up -d
 
 # Acessar Grafana: http://localhost:3000 (admin/admin)
