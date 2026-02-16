@@ -295,57 +295,7 @@ docker tag minha-app:latest gru.ocir.io/namespace/minha-app:a1b2c3d
 
 ## Fluxo Completo
 
-```mermaid
-sequenceDiagram
-    actor Dev as Desenvolvedor
-    participant OCI as Console OCI
-    participant Docker as Docker CLI
-    participant Registry as Container Registry (gru.ocir.io)
-
-    Dev->>OCI: 1. Criar usuário e grupo
-    OCI-->>Dev: Usuário criado
-
-    Dev->>OCI: 2. Configurar política IAM
-    OCI-->>Dev: Política aplicada
-
-    Dev->>OCI: 3. Gerar Auth Token
-    OCI-->>Dev: Auth Token gerado
-    Note over Dev,OCI: Armazenar token em local seguro!
-
-    Dev->>Docker: 4. docker login gru.ocir.io
-    Docker->>Dev: Solicitar credenciais
-
-    alt Usuário IAM nativo
-        Dev->>Docker: Username: namespace/usuario
-    else Usuário IDCS
-        Dev->>Docker: Username: namespace/oracleidentitycloudservice/usuario
-    end
-
-    Dev->>Docker: Password: auth-token
-
-    Docker->>Registry: 5. Autenticar
-    Registry-->>Docker: Login Succeeded
-
-    Dev->>Docker: 6. docker build -t minha-app:1.0.0 .
-    Docker-->>Dev: Imagem construída
-
-    Dev->>Docker: 7. docker tag minha-app:1.0.0 gru.ocir.io/namespace/minha-app:1.0.0
-    Docker-->>Dev: Imagem tagueada
-
-    Dev->>Docker: 8. docker push gru.ocir.io/namespace/minha-app:1.0.0
-    Docker->>Registry: Iniciando upload
-
-    loop Para cada layer da imagem
-        Docker->>Registry: Enviar layer
-        Registry-->>Docker: Layer recebida
-    end
-
-    Registry-->>Docker: Push completo
-    Docker-->>Dev: Push bem-sucedido ✅
-
-    Dev->>OCI: 9. Verificar no console
-    OCI-->>Dev: Imagem disponível no repositório
-```
+![](/images/2026-02-16-deploy-imagens-docker-oracle-container-registry-oci/image0001.png)
 
 ## Utilizando a Imagem
 
