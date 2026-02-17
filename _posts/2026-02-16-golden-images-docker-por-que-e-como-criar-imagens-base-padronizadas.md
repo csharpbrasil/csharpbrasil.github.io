@@ -1,6 +1,6 @@
 ---
 title: 'Golden Images Docker: Por Que e Como Criar Imagens Base Padronizadas'
-date: Mon, 16 Feb 2026 20:00:00 +0000
+date: Mon, 16 Feb 2026 23:00:00 +0000
 draft: false
 tags: ['Docker', 'Container', 'DevOps', 'Golden Image', 'Boas Práticas', 'Segurança']
 ---
