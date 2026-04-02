@@ -1,14 +1,192 @@
 /*- Custom style -*/
 
-/* Estilos dos ícones de redes sociais */
-.social-icons {
-    display: flex;
-    justify-content: center; /* Centraliza os ícones */
-    padding: 10px 0;
+/* ========== Post cards ========== */
+
+#posts {
+  padding: 0;
+  margin-top: 1.5rem;
+
+  .post {
+    list-style-type: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    h2 {
+      padding-top: 0;
+      a {
+        color: var(--color-text);
+        font-weight: 700;
+        &:hover {
+          color: var(--color-primary);
+        }
+      }
+    }
+
+    .by-line {
+      color: var(--color-text-meta);
+      font-size: 0.875em;
+      margin-bottom: 0.75em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      &::before {
+        content: '\f073';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 0.8em;
+        opacity: 0.6;
+      }
+    }
+
+    p {
+      margin-bottom: 0;
+      opacity: 0.82;
+    }
+  }
 }
+
+/* Remove old separator between posts */
+.post + .post::before {
+  display: none;
+}
+
+/* ========== Social media icons ========== */
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  gap: 8px;
+}
+
 .social-icons a {
-    text-decoration: none;
-    color: #333;
-    margin: 0 15px; /* Espaçamento entre os ícones */
-    font-size: 24px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 8px;
+  font-size: 22px;
+  transition: color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+  &:nth-child(1):hover { color: #f0f6fc; }     /* GitHub      */
+  &:nth-child(2):hover { color: #1877F2; }      /* Facebook     */
+  &:nth-child(3):hover { color: #1DA1F2; }      /* X / Twitter  */
+  &:nth-child(4):hover { color: #E1306C; }      /* Instagram    */
+  &:nth-child(5):hover { color: #25D366; }      /* WhatsApp     */
+}
+
+/* ========== Code blocks ========== */
+
+pre.highlight,
+div.highlight {
+  position: relative;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin-bottom: 1.5em;
+
+  code {
+    display: block;
+    padding: 1.25rem 1.5rem;
+    background: transparent;
+    font-size: 0.875em;
+    line-height: 1.65;
+  }
+}
+
+.code-copy-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.15s ease;
+
+  &:hover {
+    background: darken(#009739, 10%);
+  }
+}
+
+div.highlight:hover .code-copy-btn {
+  opacity: 1;
+}
+
+/* ========== Blockquote ========== */
+
+blockquote {
+  background: transparent !important;
+  border-left: 4px solid $main-color;
+  padding: 0 0 0 1.25rem !important;
+  margin: 1.5em 0 !important;
+  color: lighten($text-color, 25%);
+  font-style: italic;
+}
+
+/* ========== Header accent ========== */
+
+#header {
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0.5rem;
+}
+
+/* ========== Dark mode overrides ========== */
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: var(--color-bg);
+  }
+
+  .footer,
+  footer {
+    background-color: #161b22;
+    border-top: 1px solid #30363d;
+  }
+
+  .page-item {
+    background-color: #238636;
+  }
+
+  .pagination span.page-item {
+    background-color: #21262d;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  blockquote {
+    border-left-color: #3fb950;
+    color: var(--color-text-meta);
+  }
+
+  code {
+    background-color: var(--color-code-bg);
+    color: #c9d1d9;
+  }
+
+  pre.highlight,
+  div.highlight {
+    background: #161b22;
+    border-color: #30363d;
+  }
 }
