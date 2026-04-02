@@ -6,9 +6,27 @@
 
 #### Instalando o Ruby
 
+**Linux (Ubuntu/Debian):**
+
 ```shell
 sudo apt-get install ruby-full
 ```
+
+**Windows:**
+
+```shell
+winget install RubyInstallerTeam.Ruby.3.4
+```
+
+> Após a instalação no Windows, feche e reabra o terminal para que o `ruby` e o `gem` sejam reconhecidos no PATH.
+
+Em seguida, instale o toolchain MSYS2/MINGW necessário para compilar gems com extensões nativas:
+
+```shell
+ridk install
+```
+
+Quando solicitado, selecione a opção **3** — _MSYS2 and MINGW development toolchain_.
 
 
 
