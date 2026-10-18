@@ -1,0 +1,65 @@
+name: Build e publicação (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  THEME_REPO: ferronicardoso/blog-theme
+  THEME_REF: v0.1.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do conteúdo
+        uses: actions/checkout@v7
+
+      - name: Checkout do tema
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.THEME_REPO }}
+          ref: ${{ env.THEME_REF }}
+          path: .theme
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: .theme/package-lock.json
+
+      - name: Instalar dependências do tema
+        run: npm ci
+        working-directory: .theme
+
+      - name: Build (Astro + índice de busca)
+        run: npm run build
+        working-directory: .theme
+        env:
+          BLOG_DIR: ${{ github.workspace }}
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: .theme/dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
