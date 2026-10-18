@@ -1,10 +1,7 @@
 ---
-layout: page
 title: Sobre o C# Brasil
-
+description: Conheça o C# Brasil, blog sobre C#, .NET e desenvolvimento de software criado em 2007 por Raphael Cardoso.
 ---
-
-## Sobre o C# Brasil
 
 Bem-vindo ao C# Brasil! Este blog é dedicado a compartilhar conhecimentos e experiências sobre desenvolvimento em C# e outras tecnologias relacionadas.
 
