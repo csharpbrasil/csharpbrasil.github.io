@@ -17,7 +17,7 @@ concurrency:
 
 env:
   THEME_REPO: ferronicardoso/blog-theme
-  THEME_REF: v0.1.0
+  THEME_REF: v0.1.1
 
 jobs:
   build:
