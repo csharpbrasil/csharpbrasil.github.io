@@ -1,0 +1,31 @@
+{
+  "name": "C# Brasil",
+  "tagline": "Unindo paixão e código",
+  "description": "Blog sobre C#, .NET, arquitetura de software e tecnologias de desenvolvimento. Unindo paixão e código desde 2007.",
+  "url": "https://csharpbrasil.com.br",
+  "lang": "pt-BR",
+  "locale": "pt_BR",
+  "author": { "name": "Raphael Cardoso", "url": "https://www.linkedin.com/in/ferronicardoso/" },
+  "logo": "/images/logo_csharpbrasil.png",
+  "logoAlt": "C# Brasil",
+  "favicon": "/images/favicon.png",
+  "ogImage": "/images/repository-open-graph-template-csharpbrasil.png",
+  "hero": {
+    "title": "Unindo paixão e código.",
+    "subtitle": "Artigos práticos sobre C#, .NET, arquitetura de software e boas práticas, escritos por quem programa desde 2001."
+  },
+  "colors": {
+    "light": { "primary": "#007a37", "onPrimary": "#ffffff", "accent": "#ffcc29" },
+    "dark": { "primary": "#3fb950", "onPrimary": "#0d1117", "accent": "#ffcc29" }
+  },
+  "social": { "github": "csharpbrasil", "x": "csharpbrasil", "facebook": "csharpbrasil", "instagram": "csharpbrasil", "whatsapp": "CYW7HUiK70xAmPpFx9mVMR" },
+  "twitterHandle": "csharpbrasil",
+  "nav": [
+    { "label": "Artigos", "href": "/arquivo" },
+    { "label": "Tags", "href": "/tags" },
+    { "label": "Sobre", "href": "/sobre" }
+  ],
+  "analytics": { "gtm": "GTM-T668JSDW", "ga4": "G-NS9JFVVY3Z" },
+  "comments": { "facebook": true },
+  "footerText": "Todos os direitos reservados."
+}
